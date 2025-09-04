@@ -1,0 +1,40 @@
+import 'dart:convert';
+
+import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_package_a/flora121_hep/flora121_storage/flora121_storage.dart';
+
+class Flora121WheelUtils{
+  static final Flora121WheelUtils _utils=Flora121WheelUtils();
+  static Flora121WheelUtils get instance => _utils;
+
+  var wheelNum=3;
+
+  //{"timer":"2022-02-02","num":1}
+  initTodayWheelNum(){
+    try{
+      var json = jsonDecode(awWheelNum.getData());
+      if(json["timer"]==getTodayTimeStr()){
+        wheelNum=json["num"];
+      }
+    }catch(e){
+
+    }
+  }
+
+  updateWheelNum(int addNum){
+    wheelNum+=addNum;
+    awWheelNum.saveData(jsonEncode({"timer":getTodayTimeStr(),"num":wheelNum}));
+  }
+
+  updateWheelGiftNum(){
+    var i = aWheelGiftNum.getData()+1;
+    if(i>5){
+      i=5;
+    }
+    aWheelGiftNum.saveData(i);
+  }
+
+  resetGiftNum(){
+    aWheelGiftNum.saveData(0);
+  }
+}

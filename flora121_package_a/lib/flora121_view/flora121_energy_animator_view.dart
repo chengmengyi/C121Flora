@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flora121_base/flora121_base/flora121_base_stateful.dart';
+import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_package_a/flora121_bean/flora121_energy_bean.dart';
@@ -13,21 +16,33 @@ class Flora121EnergyAnimatorView extends Flora121BaseStateful{
 
 class _Flora121EnergyAnimatorViewState extends Flora121BaseStatefulState<Flora121EnergyAnimatorView> with TickerProviderStateMixin{
   Flora121EnergyBean? energyBean;
-  Offset? energyOffset;
+  // Offset? energyOffset;
+  // Animation<Offset>? _animation;
   AnimationController? _controller;
-  Animation<Offset>? _animation;
+
+  late Animation<Offset> _posAnim;
+  late Animation<double> _scaleAnim;
+
+  Offset _currentStart = Offset.zero;
+  Offset _currentEnd = Offset.zero;
 
   @override
   Widget initBaseWidgetFlora121() {
-     if(null==energyBean||null==energyOffset||null==_animation){
+     if(null==energyBean||null==_controller){
        return Container();
      }
      return AnimatedBuilder(
-       animation: _animation!,
+       animation: _controller!,
        builder: (context, child) {
-         return Transform.translate(
-           offset: _animation!.value,
-           child: child,
+         final pos = _posAnim.value;
+         final scale = _scaleAnim.value;
+         return Positioned(
+           left: pos.dx,
+           top: pos.dy,
+           child: Transform.scale(
+             scale: scale,
+             child: child,
+           ),
          );
        },
        child: Flora121ImagesView(imagesName: getEnergyIcon(energyBean!),width: 66.w,height: 66.w,),
@@ -43,14 +58,16 @@ class _Flora121EnergyAnimatorViewState extends Flora121BaseStatefulState<Flora12
       case Flora121EventCode.startEnergyAnimator:
         startEnergyAnimator(flora121Map);
         break;
+      case Flora121EventCode.startRepeatAnimator:
+        startRepeatAnimator(flora121Map);
+        break;
     }
   }
 
   startEnergyAnimator(Map? flora121map)async{
-    energyOffset = flora121map?["energyOffset"];
-    Offset treeOffset = flora121map?["treeOffset"];
     energyBean = flora121map?["bean"];
-    setState(() {});
+    _currentStart = flora121map?["energyOffset"];
+    _currentEnd = flora121map?["treeOffset"];
 
     _controller?.dispose();
 
@@ -59,39 +76,55 @@ class _Flora121EnergyAnimatorViewState extends Flora121BaseStatefulState<Flora12
       duration: const Duration(milliseconds: 800),
     );
 
-    const double shakeAmount = 8;
-
-    _animation = TweenSequence<Offset>([
-      // 抖动（来回 3 次）
-      TweenSequenceItem(
-        tween: Tween(begin: energyOffset, end: energyOffset! + Offset(shakeAmount, 0))
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 1,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: energyOffset! + Offset(shakeAmount, 0), end: energyOffset! - Offset(shakeAmount, 0))
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 1,
-      ),
-      TweenSequenceItem(
-        tween: Tween(begin: energyOffset! - Offset(shakeAmount, 0), end: energyOffset)
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 1,
-      ),
-      // 再飞到终点
-      TweenSequenceItem(
-        tween: Tween(begin: energyOffset, end: treeOffset)
-            .chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 5,
-      ),
-    ]).animate(_controller!);
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
 
     setState(() {});
-    _controller!.forward(from: 0);
-    await Future.delayed(Duration(milliseconds: 800));
-    energyBean=null;
-    energyOffset=null;
+
+    _setupAnimation(_currentStart, _currentEnd, shrink: true);
+
+    // 开始飞向花底部
+    _controller!.forward();
+    _controller!.addStatusListener((status) async {
+      if (status == AnimationStatus.completed) {
+        await Future.delayed(Duration(milliseconds: 2000));
+        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateNewEnergyOffset,flora121StringValue: energyBean?.energyType);
+      }
+    });
+  }
+
+  startRepeatAnimator(Map? flora121map){
+    var endOffset = flora121map?["offset"];
+    _controller?.dispose();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
     setState(() {});
+    _setupAnimation(_currentEnd, endOffset, shrink: false);
+    _controller!.forward();
+    _controller!.addStatusListener((status) async {
+      if (status == AnimationStatus.completed) {
+        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.repeatAnimatorStop,flora121StringValue: energyBean?.energyType);
+        energyBean=null;
+        setState(() {});
+      }
+    });
+  }
+
+
+  void _setupAnimation(Offset start, Offset end, {required bool shrink}) {
+    _posAnim = Tween<Offset>(
+      begin: start,
+      end: end,
+    ).chain(CurveTween(curve: Curves.easeInOut)).animate(_controller!);
+
+    _scaleAnim = Tween<double>(
+      begin: shrink ? 1.0 : 0.0,
+      end: shrink ? 0.0 : 1.0,
+    ).animate(CurvedAnimation(parent: _controller!, curve: Curves.easeInOut));
   }
 
   @override

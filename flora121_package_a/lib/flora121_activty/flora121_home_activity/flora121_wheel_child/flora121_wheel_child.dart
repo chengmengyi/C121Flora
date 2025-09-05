@@ -20,10 +20,10 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
   @override
   Widget initBaseWidgetFlora121() => Stack(
     children: [
-      Container(
+      Flora121ImagesView(
+        imagesName: "wheel8",
         width: double.infinity,
         height: double.infinity,
-        color: "#FCFFF6".toColor(),
       ),
       Column(
         children: [

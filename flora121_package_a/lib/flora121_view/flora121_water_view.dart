@@ -119,9 +119,18 @@ class _Flora121WaterViewState extends Flora121BaseStatefulState<Flora121WaterVie
     if(_getPor()<1){
       return;
     }
-    Flora121UserInfoUtils.instance.updateHealth(_taskBean?.healthReward??0);
-    await Flora121TaskUtils.instance.resetTodayTask();
-    _getTask();
+    Flora121RoutersHep.dialog(
+      child: Flora121GetWaterDialog(
+        waterNum: _taskBean?.healthReward??0,
+        isHealth: true,
+        taskType: _taskBean?.taskType??"",
+        getCallback: ()async{
+          Flora121UserInfoUtils.instance.updateHealth(_taskBean?.healthReward??0);
+          await Flora121TaskUtils.instance.resetTodayTask();
+          _getTask();
+        },
+      ),
+    );
   }
 
   @override

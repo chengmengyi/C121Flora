@@ -52,6 +52,8 @@ class Flora121EnergyUtils{
 
   int getLevelNum()=>(aCollectEnergyNum.getData()~/3)+1;
 
+  int getCollectSurplusNum()=>3-aCollectEnergyNum.getData()%3;
+
   double getLevelPro(){
     var i = (aCollectEnergyNum.getData()%3)/3;
     if(i<=0){

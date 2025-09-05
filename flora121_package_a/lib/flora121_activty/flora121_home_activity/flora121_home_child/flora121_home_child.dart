@@ -10,6 +10,7 @@ import 'package:flora121_package_a/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_a/flora121_view/flora121_energy_animator_view.dart';
 import 'package:flora121_package_a/flora121_view/flora121_energy_item_widget.dart';
+import 'package:flora121_package_a/flora121_view/flora121_energy_manager.dart';
 import 'package:flora121_package_a/flora121_view/flora121_health_view.dart';
 import 'package:flora121_package_a/flora121_view/flora121_user_info_view.dart';
 import 'package:flora121_package_a/flora121_view/flora121_water_view.dart';
@@ -50,7 +51,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
       mainAxisSize: MainAxisSize.min,
       children: [
         _flowerWidget(),
-        SizedBox(height: 20.h,),
+        SizedBox(height: 10.h,),
         _flowerLevelWidget(),
         SizedBox(height: 10.h,),
         _bottomCardWidget(),
@@ -58,33 +59,46 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     ),
   );
 
-  _flowerWidget()=>Container(
-    width: double.infinity,
-    height: 260.h,
-    child: GetBuilder<Flora121HomeChildCon>(
-      id: "flower",
-      builder: (_)=>Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              key: baseCon.treeGlobalKey,
-              child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
+  _flowerWidget()=>Stack(
+    alignment: Alignment.bottomCenter,
+    children: [
+      Flora121ImagesView(imagesName: "home15",width: 89.w,height: 27.h,),
+      Container(
+        width: double.infinity,
+        height: 260.h,
+        margin: EdgeInsets.only(bottom: 13.h),
+        child: Stack(
+          children: [
+            GetBuilder<Flora121HomeChildCon>(
+              id: "flower",
+              builder: (_)=>Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      key: baseCon.treeGlobalKey,
+                      child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
+                    ),
+                  ),
+                  ...baseCon.energyList.map((value)=>
+                      Flora121EnergyItemWidget(
+                        bean: value,
+                        clickItem: (bean){
+                          baseCon.clickEnergy(bean);
+                        },
+                      ),
+                  ) //   buildEnergy: (index) {
+                  //     // return Image.asset("assets/energy_$index.png");
+                  //     return Flora121ImagesView(imagesName: "home12",width: 66.w,height: 66.w,);
+                  //   },
+                  // ),
+                ],
+              ),
             ),
-          ),
-          ...baseCon.energyList.map((value)=>Positioned(
-            left: (value.offset?.dx??0),
-            top: (value.offset?.dy??0)-33.w,
-            child: Flora121EnergyItemWidget(
-              bean: value,
-              clickItem: (bean){
-                baseCon.clickEnergy(bean);
-              },
-            ),
-          ))
-        ],
-      ),
-    ),
+          ],
+        ),
+      )
+    ],
   );
 
   _flowerLevelWidget()=>GetBuilder<Flora121HomeChildCon>(
@@ -145,7 +159,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                 ),
               ],
             ),
-            Flora121TextView(text: "Collect XX bubbles to upgrade", color: "#313831", size: 12.sp,fontWeight: FontWeight.bold,),
+            Flora121TextView(text: "Collect ${Flora121EnergyUtils.instance.getCollectSurplusNum()} bubbles to upgrade", color: "#313831", size: 12.sp,fontWeight: FontWeight.bold,),
           ],
         );
       }

@@ -5,6 +5,7 @@ import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_package_a/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
 import 'package:flora121_package_a/flora121_dialog/flora121_no_wheel_dialog/flora121_no_wheel_dialog.dart';
+import 'package:flora121_package_a/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -40,6 +41,7 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     Flora121RoutersHep.dialog(
       child: Flora121GetWaterDialog(
         waterNum: 1,
+        taskType: TaskType.water,
         getCallback: (){
           Flora121WheelUtils.instance.resetGiftNum();
           update(["gift"]);
@@ -77,7 +79,7 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     update(["wheel_num","gift"]);
     canClick=true;
     if(wheelWaterReward>0){
-      Flora121RoutersHep.dialog(child: Flora121GetWaterDialog(waterNum: wheelWaterReward,getCallback: (){},));
+      Flora121RoutersHep.dialog(child: Flora121GetWaterDialog(waterNum: wheelWaterReward,taskType: TaskType.water,getCallback: (){},));
     }
   }
 

@@ -8,6 +8,7 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_package_a/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_a/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_a/flora121_bean/flora121_store_bean.dart';
+import 'package:flora121_package_a/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
 import 'package:flora121_package_a/flora121_dialog/flora121_store_detail_dialog/flora121_store_detail_dialog.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_event_code.dart';
@@ -27,6 +28,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   List<Flora121StoreBean> storeList=[];
   Timer? _energyTimer;
   Offset? rewardTipsOffset;
+  var canClick=true;
 
   var flowerHeight=200.h;
   var flowerWidth=100.w;
@@ -48,37 +50,51 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   }
 
   clickEnergy(Flora121EnergyBean bean)async{
-    if((bean.currentTime??0)>0){
+    if((bean.currentTime??0)>0||!canClick){
       return;
     }
     if(null!=bean.globalKey){
       Flora121MusicHep.instance.playOtherAudio(AudioName.click);
-      var energyBox = bean.globalKey?.currentContext?.findRenderObject() as RenderBox;
-      var energyOffset = energyBox.localToGlobal(Offset.zero);
+      Flora121RoutersHep.dialog(
+        child: Flora121GetWaterDialog(
+          waterNum: bean.addNum??0,
+          isHealth: true,
+          taskType: bean.taskType??"",
+          getCallback: (){
+            _startEnergyAnimator(bean);
+          },
+        ),
+      );
+    }
+  }
+  
+  _startEnergyAnimator(Flora121EnergyBean bean)async{
+    var energyBox = bean.globalKey?.currentContext?.findRenderObject() as RenderBox;
+    var energyOffset = energyBox.localToGlobal(Offset.zero);
 
-      var treeBox = treeGlobalKey.currentContext?.findRenderObject() as RenderBox;
-      var treeOffset = treeBox.localToGlobal(Offset.zero) + Offset(20.w, 0);
-      bean.show=false;
-      update(["flower"]);
+    var treeBox = treeGlobalKey.currentContext?.findRenderObject() as RenderBox;
+    var treeOffset = treeBox.localToGlobal(Offset.zero) + Offset(20.w, 0);
+    bean.show=false;
+    update(["flower"]);
 
-      Flora121EventUtils.instance.sendMsg(
+    canClick=false;
+    Flora121EventUtils.instance.sendMsg(
         flora121Code: Flora121EventCode.startEnergyAnimator,
         flora121Map: {
           "energyOffset":energyOffset,
           "treeOffset":treeOffset,
           "bean":bean,
         }
-      );
-      await Future.delayed(Duration(milliseconds: 800));
-      bean.currentTime=bean.totalTime;
-      bean.show=true;
-      await Flora121EnergyUtils.instance.updateEnergy(bean);
-      Flora121UserInfoUtils.instance.updateHealth(bean.addNum??0);
-      Flora121TaskUtils.instance.updateTaskByEnergy(bean);
-      Flora121EnergyUtils.instance.updateCollectEnergyNum();
-      update(["level","flower"]);
-      _checkShowReward();
-    }
+    );
+    await Future.delayed(Duration(milliseconds: 800));
+    bean.currentTime=bean.totalTime;
+    bean.show=true;
+    await Flora121EnergyUtils.instance.updateEnergy(bean);
+    Flora121UserInfoUtils.instance.updateHealth(bean.addNum??0);
+    Flora121TaskUtils.instance.updateTaskByEnergy(bean);
+    Flora121EnergyUtils.instance.updateCollectEnergyNum();
+    update(["level","flower"]);
+    _checkShowReward();
   }
 
   clickSignItem(int index,Flora121SignBean bean)async{
@@ -86,10 +102,26 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     if(indexWhere!=index){
       return;
     }
-    var result = await Flora121SignUtils.instance.sign(bean);
-    if(result){
-      Flora121TaskUtils.instance.updateTaskBySign(bean);
-      update(["level"]);
+    if(bean.signType==TaskType.water){
+      Flora121RoutersHep.dialog(
+        child: Flora121GetWaterDialog(
+          waterNum: bean.addNum??0,
+          taskType: bean.signType??"",
+          getCallback: ()async{
+            var result = await Flora121SignUtils.instance.sign(bean);
+            if(result){
+              Flora121TaskUtils.instance.updateTaskBySign(bean);
+              update(["level"]);
+            }
+          },
+        ),
+      );
+    }else{
+      var result = await Flora121SignUtils.instance.sign(bean);
+      if(result){
+        Flora121TaskUtils.instance.updateTaskBySign(bean);
+        update(["level"]);
+      }
     }
   }
 
@@ -126,6 +158,8 @@ class Flora121HomeChildCon extends Flora121BaseCon{
       final dy = value.dy + (random.nextInt(61) - 30).toDouble();
       var offset = flowerCenter + Offset(dx, dy);
       energyList[index].offset=offset;
+      energyList[index].baseOffset=value;
+      energyList[index].flowerCenter=flowerCenter;
     }
     update(["flower"]);
   }
@@ -202,7 +236,11 @@ class Flora121HomeChildCon extends Flora121BaseCon{
 
   @override
   receivedFlora121EventMsg(int flora121Code, int? flora121IntValue, String? flora121StringValue, Map? flora121Map) {
-
+    switch(flora121Code){
+      case Flora121EventCode.repeatAnimatorStop:
+        canClick=true;
+        break;
+    }
   }
 
   @override

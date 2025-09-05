@@ -10,9 +10,13 @@ import 'package:flutter/material.dart';
 
 class Flora121GetWaterDialog extends Flora121BaseDialog<Flora121GetWaterDialogCon>{
   int waterNum;
+  bool? isHealth;
+  String taskType;
   Function() getCallback;
   Flora121GetWaterDialog({
     required this.waterNum,
+    required this.taskType,
+    this.isHealth,
     required this.getCallback,
 });
 
@@ -57,17 +61,30 @@ class Flora121GetWaterDialog extends Flora121BaseDialog<Flora121GetWaterDialogCo
     ],
   );
   
-  _waterWidget()=>Stack(
-    alignment: Alignment.bottomCenter,
-    children: [
-      Flora121ImagesView(imagesName: "get2",width: 197.w,height: 144.h,),
-      Flora121ImagesView(imagesName: "get3",width: 128.w,height: 117.h,)
-    ],
+  _waterWidget()=>SizedBox(
+    width: 197.w,
+    height: 144.h,
+    child: Stack(
+      children: [
+        Flora121ImagesView(imagesName: "get2",width: 197.w,height: 144.h,),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Flora121ImagesView(imagesName: "get3",width: 128.w,height: 117.h,),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Visibility(
+            visible: isHealth==true,
+            child: Flora121TextView(text: "+$waterNum", color: "#7A5040", size: 14.sp,fontWeight: FontWeight.bold,),
+          ),
+        ),
+      ],
+    ),
   );
 
   _doubleBtnWidget()=>Flora121Click(
     onTap: (){
-      baseCon.getDouble(waterNum,getCallback);
+      baseCon.getDouble(taskType,isHealth,waterNum,getCallback);
     },
     child: Stack(
       alignment: Alignment.topRight,
@@ -90,7 +107,7 @@ class Flora121GetWaterDialog extends Flora121BaseDialog<Flora121GetWaterDialogCo
   
   _singleBtnWidget()=>Flora121Click(
     onTap: (){
-      baseCon.getSingle(waterNum,getCallback);
+      baseCon.getSingle(taskType,isHealth,waterNum,getCallback);
     },
     child: Flora121TextView(
       text: "Claim  X1",

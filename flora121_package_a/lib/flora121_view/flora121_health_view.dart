@@ -15,13 +15,6 @@ class Flora121HealthView extends Flora121BaseStateful{
 }
 
 class _Flora121HealthViewState extends Flora121BaseStatefulState<Flora121HealthView>{
-  Timer? _timer;
-  
-  @override
-  void initState() {
-    super.initState();
-    _startTimer();
-  }
   
   @override
   Widget initBaseWidgetFlora121() => SizedBox(
@@ -54,12 +47,7 @@ class _Flora121HealthViewState extends Flora121BaseStatefulState<Flora121HealthV
       ],
     ),
   );
-  
-  _startTimer(){
-    _timer=Timer.periodic(Duration(minutes: 1), (t){
-      Flora121UserInfoUtils.instance.updateHealth(-1);
-    });
-  }
+
 
   @override
   bool initFlora121Event() => true;
@@ -71,12 +59,5 @@ class _Flora121HealthViewState extends Flora121BaseStatefulState<Flora121HealthV
         setState(() {});
         break;
     }
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    _timer=null;
-    super.dispose();
   }
 }

@@ -66,6 +66,7 @@ class Flora121TaskUtils{
       return;
     }
     await database.update(Flora121SqlName.aTask,todayTask.toJson(),where: 'timeStr = ?',whereArgs: [timeStr]);
+    print("kk======updateTaskByEnergy=");
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateTask);
   }
 
@@ -88,6 +89,7 @@ class Flora121TaskUtils{
       return;
     }
     await database.update(Flora121SqlName.aTask,todayTask.toJson(),where: 'timeStr = ?',whereArgs: [timeStr]);
+    print("kk======updateTaskBySign=");
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateTask);
   }
 
@@ -110,6 +112,7 @@ class Flora121TaskUtils{
       return;
     }
     await database.update(Flora121SqlName.aTask,todayTask.toJson(),where: 'timeStr = ?',whereArgs: [timeStr]);
+    print("kk======updateTaskByType=");
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateTask);
   }
 

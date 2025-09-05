@@ -36,6 +36,16 @@ class Flora121SignUtils{
     return resultList;
   }
 
+  Future<bool> checkCanSign(Flora121SignBean bean)async{
+    var timeStr = getTodayTimeStr();
+    var database = await Flora121BaseSqlUtils.instance.initSql();
+    var list = await database.query(Flora121SqlName.aSign,where: '"signedTimer" = ?',whereArgs: [timeStr]);
+    if(list.isNotEmpty){
+      return false;
+    }
+    return true;
+  }
+
   Future<bool> sign(Flora121SignBean bean)async{
     var timeStr = getTodayTimeStr();
     var database = await Flora121BaseSqlUtils.instance.initSql();

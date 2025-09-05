@@ -26,7 +26,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   List<Flora121EnergyBean> energyList=[];
   List<Flora121SignBean> signList=[];
   List<Flora121StoreBean> storeList=[];
-  Timer? _energyTimer;
+  Timer? _energyTimer,_healthTimer;
   Offset? rewardTipsOffset;
   var canClick=true;
 
@@ -38,6 +38,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   @override
   void onInit() {
     super.onInit();
+    _startTimer();
     _startEnergyTimer();
   }
 
@@ -55,16 +56,20 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     }
     if(null!=bean.globalKey){
       Flora121MusicHep.instance.playOtherAudio(AudioName.click);
-      Flora121RoutersHep.dialog(
-        child: Flora121GetWaterDialog(
-          waterNum: bean.addNum??0,
-          isHealth: true,
-          taskType: bean.taskType??"",
-          getCallback: (){
-            _startEnergyAnimator(bean);
-          },
-        ),
-      );
+      if(bean.taskType==TaskType.water){
+        Flora121RoutersHep.dialog(
+          child: Flora121GetWaterDialog(
+            waterNum: bean.addNum??0,
+            isHealth: true,
+            taskType: bean.taskType??"",
+            getCallback: (){
+              _startEnergyAnimator(bean);
+            },
+          ),
+        );
+        return;
+      }
+      _startEnergyAnimator(bean);
     }
   }
   
@@ -91,7 +96,9 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     bean.show=true;
     await Flora121EnergyUtils.instance.updateEnergy(bean);
     Flora121UserInfoUtils.instance.updateHealth(bean.addNum??0);
-    Flora121TaskUtils.instance.updateTaskByEnergy(bean);
+    if(bean.taskType!=TaskType.water){
+      Flora121TaskUtils.instance.updateTaskByEnergy(bean);
+    }
     Flora121EnergyUtils.instance.updateCollectEnergyNum();
     update(["level","flower"]);
     _checkShowReward();
@@ -102,11 +109,16 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     if(indexWhere!=index){
       return;
     }
+    var canSign = await Flora121SignUtils.instance.checkCanSign(bean);
+    if(!canSign){
+      return;
+    }
     if(bean.signType==TaskType.water){
       Flora121RoutersHep.dialog(
         child: Flora121GetWaterDialog(
           waterNum: bean.addNum??0,
           taskType: bean.signType??"",
+          isHealth: true,
           getCallback: ()async{
             var result = await Flora121SignUtils.instance.sign(bean);
             if(result){
@@ -231,6 +243,14 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     Flora121RoutersHep.dialog(child: Flora121StoreDetailDialog(bean: bean));
   }
 
+  _startTimer(){
+    _healthTimer?.cancel();
+    _healthTimer=null;
+    _healthTimer=Timer.periodic(Duration(minutes: 1), (t){
+      Flora121UserInfoUtils.instance.updateHealth(-1);
+    });
+  }
+
   @override
   bool initFlora121Event() => true;
 
@@ -245,6 +265,8 @@ class Flora121HomeChildCon extends Flora121BaseCon{
 
   @override
   void onClose() {
+    _healthTimer?.cancel();
+    _healthTimer=null;
     _stopEnergyTimer();
     super.onClose();
   }

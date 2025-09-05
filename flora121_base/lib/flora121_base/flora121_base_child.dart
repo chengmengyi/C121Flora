@@ -15,6 +15,7 @@ abstract class Flora121BaseChild<T extends Flora121BaseCon> extends StatelessWid
       baseCon=Get.put(initBaseConFlora121());
     }
     this.context=context;
+    baseCon.context=context;
     return initBaseWidgetFlora121();
   }
 

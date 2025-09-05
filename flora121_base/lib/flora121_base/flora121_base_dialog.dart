@@ -15,6 +15,7 @@ abstract class Flora121BaseDialog<T extends Flora121BaseCon> extends StatelessWi
       baseCon=Get.put(initBaseConFlora121());
     }
     this.context=context;
+    baseCon.context=context;
     return WillPopScope(
       child: Material(
         type: MaterialType.transparency,

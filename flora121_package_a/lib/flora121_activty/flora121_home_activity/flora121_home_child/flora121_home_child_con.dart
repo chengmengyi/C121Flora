@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
@@ -7,7 +8,6 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_package_a/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_a/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_a/flora121_bean/flora121_store_bean.dart';
-import 'package:flora121_package_a/flora121_dialog/flora121_no_wheel_dialog/flora121_no_wheel_dialog.dart';
 import 'package:flora121_package_a/flora121_dialog/flora121_store_detail_dialog/flora121_store_detail_dialog.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_event_code.dart';
@@ -27,6 +27,11 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   List<Flora121StoreBean> storeList=[];
   Timer? _energyTimer;
   Offset? rewardTipsOffset;
+
+  var flowerHeight=200.h;
+  var flowerWidth=100.w;
+  final Random random = Random();
+  final double boxSize = 66.w;
 
   @override
   void onInit() {
@@ -95,6 +100,32 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     for (var value in energyList) {
       value.show=true;
       value.globalKey=GlobalKey();
+    }
+    _generatePositions();
+  }
+
+  _generatePositions() {
+    final screenWidth = MediaQuery.of(context).size.width-70.w;
+    double areaHeight = 260.h;
+
+// 花的位置
+    final Offset flowerCenter = Offset(screenWidth / 2, areaHeight - 100);
+
+    // 预设5个环绕点（相对于花中心）
+    final List<Offset> baseOffsets = [
+      const Offset(0, -120), // 上
+      const Offset(-90, -60), // 左上
+      const Offset(90, -60), // 右上
+      const Offset(-70, 40), // 左下
+      const Offset(70, 40), // 右下
+    ];
+
+    for(var index = 0; index<baseOffsets.length;index++){
+      var value = baseOffsets[index];
+      final dx = value.dx + (random.nextInt(61) - 30).toDouble();
+      final dy = value.dy + (random.nextInt(61) - 30).toDouble();
+      var offset = flowerCenter + Offset(dx, dy);
+      energyList[index].offset=offset;
     }
     update(["flower"]);
   }
@@ -166,12 +197,12 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     Flora121RoutersHep.dialog(child: Flora121StoreDetailDialog(bean: bean));
   }
 
-  test(){
-    if(!kDebugMode){
-      return;
-    }
-    
-    Flora121MusicHep.instance.playOtherAudio(AudioName.clickPaoPao);
+  @override
+  bool initFlora121Event() => true;
+
+  @override
+  receivedFlora121EventMsg(int flora121Code, int? flora121IntValue, String? flora121StringValue, Map? flora121Map) {
+
   }
 
   @override
@@ -180,11 +211,11 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     super.onClose();
   }
 
-  @override
-  bool initFlora121Event() => true;
+  test(){
+    if(!kDebugMode){
+      return;
+    }
 
-  @override
-  receivedFlora121EventMsg(int flora121Code, int? flora121IntValue, String? flora121StringValue, Map? flora121Map) {
-
+    _getEnergyList();
   }
 }

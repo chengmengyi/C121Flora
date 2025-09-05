@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class Flora121BaseCon extends GetxController{
+  late BuildContext context;
   StreamSubscription<Map<String,dynamic>>? _streamSubscription;
 
   @override

@@ -25,21 +25,14 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
       Flora121ImagesView(imagesName: "home1",width: double.infinity,height: double.infinity,),
       SafeArea(
         top: true,
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          margin: EdgeInsets.only(bottom: 92.h),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 30.h,),
-                _topUserInfoWidget(),
-                SizedBox(height: 16.h,),
-                Flora121WaterView(),
-              ],
-            ),
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 30.h,),
+            _topUserInfoWidget(),
+            SizedBox(height: 16.h,),
+            Flora121WaterView(),
+          ],
         ),
       ),
       Align(
@@ -52,12 +45,12 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
   );
 
   _bottomWidget()=>Container(
-    margin: EdgeInsets.only(bottom: 82.h),
+    margin: EdgeInsets.only(bottom: 100.h),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         _flowerWidget(),
-        SizedBox(height: 10.h,),
+        SizedBox(height: 20.h,),
         _flowerLevelWidget(),
         SizedBox(height: 10.h,),
         _bottomCardWidget(),
@@ -68,7 +61,6 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
   _flowerWidget()=>Container(
     width: double.infinity,
     height: 260.h,
-    color: Colors.red,
     child: GetBuilder<Flora121HomeChildCon>(
       id: "flower",
       builder: (_)=>Stack(
@@ -80,46 +72,20 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
               child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
             ),
           ),
-          Positioned(
-            left: 77.w,
-            bottom: 50.h,
-            child: _flowerItemWidget(0),
-          ),
-          Positioned(
-            left: 35.w,
-            bottom: 140.h,
-            child: _flowerItemWidget(1),
-          ),
-          Positioned(
-            left: 101.w,
-            child: _flowerItemWidget(2),
-          ),
-          Positioned(
-            top: 27.h,
-            right: 95.w,
-            child: _flowerItemWidget(3),
-          ),
-          Positioned(
-            right: 60.w,
-            bottom: 87.h,
-            child: _flowerItemWidget(4),
-          ),
+          ...baseCon.energyList.map((value)=>Positioned(
+            left: (value.offset?.dx??0),
+            top: (value.offset?.dy??0)-33.w,
+            child: Flora121EnergyItemWidget(
+              bean: value,
+              clickItem: (bean){
+                baseCon.clickEnergy(bean);
+              },
+            ),
+          ))
         ],
       ),
     ),
   );
-
-  _flowerItemWidget(int index){
-    if(index>=baseCon.energyList.length){
-      return Container();
-    }
-    return Flora121EnergyItemWidget(
-      bean: baseCon.energyList[index],
-      clickItem: (bean){
-        baseCon.clickEnergy(bean);
-      },
-    );
-  }
 
   _flowerLevelWidget()=>GetBuilder<Flora121HomeChildCon>(
     id: "level",

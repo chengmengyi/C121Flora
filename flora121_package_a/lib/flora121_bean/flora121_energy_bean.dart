@@ -17,6 +17,7 @@ class Flora121EnergyBean{
     this.globalKey,
     this.show,
     this.taskType,
+    this.offset,
   });
 
   Flora121EnergyBean.fromJson(dynamic json) {
@@ -34,6 +35,7 @@ class Flora121EnergyBean{
   String? taskType;
   bool? show;
   GlobalKey? globalKey;
+  Offset? offset;
   
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

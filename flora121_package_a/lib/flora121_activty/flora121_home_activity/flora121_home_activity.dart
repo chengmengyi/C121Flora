@@ -27,7 +27,7 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
     alignment: Alignment.bottomCenter,
     child: SizedBox(
       width: double.infinity,
-      height: 82.h,
+      height: 80.h,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [

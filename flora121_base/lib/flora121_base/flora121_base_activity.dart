@@ -15,6 +15,7 @@ abstract class Flora121BaseActivity<T extends Flora121BaseCon> extends Stateless
       baseCon=Get.put(initBaseConFlora121());
     }
     this.context=context;
+    baseCon.context=context;
     return Scaffold(
       body: SafeArea(
         top: false,

@@ -19,7 +19,13 @@ class Flora121LaunchActivity extends Flora121BaseActivity<Flora121LaunchCon>{
         alignment: Alignment.topCenter,
         child: Container(
           margin: EdgeInsets.only(left: 6.w,right: 6.w,top: 80.h),
-          child: Flora121ImagesView(imagesName: "launch2",width: double.infinity,fit: BoxFit.fitWidth,),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flora121ImagesView(imagesName: "launch2",width: double.infinity,fit: BoxFit.fitWidth,),
+              Flora121ImagesView(imagesName: "launch5",width: double.infinity,fit: BoxFit.fitWidth,),
+            ],
+          ),
         ),
       ),
       Align(

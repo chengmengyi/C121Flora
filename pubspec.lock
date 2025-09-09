@@ -183,6 +183,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  flora121_package_b:
+    dependency: "direct main"
+    description:
+      path: flora121_package_b
+      relative: true
+    source: path
+    version: "0.0.1"
   flutter:
     dependency: "direct main"
     description: flutter

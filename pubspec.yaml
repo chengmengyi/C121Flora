@@ -38,6 +38,8 @@ dependencies:
     path: flora121_base
   flora121_package_a:
     path: flora121_package_a
+  flora121_package_b:
+    path: flora121_package_b
 
 dev_dependencies:
   flutter_test:

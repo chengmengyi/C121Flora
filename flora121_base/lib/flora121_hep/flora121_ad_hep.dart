@@ -37,6 +37,13 @@ class Flora121AdHep{
     );
   }
 
+  showFlora121BBBBBBB({
+    required AdType adType,
+    required Function() closeAd,
+  }){
+    closeAd.call();
+  }
+
   IosAdCallback _getIosAdCallback({
     required AdType adType,
     required Function() closeAd,

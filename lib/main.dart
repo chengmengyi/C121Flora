@@ -7,7 +7,9 @@ import 'package:flora121_package_a/flora121_hep/flora121_routers.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_sign_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_user_info_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart' as bFlora121UserInfoUtils;
 import 'package:flora121_package_a/flora121_hep/flora121_wheel_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -37,6 +39,9 @@ _initAll()async{
   Flora121SignUtils.instance.initSignList();
   Flora121AdHep.instance.initFlora121Ad();
   Flora121WheelUtils.instance.initTodayWheelNum();
+
+
+  bFlora121UserInfoUtils.Flora121UserInfoUtils.instance.initUserInfo();
 }
 
 class MyApp extends StatelessWidget {
@@ -53,7 +58,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         initialRoute: Flora121BaseRouterName.launch,
         debugShowCheckedModeBanner: false,
-        getPages: flora121BasePageList+flora121APageList,
+        getPages: flora121BasePageList+flora121APageList+flora121BPageList,
         defaultTransition: Transition.rightToLeft,
       ),
     );

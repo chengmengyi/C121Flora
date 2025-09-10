@@ -5,4 +5,10 @@ class Flora121EventCode{
   static const int updateNewEnergyOffset=103;
   static const int startRepeatAnimator=104;
   static const int repeatAnimatorStop=105;
+
+  static const int showNewUerStep1Guide=106;
+  static const int updateMyMoney=107;
+  static const int showNewUerStep3Guide=108;
+  static const int showHomeTab=109;
+  static const int showNewUserStep4DiceBtn=110;
 }

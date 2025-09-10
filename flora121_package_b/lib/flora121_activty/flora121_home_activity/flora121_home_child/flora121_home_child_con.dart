@@ -12,6 +12,7 @@ import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flo
 import 'package:flora121_package_b/flora121_dialog/flora121_store_detail_dialog/flora121_store_detail_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_sign_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_store_utils.dart';
@@ -26,7 +27,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   List<Flora121EnergyBean> energyList=[];
   List<Flora121SignBean> signList=[];
   List<Flora121StoreBean> storeList=[];
-  Timer? _energyTimer,_healthTimer;
+  Timer? _energyTimer;
   Offset? rewardTipsOffset;
   var canClick=true;
 
@@ -38,7 +39,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   @override
   void onInit() {
     super.onInit();
-    _startTimer();
     _startEnergyTimer();
   }
 
@@ -191,7 +191,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   }
 
   _checkShowReward(){
-    if(aCollectEnergyNum.getData()!=1){
+    if(bCollectEnergyNum.getData()!=1){
       rewardTipsOffset=null;
       update(["reward_tips"]);
       return;
@@ -243,14 +243,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     Flora121RoutersHep.dialog(child: Flora121StoreDetailDialog(bean: bean));
   }
 
-  _startTimer(){
-    _healthTimer?.cancel();
-    _healthTimer=null;
-    _healthTimer=Timer.periodic(Duration(minutes: 1), (t){
-      Flora121UserInfoUtils.instance.updateHealth(-1);
-    });
-  }
-
   @override
   bool initFlora121Event() => true;
 
@@ -265,8 +257,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
 
   @override
   void onClose() {
-    _healthTimer?.cancel();
-    _healthTimer=null;
     _stopEnergyTimer();
     super.onClose();
   }
@@ -275,7 +265,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     if(!kDebugMode){
       return;
     }
-
-    _getEnergyList();
+    Flora121UserGuideUtils.instance.checkShowNewUserGuide();
   }
 }

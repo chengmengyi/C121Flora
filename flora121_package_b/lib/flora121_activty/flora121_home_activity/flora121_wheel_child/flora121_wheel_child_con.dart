@@ -40,7 +40,7 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
   }
 
   clickBox(){
-    if(aWheelGiftNum.getData()<5){
+    if(bWheelGiftNum.getData()<5){
       return;
     }
     Flora121RoutersHep.dialog(

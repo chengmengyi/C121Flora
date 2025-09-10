@@ -47,15 +47,15 @@ class Flora121EnergyUtils{
   }
 
   updateCollectEnergyNum(){
-    aCollectEnergyNum.saveData(aCollectEnergyNum.getData()+1);
+    bCollectEnergyNum.saveData(bCollectEnergyNum.getData()+1);
   }
 
-  int getLevelNum()=>(aCollectEnergyNum.getData()~/3)+1;
+  int getLevelNum()=>(bCollectEnergyNum.getData()~/3)+1;
 
-  int getCollectSurplusNum()=>3-aCollectEnergyNum.getData()%3;
+  int getCollectSurplusNum()=>3-bCollectEnergyNum.getData()%3;
 
   double getLevelPro(){
-    var i = (aCollectEnergyNum.getData()%3)/3;
+    var i = (bCollectEnergyNum.getData()%3)/3;
     if(i<=0){
       return 0.0;
     }else if(i>=1){

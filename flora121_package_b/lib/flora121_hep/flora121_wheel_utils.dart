@@ -12,7 +12,7 @@ class Flora121WheelUtils{
   //{"timer":"2022-02-02","num":1}
   initTodayWheelNum(){
     try{
-      var json = jsonDecode(awWheelNum.getData());
+      var json = jsonDecode(bWheelNum.getData());
       if(json["timer"]==getTodayTimeStr()){
         wheelNum=json["num"];
       }
@@ -23,18 +23,18 @@ class Flora121WheelUtils{
 
   updateWheelNum(int addNum){
     wheelNum+=addNum;
-    awWheelNum.saveData(jsonEncode({"timer":getTodayTimeStr(),"num":wheelNum}));
+    bWheelNum.saveData(jsonEncode({"timer":getTodayTimeStr(),"num":wheelNum}));
   }
 
   updateWheelGiftNum(){
-    var i = aWheelGiftNum.getData()+1;
+    var i = bWheelGiftNum.getData()+1;
     if(i>5){
       i=5;
     }
-    aWheelGiftNum.saveData(i);
+    bWheelGiftNum.saveData(i);
   }
 
   resetGiftNum(){
-    aWheelGiftNum.saveData(0);
+    bWheelGiftNum.saveData(0);
   }
 }

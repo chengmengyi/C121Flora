@@ -24,6 +24,8 @@ dependencies:
   flutter_ad_ios_plugins: 0.1.4
   audioplayers: 6.1.0
   flutter_app_lifecycle: 0.0.3
+  decimal: 3.2.4
+
 
 dev_dependencies:
   flutter_test:

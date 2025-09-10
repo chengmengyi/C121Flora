@@ -78,7 +78,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: aWheelGiftNum.getData()>index?["#FFCC00".toColor(),"#E49C00".toColor(),]:["#9A673A".toColor(),"#9A673A".toColor()]
+                        colors: bWheelGiftNum.getData()>index?["#FFCC00".toColor(),"#E49C00".toColor(),]:["#9A673A".toColor(),"#9A673A".toColor()]
                     )
                 ),
                 child: Flora121TextView(text: "${index+1}", color: "#FFFFFF", size: 12.sp,outlineColor: "#502813",fontWeight: FontWeight.bold,),

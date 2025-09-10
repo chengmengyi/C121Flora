@@ -3,6 +3,7 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_con.dart';
+import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
 
 class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
@@ -20,6 +21,7 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
         ),
       ),
       _bottomWidget(),
+      Flora121TopMoneyView(),
     ],
   );
   
@@ -35,8 +37,9 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
           Row(
             children: [
               _bottomItemWidget("tab_home",0),
-              _bottomItemWidget("tab_wheel",1),
-              _bottomItemWidget("tab_me",2),
+              _bottomItemWidget("tab_dice",1),
+              _bottomItemWidget("tab_wheel",2),
+              _bottomItemWidget("tab_cash",3),
             ],
           ),
         ],

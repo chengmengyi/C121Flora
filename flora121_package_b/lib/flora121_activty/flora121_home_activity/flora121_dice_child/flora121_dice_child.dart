@@ -1,0 +1,186 @@
+import 'package:flora121_base/flora121_base/flora121_base_child.dart';
+import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_view/flora121_click.dart';
+import 'package:flora121_base/flora121_view/flora121_images_view.dart';
+import 'package:flora121_base/flora121_view/flora121_text_view.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_con.dart';
+import 'package:flutter/material.dart';
+
+class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
+  @override
+  Flora121DiceCon initBaseConFlora121() => Flora121DiceCon();
+
+  @override
+  Widget initBaseWidgetFlora121() => Stack(
+    children: [
+      Flora121ImagesView(imagesName: "dice_bg",width: double.infinity,height: double.infinity,),
+      Column(
+        children: [
+          SizedBox(height: 150.h,),
+          _listWidget(),
+          SizedBox(height: 12.h,),
+          _bottomWidget(),
+          SizedBox(height: 90.h,),
+        ],
+      ),
+    ],
+  );
+
+  _listWidget()=>Expanded(
+    child: ListView.builder(
+      reverse: true,
+      itemCount: 1,
+      shrinkWrap: true,
+      itemBuilder: (context,index)=>_listItemWidget(index),
+    ),
+  );
+
+  _listItemWidget(index)=>Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              _diceItemWidget(index,19, "dice_flower"),
+              SizedBox(width: 252.w,),
+            ],
+          ),
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              _diceItemWidget(index,18, "dice_box"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,17, "dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,16, "dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,15, "dice_box"),
+            ],
+          ),
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              SizedBox(width: 252.w,),
+              _diceItemWidget(index,14, "dice_money"),
+            ],
+          ),
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              _diceItemWidget(index,10, "dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,11, "dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,12, "dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,13, "dice_box"),
+            ],
+          ),
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              _diceItemWidget(index,9, "dice_box"),
+              SizedBox(width: 252.w,),
+            ],
+          ),
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              _diceItemWidget(index,8, "dice_box"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,7, "dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,6, "dice_flower"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,5, "dice_left"),
+            ],
+          ),
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              SizedBox(width: 252.w,),
+              _diceItemWidget(index,4, "dice_money"),
+            ],
+          ),
+          SizedBox(height: 14.h,),
+          Row(
+            children: [
+              _diceItemWidget(index,0, index==0?"dice_begin":"dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,1, "dice_money"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,2, "dice_box"),
+              SizedBox(width: 14.w,),
+              _diceItemWidget(index,3, "dice_money"),
+            ],
+          ),
+        ],
+      )
+    ],
+  );
+
+  _diceItemWidget(int largeIndex,int smallIndex,icon)=>Stack(
+    alignment: Alignment.center,
+    children: [
+      Flora121ImagesView(imagesName: icon,width: 70.w,height: 70.w,),
+      Visibility(
+        visible: baseCon.currentDiceLargeIndex==largeIndex&&baseCon.currentDiceSmallIndex==smallIndex,
+        child: Container(
+          width: 40.w,
+          height: 40.w,
+          color: Colors.red,
+        ),
+      )
+    ],
+  );
+
+  _bottomWidget()=>Stack(
+    alignment: Alignment.topCenter,
+    children: [
+      Container(
+        width: 96.w,
+        height: 96.w,
+        key: baseCon.diceGlobalKey,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: "#386309".toColor(),
+          borderRadius: BorderRadius.circular(48.w),
+        ),
+        child: AnimatedBuilder(
+          animation: baseCon.getAnimationListenable(),
+          builder: (context, child) {
+            return Transform.translate(
+              offset: Offset(0, baseCon.getOffsetY()),
+              child: Transform.rotate(
+                angle: baseCon.getAngle(),
+                child: GetBuilder<Flora121DiceCon>(
+                  id: "dice_result",
+                  builder: (_)=>Flora121ImagesView(imagesName: baseCon.getDiceIcon(),width: 68.w,height: 68.w,),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 70.h),
+        child: Flora121Click(
+          onTap: (){
+            baseCon.clickStart();
+          },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Flora121ImagesView(imagesName: "btn1",width: 214.w,height: 50.h,),
+              Flora121TextView(text: "Roll The Dice", color: "#FFFFFF", size: 16.sp,outlineColor: "#774005",),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}

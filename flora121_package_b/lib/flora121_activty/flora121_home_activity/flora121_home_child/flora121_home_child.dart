@@ -7,13 +7,11 @@ import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_con.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
-import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
-import 'package:flora121_package_b/flora121_view/flora121_energy_animator_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_energy_item_widget.dart';
-import 'package:flora121_package_b/flora121_view/flora121_energy_manager.dart';
 import 'package:flora121_package_b/flora121_view/flora121_health_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_water_view.dart';
+import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
@@ -24,23 +22,17 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
   Widget initBaseWidgetFlora121() => Stack(
     children: [
       Flora121ImagesView(imagesName: "home1",width: double.infinity,height: double.infinity,),
-      SafeArea(
-        top: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: 30.h,),
-            _topUserInfoWidget(),
-            SizedBox(height: 16.h,),
-            Flora121WaterView(),
-          ],
-        ),
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(height: 150.h,),
+          Flora121WaterView(),
+        ],
       ),
       Align(
         alignment: Alignment.bottomCenter,
         child: _bottomWidget(),
       ),
-      Flora121EnergyAnimatorView(),
       _rewardTipsWidget(),
     ],
   );
@@ -65,7 +57,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
       Flora121ImagesView(imagesName: "home15",width: 89.w,height: 27.h,),
       Container(
         width: double.infinity,
-        height: 260.h,
+        height: 280.h,
         margin: EdgeInsets.only(bottom: 13.h),
         child: Stack(
           children: [
@@ -77,21 +69,41 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                     alignment: Alignment.bottomCenter,
                     child: SizedBox(
                       key: baseCon.treeGlobalKey,
-                      child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
+                      child: Flora121Click(
+                        onTap: (){
+                          baseCon.test();
+                        },
+                        child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
+                      ),
                     ),
                   ),
-                  ...baseCon.energyList.map((value)=>
-                      Flora121EnergyItemWidget(
-                        bean: value,
-                        clickItem: (bean){
-                          baseCon.clickEnergy(bean);
-                        },
-                      ),
-                  ) //   buildEnergy: (index) {
-                  //     // return Image.asset("assets/energy_$index.png");
-                  //     return Flora121ImagesView(imagesName: "home12",width: 66.w,height: 66.w,);
-                  //   },
-                  // ),
+                  Positioned(
+                    left: 80.w,
+                    bottom: 100.h,
+                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.wheel),
+                  ),
+                  Positioned(
+                    left: 20.w,
+                    bottom: 150.h,
+                    child: Flora121EnergyItemWidget(
+                      flora121energyType: Flora121EnergyType.money,
+                      treeGlobalKey: baseCon.treeGlobalKey,
+                    ),
+                  ),
+                  Positioned(
+                    left: 90.w,
+                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.water),
+                  ),
+                  Positioned(
+                    top: 10.h,
+                    right: 100.w,
+                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.dice),
+                  ),
+                  Positioned(
+                    top: 80.h,
+                    right: 36.w,
+                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.quiz),
+                  ),
                 ],
               ),
             ),
@@ -411,12 +423,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
   _topUserInfoWidget()=>Row(
     children: [
       SizedBox(width: 26.w,),
-      Flora121Click(
-        onTap: (){
-          baseCon.test();
-        },
-        child: Flora121UserInfoView(),
-      ),
+      Flora121UserInfoView(),
       Spacer(),
       Flora121HealthView(),
     ],

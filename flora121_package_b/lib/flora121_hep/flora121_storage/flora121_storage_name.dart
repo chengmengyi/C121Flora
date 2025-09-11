@@ -10,4 +10,6 @@ class Flora121StorageName{
   static const String bMoneyStatusOpen="bMoneyStatusOpen";
   static const String bDiceLargeIndex="bDiceLargeIndex";
   static const String bDiceSmallIndex="bDiceSmallIndex";
+  static const String bDiceStepIndex="bDiceStepIndex";
+  static const String bSelectCashType="bSelectCashType";
 }

@@ -8,6 +8,7 @@ import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_task_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class Flora121WaterView extends Flora121BaseStateful{
 
 class _Flora121WaterViewState extends Flora121BaseStatefulState<Flora121WaterView>{
   Flora121TaskBean? _taskBean;
+  GlobalKey globalKey=GlobalKey();
 
   @override
   void initState() {
@@ -30,6 +32,7 @@ class _Flora121WaterViewState extends Flora121BaseStatefulState<Flora121WaterVie
   Widget initBaseWidgetFlora121() => Container(
     width: double.infinity,
     height: 82.h,
+    key: globalKey,
     margin: EdgeInsets.only(left: 18.w,right: 18.w),
     child: Stack(
       alignment: Alignment.centerLeft,
@@ -142,6 +145,15 @@ class _Flora121WaterViewState extends Flora121BaseStatefulState<Flora121WaterVie
       case Flora121EventCode.updateTask:
         _getTask();
         break;
+      case Flora121EventCode.showNewUserStep8HomeProgressGuide:
+        showNewUserStep8HomeProgressGuide();
+        break;
     }
+  }
+
+  showNewUserStep8HomeProgressGuide(){
+    var renderBox = globalKey.currentContext?.findRenderObject() as RenderBox;
+    var offset = renderBox.localToGlobal(Offset.zero);
+    Flora121UserGuideUtils.instance.showStep8Guide(context, offset,_taskBean);
   }
 }

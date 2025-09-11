@@ -25,6 +25,7 @@ dependencies:
   audioplayers: 6.1.0
   flutter_app_lifecycle: 0.0.3
   decimal: 3.2.4
+  marqueer: 2.1.0
 
 
 dev_dependencies:

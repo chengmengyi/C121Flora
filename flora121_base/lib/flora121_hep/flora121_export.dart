@@ -7,4 +7,5 @@ export 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 export 'package:decimal/decimal.dart';
+export 'package:marqueer/marqueer.dart';
 

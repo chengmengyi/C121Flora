@@ -55,7 +55,7 @@ class Flora121NewUserStep3View extends StatelessWidget{
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

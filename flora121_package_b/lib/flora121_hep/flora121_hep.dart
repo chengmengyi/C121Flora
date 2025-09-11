@@ -27,3 +27,11 @@ extension NumDouble on double{
   double numX2()=>(Decimal.fromJson("$this")*Decimal.fromInt(2)).toDouble();
 }
 
+String idStar(String id){
+  if(id.length!=9){
+    return id;
+  }
+  var start = id.substring(0,1);
+  var end = id.substring(6,9);
+  return "$start*****$end";
+}

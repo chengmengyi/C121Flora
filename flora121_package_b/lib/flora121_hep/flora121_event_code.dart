@@ -11,4 +11,8 @@ class Flora121EventCode{
   static const int showNewUerStep3Guide=108;
   static const int showHomeTab=109;
   static const int showNewUserStep4DiceBtn=110;
+  static const int showNewUserStep6GuideFirstCashAmount=111;
+  static const int updateCashType=112;
+  static const int showNewUserStep8HomeProgressGuide=113;
+  static const int showNewUserStep9QuizGuide=114;
 }

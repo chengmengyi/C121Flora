@@ -23,7 +23,7 @@ class Flora121UserInfoUtils{
     }
     var bean = Flora121UserInfoBean(
       headIcon: ["head1","head2","head3","head4","head5"].random(),
-      userId: _generateRandomString(9),
+      userId: generateRandomString(9),
       healthNum: 100,
     );
     var id = await database.insert(Flora121SqlName.aUserInfo, bean.toJson());
@@ -49,7 +49,7 @@ class Flora121UserInfoUtils{
 
   Flora121UserInfoBean? getUserInfo()=>_userInfoBean;
 
-  String _generateRandomString(int length) {
+  String generateRandomString(int length) {
     const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     final random = Random.secure();
     return List.generate(length, (index) => chars[random.nextInt(chars.length)]).join();

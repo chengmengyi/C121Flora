@@ -28,11 +28,15 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
   );
 
   _listWidget()=>Expanded(
-    child: ListView.builder(
-      reverse: true,
-      itemCount: 1,
-      shrinkWrap: true,
-      itemBuilder: (context,index)=>_listItemWidget(index),
+    child: GetBuilder<Flora121DiceCon>(
+      id: "list",
+      builder: (_)=>ListView.builder(
+        reverse: true,
+        itemCount: 300,
+        shrinkWrap: true,
+        controller: baseCon.scrollController,
+        itemBuilder: (context,index)=>_listItemWidget(index),
+      ),
     ),
   );
 
@@ -42,79 +46,59 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 14.h,),
           Row(
             children: [
               _diceItemWidget(index,19, "dice_flower"),
               SizedBox(width: 252.w,),
             ],
           ),
-          SizedBox(height: 14.h,),
           Row(
             children: [
               _diceItemWidget(index,18, "dice_box"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,17, "dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,16, "dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,15, "dice_box"),
             ],
           ),
-          SizedBox(height: 14.h,),
           Row(
             children: [
               SizedBox(width: 252.w,),
               _diceItemWidget(index,14, "dice_money"),
             ],
           ),
-          SizedBox(height: 14.h,),
           Row(
             children: [
               _diceItemWidget(index,10, "dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,11, "dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,12, "dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,13, "dice_box"),
             ],
           ),
-          SizedBox(height: 14.h,),
           Row(
             children: [
               _diceItemWidget(index,9, "dice_box"),
               SizedBox(width: 252.w,),
             ],
           ),
-          SizedBox(height: 14.h,),
           Row(
             children: [
               _diceItemWidget(index,8, "dice_box"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,7, "dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,6, "dice_flower"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,5, "dice_left"),
             ],
           ),
-          SizedBox(height: 14.h,),
           Row(
             children: [
               SizedBox(width: 252.w,),
               _diceItemWidget(index,4, "dice_money"),
             ],
           ),
-          SizedBox(height: 14.h,),
           Row(
             children: [
               _diceItemWidget(index,0, index==0?"dice_begin":"dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,1, "dice_money"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,2, "dice_box"),
-              SizedBox(width: 14.w,),
               _diceItemWidget(index,3, "dice_money"),
             ],
           ),
@@ -123,19 +107,23 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
     ],
   );
 
-  _diceItemWidget(int largeIndex,int smallIndex,icon)=>Stack(
-    alignment: Alignment.center,
-    children: [
-      Flora121ImagesView(imagesName: icon,width: 70.w,height: 70.w,),
-      Visibility(
-        visible: baseCon.currentDiceLargeIndex==largeIndex&&baseCon.currentDiceSmallIndex==smallIndex,
-        child: Container(
-          width: 40.w,
-          height: 40.w,
-          color: Colors.red,
-        ),
-      )
-    ],
+  _diceItemWidget(int largeIndex,int smallIndex,icon)=>SizedBox(
+    width: 84,
+    height: 84.w,
+    child: Stack(
+      alignment: Alignment.center,
+      children: [
+        Flora121ImagesView(imagesName: icon,width: 70.w,height: 70.w,),
+        Visibility(
+          visible: baseCon.currentDiceLargeIndex==largeIndex&&baseCon.currentDiceSmallIndex==smallIndex,
+          child: Container(
+            width: 40.w,
+            height: 40.w,
+            color: Colors.red,
+          ),
+        )
+      ],
+    ),
   );
 
   _bottomWidget()=>Stack(

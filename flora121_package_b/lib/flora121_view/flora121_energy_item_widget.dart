@@ -96,6 +96,9 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
       case Flora121EventCode.showNewUerStep3Guide:
         showNewUerStep3Guide(flora121Map);
         break;
+      case Flora121EventCode.showNewUserStep9QuizGuide:
+        showNewUserStep9QuizGuide(flora121Map);
+        break;
     }
   }
 
@@ -117,6 +120,15 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
     Flora121UserGuideUtils.instance.showStep3Overlay(context, offset);
+  }
+
+  showNewUserStep9QuizGuide(Map? flora121map){
+    if(widget.flora121energyType!=Flora121EnergyType.quiz){
+      return;
+    }
+    var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
+    var offset = renderBox.localToGlobal(Offset.zero);
+    Flora121UserGuideUtils.instance.showStep9Guide(context, offset);
   }
 
   @override

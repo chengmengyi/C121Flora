@@ -3,7 +3,4 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 export 'package:get/get.dart';
 export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 export 'package:webview_flutter/webview_flutter.dart';
-export 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
-export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
-export 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 

@@ -1,5 +1,4 @@
 import 'package:flora121/flora121_launch/flora121_base_router.dart';
-import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_base_router_name.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_energy_utils.dart';
@@ -35,7 +34,6 @@ _initAll()async{
   Flora121TaskUtils.instance.randomTodayTask();
   Flora121EnergyUtils.instance.initEnergy();
   Flora121SignUtils.instance.initSignList();
-  Flora121AdHep.instance.initFlora121Ad();
   Flora121WheelUtils.instance.initTodayWheelNum();
 }
 

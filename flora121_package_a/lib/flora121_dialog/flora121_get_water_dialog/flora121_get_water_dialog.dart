@@ -42,8 +42,8 @@ class Flora121GetWaterDialog extends Flora121BaseDialog<Flora121GetWaterDialogCo
                 SizedBox(height: 10.h,),
                 Flora121TextView(text: "Get Water Droplets", color: "#7A5040", size: 14.sp,fontWeight: FontWeight.bold,),
                 SizedBox(height: 10.h,),
-                _doubleBtnWidget(),
-                SizedBox(height: 10.h,),
+                // _doubleBtnWidget(),
+                // SizedBox(height: 10.h,),
                 _singleBtnWidget(),
                 SizedBox(height: 35.h,),
               ],
@@ -82,28 +82,28 @@ class Flora121GetWaterDialog extends Flora121BaseDialog<Flora121GetWaterDialogCo
     ),
   );
 
-  _doubleBtnWidget()=>Flora121Click(
-    onTap: (){
-      baseCon.getDouble(taskType,isHealth,waterNum,getCallback);
-    },
-    child: Stack(
-      alignment: Alignment.topRight,
-      children: [
-        Container(
-          width: 273.w,
-          height: 50.h,
-          alignment: Alignment.center,
-          margin: EdgeInsets.only(top: 20.h),
-          decoration: BoxDecoration(
-            color: "#4C7D0A".toColor(),
-            borderRadius: BorderRadius.circular(15.w),
-          ),
-          child:Flora121TextView(text: "Claim  X2", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
-        ),
-        Flora121ImagesView(imagesName: "icon_video",width: 42.w,height: 42.h,),
-      ],
-    ),
-  );
+  // _doubleBtnWidget()=>Flora121Click(
+  //   onTap: (){
+  //     baseCon.getDouble(taskType,isHealth,waterNum,getCallback);
+  //   },
+  //   child: Stack(
+  //     alignment: Alignment.topRight,
+  //     children: [
+  //       Container(
+  //         width: 273.w,
+  //         height: 50.h,
+  //         alignment: Alignment.center,
+  //         margin: EdgeInsets.only(top: 20.h),
+  //         decoration: BoxDecoration(
+  //           color: "#4C7D0A".toColor(),
+  //           borderRadius: BorderRadius.circular(15.w),
+  //         ),
+  //         child:Flora121TextView(text: "Claim  X2", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
+  //       ),
+  //       Flora121ImagesView(imagesName: "icon_video",width: 42.w,height: 42.h,),
+  //     ],
+  //   ),
+  // );
   
   _singleBtnWidget()=>Flora121Click(
     onTap: (){

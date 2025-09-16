@@ -5,23 +5,24 @@ import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_no_wheel_dialog/flora121_no_wheel_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_wheel_get_dialog/flora121_wheel_get_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flutter/material.dart';
 
 class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProviderStateMixin{
-  var wheelWaterReward=0,canClick=true;
+  var wheelReward=0,canClick=true;
+  List<int> wheelList=[];
   late AnimationController _wheelAnimationController;
   Animation<double>? wheelAnimation;
   late AnimationStatusListener _statusListener;
-  List<int> rewardList=[0,0,0,2,1,1,1,1];
 
   @override
   void onInit() {
     super.onInit();
-    rewardList.shuffle();
     _initAnimator();
   }
 
@@ -43,17 +44,17 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     if(bWheelGiftNum.getData()<5){
       return;
     }
-    Flora121RoutersHep.dialog(
-      child: Flora121GetWaterDialog(
-        waterNum: 1,
-        taskType: "",
-        isHealth: true,
-        getCallback: (){
-          Flora121WheelUtils.instance.resetGiftNum();
-          update(["gift"]);
-        },
-      ),
-    );
+    // Flora121RoutersHep.dialog(
+    //   child: Flora121GetWaterDialog(
+    //     waterNum: 1,
+    //     taskType: "",
+    //     isHealth: true,
+    //     getCallback: (){
+    //       Flora121WheelUtils.instance.resetGiftNum();
+    //       update(["gift"]);
+    //     },
+    //   ),
+    // );
   }
 
   int _getWeightedRandom() {
@@ -84,13 +85,11 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     Flora121WheelUtils.instance.updateWheelGiftNum();
     update(["wheel_num","gift"]);
     canClick=true;
-    if(wheelWaterReward>0){
+    if(wheelReward>0){
       Flora121RoutersHep.dialog(
-        child: Flora121GetWaterDialog(
-          waterNum: wheelWaterReward*2,
-          taskType: "",
-          isHealth: true,
-          getCallback: (){
+        child: Flora121WheelGetDialog(
+          addNum: wheelReward.toDouble(),
+          dismissCallback: (received){
 
           },
         ),
@@ -99,14 +98,40 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
   }
 
   _initAnimation(){
-    wheelWaterReward = _getWeightedRandom();
-    var indexWhere = rewardList.indexWhere((value)=>value==wheelWaterReward);
+    wheelList.clear();
+    wheelReward=Flora121ValueUtils.instance.getWheelAddNum();
+    wheelList.add(wheelReward);
+    wheelList.add(100);
+    while(wheelList.length<8){
+      wheelList.add(_randomWithVariance(wheelReward));
+    }
+
+    var indexWhere = wheelList.indexWhere((value)=>value==wheelReward);
     if(indexWhere<0){
       canClick=true;
       return;
     }
     var angle = 720-indexWhere*45;
     wheelAnimation=Tween<double>(begin: 0,end: (720+angle)*(pi/180)).animate(_wheelAnimationController);
+  }
+
+  int _randomWithVariance(int base) {
+    final random = Random();
+
+    // 计算上下限
+    int minVal = (base * 0.8).floor();
+    int maxVal = (base * 1.2).ceil();
+
+    // 保证最小值 >= 1
+    minVal = max(minVal, 1);
+
+    // 在范围内随机取值
+    return minVal + random.nextInt(maxVal - minVal + 1);
+  }
+
+  String getToday(){
+    var dateTime = DateTime.now();
+    return "${dateTime.month}.${dateTime.day}";
   }
 
   @override

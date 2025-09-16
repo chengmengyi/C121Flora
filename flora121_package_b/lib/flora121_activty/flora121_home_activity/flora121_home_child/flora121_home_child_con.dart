@@ -3,12 +3,16 @@ import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_store_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_set_dialog/flora121_set_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_store_detail_dialog/flora121_store_detail_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
@@ -45,60 +49,13 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   @override
   void onReady() {
     super.onReady();
+    Flora121UserGuideUtils.instance.checkShowNewUserGuide();
     _getEnergyList();
     _getSignList();
     _getStoreList();
   }
 
-  clickEnergy(Flora121EnergyBean bean)async{
-    if((bean.currentTime??0)>0||!canClick){
-      return;
-    }
-    if(null!=bean.globalKey){
-      Flora121MusicHep.instance.playOtherAudio(AudioName.click);
-      if(bean.taskType==TaskType.water){
-        Flora121RoutersHep.dialog(
-          child: Flora121GetWaterDialog(
-            waterNum: bean.addNum??0,
-            isHealth: true,
-            taskType: bean.taskType??"",
-            getCallback: (){
-              _startEnergyAnimator(bean);
-            },
-          ),
-        );
-        return;
-      }
-      _startEnergyAnimator(bean);
-    }
-  }
-  
-  _startEnergyAnimator(Flora121EnergyBean bean)async{
-    var energyBox = bean.globalKey?.currentContext?.findRenderObject() as RenderBox;
-    var energyOffset = energyBox.localToGlobal(Offset.zero);
-
-    var treeBox = treeGlobalKey.currentContext?.findRenderObject() as RenderBox;
-    var treeOffset = treeBox.localToGlobal(Offset.zero) + Offset(20.w, 0);
-    bean.show=false;
-    update(["flower"]);
-
-    canClick=false;
-    Flora121EventUtils.instance.sendMsg(
-        flora121Code: Flora121EventCode.startEnergyAnimator,
-        flora121Map: {
-          "energyOffset":energyOffset,
-          "treeOffset":treeOffset,
-          "bean":bean,
-        }
-    );
-    await Future.delayed(Duration(milliseconds: 800));
-    bean.currentTime=bean.totalTime;
-    bean.show=true;
-    await Flora121EnergyUtils.instance.updateEnergy(bean);
-    Flora121UserInfoUtils.instance.updateHealth(bean.addNum??0);
-    if(bean.taskType!=TaskType.water){
-      Flora121TaskUtils.instance.updateTaskByEnergy(bean);
-    }
+  clickEnergy()async{
     Flora121EnergyUtils.instance.updateCollectEnergyNum();
     update(["level","flower"]);
     _checkShowReward();
@@ -265,6 +222,5 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     if(!kDebugMode){
       return;
     }
-    Flora121UserGuideUtils.instance.checkShowNewUserGuide();
   }
 }

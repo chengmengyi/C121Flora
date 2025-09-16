@@ -1,8 +1,10 @@
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
+import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_task_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_change_cash_type_dialog/flora121_change_cash_type_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new_user_step1_view.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new_user_step2_view.dart';
@@ -15,7 +17,6 @@ import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new
 import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new_user_step9_view.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
-import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121UserGuideUtils{
@@ -25,10 +26,19 @@ class Flora121UserGuideUtils{
   OverlayEntry? _overlayEntry;
 
   checkShowNewUserGuide(){
-    if(!bShowNewUserGuide.getData()){
+    var newTime = bShowNewUserGuideTimer.getData();
+    if(newTime.isNotEmpty){
+      var oldTime = bShowOldUserGuideTimer.getData();
+      var todayTimeStr = getTodayTimeStr();
+      if(newTime!=todayTimeStr&&oldTime!=todayTimeStr){
+        bShowOldUserGuideTimer.saveData(todayTimeStr);
+        Flora121RoutersHep.dialog(
+          child: Flora121OldUserDialog(),
+        );
+      }
       return;
     }
-    bShowNewUserGuide.saveData(false);
+    bShowNewUserGuideTimer.saveData(getTodayTimeStr());
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep1Guide);
   }
 
@@ -43,7 +53,7 @@ class Flora121UserGuideUtils{
           Flora121RoutersHep.dialog(
             child: Flora121CommonGetDialog(
               addNum: addNum,
-              dismissCallback: (){
+              dismissCallback: (received){
                 _showStep2Guide(context);
               },
             ),

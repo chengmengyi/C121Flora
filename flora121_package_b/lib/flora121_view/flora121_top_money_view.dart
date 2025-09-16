@@ -1,9 +1,11 @@
 import 'package:flora121_base/flora121_base/flora121_base_stateful.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_set_dialog/flora121_set_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
@@ -53,7 +55,7 @@ class _Flora121TopMoneyViewState extends Flora121BaseStatefulState<Flora121TopMo
     child: SafeArea(
       child: Flora121Click(
         onTap: (){
-      
+          Flora121RoutersHep.dialog(child: Flora121SetDialog());
         },
         child: Flora121ImagesView(imagesName: "icon_set",width: 20.w,height: 20.w,),
       ),

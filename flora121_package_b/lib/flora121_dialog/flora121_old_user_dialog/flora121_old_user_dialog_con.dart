@@ -4,38 +4,30 @@ import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
-import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
-import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 
-class Flora121CommonGetDialogCon extends Flora121BaseCon{
+class Flora121OldUserDialogCon extends Flora121BaseCon{
   var progressIndex=0;
   Timer? _timer;
+  var addNum=Flora121ValueUtils.instance.getOldUserAddNum();
+
   @override
   void onInit() {
     super.onInit();
     _startTimer();
   }
 
-  clickDouble(double addNum,bool fromNewUser, Function(bool received) dismissCallback){
-    if(fromNewUser){
-      Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
-      Flora121RoutersHep.back();
-      dismissCallback.call(true);
-      return;
-    }
+  clickDouble(){
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.reward,
       closeAd: (){
-        Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
         Flora121RoutersHep.back();
-        dismissCallback.call(true);
       },
     );
   }
 
-  clickClose(double addNum,Function(bool received) dismissCallback){
+  clickClose(){
     Flora121RoutersHep.back();
-    dismissCallback.call(false);
   }
 
   _startTimer(){

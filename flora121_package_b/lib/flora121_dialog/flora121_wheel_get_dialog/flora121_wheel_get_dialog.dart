@@ -4,24 +4,22 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog_con.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_wheel_get_dialog/flora121_wheel_get_dialog_con.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_view/flora121_watch_video_btn_widget.dart';
 import 'package:flutter/material.dart';
 
-class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialogCon>{
+class Flora121WheelGetDialog extends Flora121BaseDialog<Flora121WheelGetDialogCon>{
   double addNum;
-  bool fromNewUser;
   Function(bool received) dismissCallback;
-  Flora121CommonGetDialog({
+  Flora121WheelGetDialog({
     required this.addNum,
-    this.fromNewUser=false,
     required this.dismissCallback,
 });
 
   @override
-  Flora121CommonGetDialogCon initBaseConFlora121() => Flora121CommonGetDialogCon();
+  Flora121WheelGetDialogCon initBaseConFlora121() => Flora121WheelGetDialogCon();
 
   @override
   Widget initBaseWidgetFlora121() => Column(
@@ -88,15 +86,61 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     ),
   );
 
-  _progressListWidget()=>GetBuilder<Flora121CommonGetDialogCon>(
+  _progressListWidget()=>GetBuilder<Flora121WheelGetDialogCon>(
     id: "progress",
     builder: (_)=>Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _progressItemWidget(0,"Ensure SafetySafety"),
-        _progressItemWidget(1,"Arrived Within 24 Hours"),
-        _progressItemWidget(2,"1M+ Users Trusted"),
+        Container(
+          width: double.infinity,
+          margin: EdgeInsets.only(left: 23.w,right: 23.w),
+          child: MasonryGridView.count(
+            padding: const EdgeInsets.all(0),
+            itemCount: 4,
+            shrinkWrap: true,
+            crossAxisCount: 4,
+            mainAxisSpacing: 0,
+            crossAxisSpacing: 0,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context,index){
+              return Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 6.h,
+                    decoration: BoxDecoration(
+                      color: baseCon.progressIndex>=index?"#A6E300".toColor():"#5B3E00".toColor(),
+                      borderRadius: BorderRadius.only(
+                        topLeft: index==0?Radius.circular(20.w):Radius.zero,
+                        bottomLeft: index==0?Radius.circular(20.w):Radius.zero,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 14.w,
+                    height: 14.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7.w),
+                      color: baseCon.progressIndex>=index?"#A6E300".toColor():"#5B3E00".toColor(),
+                    ),
+                  )
+                ],
+              );
+            },
+          ),
+        ),
+        SizedBox(height: 20.h,),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _progressItemWidget(0,"Trusted by 1M+ Users"),
+            _progressItemWidget(1,"100% Secure Transfer"),
+            _progressItemWidget(2,"Instant Payment"),
+            _progressItemWidget(3,"Direct to Your Account"),
+          ],
+        ),
       ],
     ),
   );
@@ -114,7 +158,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     text: "Claim",
     btnColor: "#FBAC00",
     onTap: (){
-      baseCon.clickDouble(addNum,fromNewUser,dismissCallback);
+      baseCon.clickDouble(addNum,dismissCallback);
     },
   );
 

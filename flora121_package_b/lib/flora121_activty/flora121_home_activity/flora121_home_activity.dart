@@ -21,7 +21,13 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
         ),
       ),
       _bottomWidget(),
-      Flora121TopMoneyView(),
+      GetBuilder<Flora121HomeCon>(
+        id: "top_view",
+        builder: (_)=>Visibility(
+          visible: baseCon.tabIndex!=2,
+          child: Flora121TopMoneyView(),
+        ),
+      ),
     ],
   );
   

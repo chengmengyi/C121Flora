@@ -7,7 +7,7 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 
-class Flora121CommonGetDialogCon extends Flora121BaseCon{
+class Flora121WheelGetDialogCon extends Flora121BaseCon{
   var progressIndex=0;
   Timer? _timer;
   @override
@@ -16,13 +16,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     _startTimer();
   }
 
-  clickDouble(double addNum,bool fromNewUser, Function(bool received) dismissCallback){
-    if(fromNewUser){
-      Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
-      Flora121RoutersHep.back();
-      dismissCallback.call(true);
-      return;
-    }
+  clickDouble(double addNum,Function(bool received) dismissCallback){
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.reward,
       closeAd: (){
@@ -42,7 +36,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     _timer=Timer.periodic(Duration(milliseconds: 2000), (t){
       progressIndex++;
       update(["progress"]);
-      if(progressIndex>=2){
+      if(progressIndex>=3){
         _stopTimer();
       }
     });

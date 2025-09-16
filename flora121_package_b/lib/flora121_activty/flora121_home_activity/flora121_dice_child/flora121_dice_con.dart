@@ -103,7 +103,7 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
       child: Flora121CommonGetDialog(
         addNum: Flora121ValueUtils.instance.getDiceAddNum(),
         fromNewUser: fromNewUserGuide,
-        dismissCallback: (){
+        dismissCallback: (received){
           if(fromNewUserGuide){
             Flora121UserGuideUtils.instance.showStep5Guide(context);
           }

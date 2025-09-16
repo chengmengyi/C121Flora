@@ -29,7 +29,7 @@ class Flora121HomeCon extends Flora121BaseCon{
       return;
     }
     tabIndex=index;
-    update(["page"]);
+    update(["page","top_view"]);
   }
 
   @override

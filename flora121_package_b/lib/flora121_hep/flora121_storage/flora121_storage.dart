@@ -8,13 +8,15 @@ StorageData<int> bWheelGiftNum=StorageData<int>(key: Flora121StorageName.bWheelG
 StorageData<int> bDiceLargeIndex=StorageData<int>(key: Flora121StorageName.bDiceLargeIndex, defaultValue: 0);
 StorageData<int> bDiceSmallIndex=StorageData<int>(key: Flora121StorageName.bDiceSmallIndex, defaultValue: 0);
 StorageData<int> bDiceStepIndex=StorageData<int>(key: Flora121StorageName.bDiceStepIndex, defaultValue: 0);
+StorageData<int> bHomeWaterItemCD=StorageData<int>(key: Flora121StorageName.bHomeWaterItemCD, defaultValue: 0);
 
 
 StorageData<String> bWheelNum=StorageData<String>(key: Flora121StorageName.bWheelNum, defaultValue: "");
 StorageData<String> bSelectCashType=StorageData<String>(key: Flora121StorageName.bSelectCashType, defaultValue: Flora121CashType.paypal);
+StorageData<String> bShowNewUserGuideTimer=StorageData<String>(key: Flora121StorageName.bShowNewUserGuideTimer, defaultValue: "");
+StorageData<String> bShowOldUserGuideTimer=StorageData<String>(key: Flora121StorageName.bShowOldUserGuideTimer, defaultValue: "");
 
 
-StorageData<bool> bShowNewUserGuide=StorageData<bool>(key: Flora121StorageName.bShowNewUserGuide, defaultValue: true);
 StorageData<bool> bMoneyStatusOpen=StorageData<bool>(key: Flora121StorageName.bMoneyStatusOpen, defaultValue: true);
 
 

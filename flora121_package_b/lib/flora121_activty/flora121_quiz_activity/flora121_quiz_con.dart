@@ -1,0 +1,151 @@
+import 'dart:convert';
+import 'package:flora121_base/flora121_base/flora121_base_con.dart';
+import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
+import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_quiz_bean.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
+import 'package:flutter/material.dart';
+
+class Flora121QuizCon extends Flora121BaseCon{
+  var wheelRewardIndex=-1,canClick=true,answerRightNum=0;
+  List<Flora121QuizBean> quizList=[];
+  Flora121QuizBean? quizBean;
+  List<Flora121QuizWheelRewardBean> rewardStatusList=[];
+  ScrollController scrollController=ScrollController();
+
+  final List<String> _bottomTextList=[
+    "Treasure awaits your answer!",
+    "Every quiz is a key to rewards!",
+    "Crack the question, unlock the gold!",
+    "Your brain is the treasure map!",
+    "Answer right, claim your fortune!",
+    "Spin your knowledge into prizes!",
+    "Every tap brings hidden gems!",
+    "Quiz your way to glory!",
+    "Smart moves unlock treasures!",
+    "One answer could change your luck!",
+  ];
+
+  @override
+  void onInit() {
+    super.onInit();
+    _initQuiz();
+  }
+
+  clickAnswerItem(int index)async{
+    if(!canClick){
+      return;
+    }
+    canClick=false;
+    quizBean?.selectedAnswer=index==0?"a":"b";
+    update(["answer_list"]);
+    await Future.delayed(Duration(milliseconds: 1000));
+    canClick=true;
+    var result = quizBean?.selectedAnswer==quizBean?.answer;
+    if(result==true){
+      answerRightNum++;
+      Flora121RoutersHep.dialog(
+        child: Flora121CommonGetDialog(
+          addNum: Flora121ValueUtils.instance.getQuizAddNum(),
+          dismissCallback: (received){
+            _updateNextQuiz(result);
+          },
+        ),
+      );
+    }else{
+      _updateNextQuiz(result);
+    }
+  }
+
+  _updateNextQuiz(bool result){
+    quizBean?.selectedAnswer=null;
+    quizBean=quizList.random();
+    wheelRewardIndex=(answerRightNum~/3)-1;
+    try{
+      if(rewardStatusList[wheelRewardIndex].type==Flora121QuizWheelRewardType.none){
+        rewardStatusList[wheelRewardIndex].type=Flora121QuizWheelRewardType.unReceived;
+      }
+    }catch(e){
+
+    }
+    var lastIndexWhere = rewardStatusList.lastIndexWhere((value)=>value.type!=Flora121QuizWheelRewardType.none);
+    if(lastIndexWhere>=0){
+      scrollController.animateTo(
+        lastIndexWhere*(64.w),
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+    update(["answer_list","quiz_content","progress"]);
+    if(result){
+      update(["bottom_text"]);
+    }
+  }
+
+  clickWheelItem(Flora121QuizWheelRewardBean bean){
+    if(bean.type==Flora121QuizWheelRewardType.unReceived){
+      Flora121RoutersHep.dialog(
+        child: Flora121CommonGetDialog(
+          addNum: Flora121ValueUtils.instance.getQuizWheelAddNum(),
+          dismissCallback: (received){
+            if(received){
+              bean.type=Flora121QuizWheelRewardType.received;
+              Flora121WheelUtils.instance.updateWheelNum(1);
+              update(["progress"]);
+            }
+          },
+        ),
+      );
+    }
+  }
+
+  String getBottomText()=>_bottomTextList.random();
+
+  bool? getAnswerItemResult(int index){
+    if(null==quizBean?.selectedAnswer){
+      return null;
+    }
+    var result = quizBean?.selectedAnswer==quizBean?.answer;
+    if(quizBean?.selectedAnswer=="a"&&index==0){
+      return result;
+    }
+    if(quizBean?.selectedAnswer=="b"&&index==1){
+      return result;
+    }
+    return null;
+  }
+
+  _initQuiz(){
+    try{
+      var list = jsonDecode(Flora121LocalInfo.localQuizStrBase64.base64());
+
+      for(var value in list){
+        quizList.add(Flora121QuizBean.fromJson(value));
+      }
+      quizList.shuffle();
+      if(quizList.isNotEmpty){
+        quizBean=quizList.random();
+      }
+      var size = quizList.length~/3;
+      if(size>0){
+        while(rewardStatusList.length<size){
+          rewardStatusList.add(Flora121QuizWheelRewardBean(type: Flora121QuizWheelRewardType.none, globalKey: GlobalKey()));
+        }
+        wheelRewardIndex = rewardStatusList.lastIndexWhere((value)=>value==Flora121QuizWheelRewardType.unReceived);
+      }
+    }catch(e){
+
+    }
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
+  }
+}

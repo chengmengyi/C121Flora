@@ -3,14 +3,19 @@ import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_amount_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_input_email_dialog/flora121_input_email_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_no_money_dialog/flora121_no_money_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121CashCon extends Flora121BaseCon{
@@ -18,15 +23,49 @@ class Flora121CashCon extends Flora121BaseCon{
   List<List<Widget>> marqueeList=[];
   GlobalKey firstCashAmountGlobalKey=GlobalKey();
   GlobalKey cashBtnGlobalKey=GlobalKey();
+  List<Flora121AmountBean> amountList=[];
 
   @override
   void onReady() {
     super.onReady();
     _initMarqueeList();
+    _initAmountList();
+  }
+
+  clickAmountItem(index){
+    if(chooseIndex==index){
+      return;
+    }
+    chooseIndex=index;
+    update(["amount"]);
   }
 
   clickCash(){
+    var myMoney= bMyMoneyNum.getData();
+    var bean = amountList[chooseIndex];
+    if(myMoney<bean.money){
+      Flora121RoutersHep.dialog(
+        child: Flora121NoMoneyDialog(),
+      );
+      return;
+    }
+    var cashType = bSelectCashType.getData();
+    switch(cashType){
+      case Flora121CashType.pagBank:
+      case Flora121CashType.paypal:
+        Flora121RoutersHep.dialog(
+          child: Flora121InputEmailDialog(cashType: cashType),
+        );
+        break;
+    }
+  }
 
+  _initAmountList(){
+    amountList.clear();
+    for (var value in Flora121ValueUtils.instance.getCashList()) {
+      amountList.add(Flora121AmountBean(money: value));
+    }
+    update(["amount"]);
   }
 
   _initMarqueeList()async{

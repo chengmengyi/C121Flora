@@ -9,4 +9,13 @@ class Flora121ValueUtils{
   double getNewUserGuideStep2AddNum()=>2.2;
 
   double getDiceAddNum()=>2.2;
+
+  double getOldUserMoney1()=>2.2;
+  double getOldUserMoney2()=>2.2;
+
+  double getOldUserAddNum()=>2.2;
+  double getQuizAddNum()=>2.2;
+  double getQuizWheelAddNum()=>2.2;
+  int getWheelAddNum()=>2;
+  double getWaterAddNum()=>2.2;
 }

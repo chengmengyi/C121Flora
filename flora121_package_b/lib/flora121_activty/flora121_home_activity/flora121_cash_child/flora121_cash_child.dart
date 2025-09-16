@@ -43,46 +43,54 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     children: [
       Flora121TextView(text: "Withdrawal amount", color: "#243824", size: 14.sp,fontWeight: FontWeight.bold,),
       SizedBox(height: 12.h,),
-      MasonryGridView.count(
-        padding: const EdgeInsets.all(0),
-        itemCount: Flora121ValueUtils.instance.getCashList().length,
-        shrinkWrap: true,
-        crossAxisCount: 3,
-        mainAxisSpacing: 12.h,
-        crossAxisSpacing: 12.w,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context,index){
-          var isSelect = baseCon.chooseIndex==index;
-          var money = Flora121ValueUtils.instance.getCashList()[index];
-          return Container(
-            width: double.infinity,
-            height: 66.h,
-            key: index==0?baseCon.firstCashAmountGlobalKey:null,
-            decoration: BoxDecoration(
-              color: "#E6F8FF".toColor(),
-              borderRadius: BorderRadius.circular(16.w),
-              border: isSelect?
-              Border.all(
-                width: 2.w,
-                color: "#4179B9".toColor(),
-              ):null,
-            ),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Visibility(
-                    visible: isSelect,
-                    child: Flora121ImagesView(imagesName: "icon_gou2",width: 20.w,height: 20.w,),
-                  ),
+      GetBuilder<Flora121CashCon>(
+        id: "amount",
+        builder: (_)=>MasonryGridView.count(
+          padding: const EdgeInsets.all(0),
+          itemCount: baseCon.amountList.length,
+          shrinkWrap: true,
+          crossAxisCount: 3,
+          mainAxisSpacing: 12.h,
+          crossAxisSpacing: 12.w,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context,index){
+            var isSelect = baseCon.chooseIndex==index;
+            var bean = baseCon.amountList[index];
+            return Flora121Click(
+              onTap: (){
+                baseCon.clickAmountItem(index);
+              },
+              child: Container(
+                width: double.infinity,
+                height: 66.h,
+                key: index==0?baseCon.firstCashAmountGlobalKey:null,
+                decoration: BoxDecoration(
+                  color: "#E6F8FF".toColor(),
+                  borderRadius: BorderRadius.circular(16.w),
+                  border: isSelect?
+                  Border.all(
+                    width: 2.w,
+                    color: "#4179B9".toColor(),
+                  ):null,
                 ),
-                Align(
-                  child: Flora121TextView(text: "\$$money", color: "#313831", size: 16.sp,fontWeight: FontWeight.bold,),
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Visibility(
+                        visible: isSelect,
+                        child: Flora121ImagesView(imagesName: "icon_gou2",width: 20.w,height: 20.w,),
+                      ),
+                    ),
+                    Align(
+                      child: Flora121TextView(text: "\$${bean.money}", color: "#313831", size: 16.sp,fontWeight: FontWeight.bold,),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
+              ),
+            );
+          },
+        ),
       ),
     ],
   );

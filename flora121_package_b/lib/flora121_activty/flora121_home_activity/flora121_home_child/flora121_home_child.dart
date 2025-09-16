@@ -80,29 +80,29 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                   Positioned(
                     left: 80.w,
                     bottom: 100.h,
-                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.wheel),
+                    child: _energyItemWidget(Flora121EnergyType.wheel,),
                   ),
                   Positioned(
                     left: 20.w,
                     bottom: 150.h,
-                    child: Flora121EnergyItemWidget(
-                      flora121energyType: Flora121EnergyType.money,
-                      treeGlobalKey: baseCon.treeGlobalKey,
+                    child: _energyItemWidget(
+                      Flora121EnergyType.money,
+                      key: baseCon.treeGlobalKey,
                     ),
                   ),
                   Positioned(
                     left: 90.w,
-                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.water),
+                    child: _energyItemWidget(Flora121EnergyType.water),
                   ),
                   Positioned(
                     top: 10.h,
                     right: 100.w,
-                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.dice),
+                    child: _energyItemWidget(Flora121EnergyType.dice),
                   ),
                   Positioned(
                     top: 80.h,
                     right: 36.w,
-                    child: Flora121EnergyItemWidget(flora121energyType: Flora121EnergyType.quiz),
+                    child: _energyItemWidget(Flora121EnergyType.quiz),
                   ),
                 ],
               ),
@@ -111,6 +111,13 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
         ),
       )
     ],
+  );
+
+  _energyItemWidget(Flora121EnergyType type,{GlobalKey? key})=>Flora121EnergyItemWidget(
+    flora121energyType: type,
+    clickItem: (){
+      baseCon.clickEnergy();
+    },
   );
 
   _flowerLevelWidget()=>GetBuilder<Flora121HomeChildCon>(

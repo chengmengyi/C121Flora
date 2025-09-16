@@ -8,6 +8,8 @@ import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_amount_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_input_email_dialog/flora121_input_email_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_input_phone_dialog/flora121_input_phone_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_input_pix_dialog/flora121_input_pix_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_no_money_dialog/flora121_no_money_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
@@ -41,6 +43,17 @@ class Flora121CashCon extends Flora121BaseCon{
   }
 
   clickCash(){
+    Flora121RoutersHep.dialog(
+      child: Flora121InputPixDialog(
+        sureCallback: (account){
+
+        },
+      ),
+    );
+    return;
+
+
+
     var myMoney= bMyMoneyNum.getData();
     var bean = amountList[chooseIndex];
     if(myMoney<bean.money){
@@ -54,7 +67,31 @@ class Flora121CashCon extends Flora121BaseCon{
       case Flora121CashType.pagBank:
       case Flora121CashType.paypal:
         Flora121RoutersHep.dialog(
-          child: Flora121InputEmailDialog(cashType: cashType),
+          child: Flora121InputEmailDialog(
+            cashType: cashType,
+            sureCallback: (account){
+
+            },
+          ),
+        );
+        break;
+      case Flora121CashType.cashApp:
+        Flora121RoutersHep.dialog(
+          child: Flora121InputPhoneDialog(
+            cashType: cashType,
+            sureCallback: (account){
+
+            },
+          ),
+        );
+        break;
+      case Flora121CashType.pix:
+        Flora121RoutersHep.dialog(
+          child: Flora121InputPixDialog(
+            sureCallback: (account){
+
+            },
+          ),
         );
         break;
     }

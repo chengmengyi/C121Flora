@@ -1,6 +1,7 @@
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 
 String getEnergyIcon(Flora121EnergyType flora121EnergyType){
@@ -34,4 +35,14 @@ String idStar(String id){
   var start = id.substring(0,1);
   var end = id.substring(6,9);
   return "$start*****$end";
+}
+
+String getCashTypeIcon(String cashType){
+  switch(cashType){
+    case Flora121CashType.paypal: return "icon_paypal";
+    case Flora121CashType.pagBank: return "icon_pagbank";
+    case Flora121CashType.pix: return "icon_pix";
+    case Flora121CashType.cashApp: return "icon_cashapp";
+    default: return "icon_paypal";
+  }
 }

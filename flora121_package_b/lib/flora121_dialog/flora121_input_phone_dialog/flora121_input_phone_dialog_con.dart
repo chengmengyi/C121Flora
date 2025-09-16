@@ -4,7 +4,7 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flutter/material.dart';
 
-class Flora121InputEmailDialogCon extends Flora121BaseCon{
+class Flora121InputPhoneDialogCon extends Flora121BaseCon{
   TextEditingController textEditingController=TextEditingController();
 
   clickSure(Function(String account) sureCallback){
@@ -12,7 +12,7 @@ class Flora121InputEmailDialogCon extends Flora121BaseCon{
     if(s.isEmpty){
       return;
     }
-    if(!_isEmail(s)){
+    if(!_isTenDigitNumber(s)){
       "The format you entered is incorrect.".showToast();
       return;
     }
@@ -20,11 +20,8 @@ class Flora121InputEmailDialogCon extends Flora121BaseCon{
     sureCallback.call(s);
   }
 
-  bool _isEmail(String input) {
-    final emailRegex = RegExp(
-      r'^[\w\.-]+@[\w\.-]+\.\w+$',
-    );
-    return emailRegex.hasMatch(input);
+  bool _isTenDigitNumber(String input) {
+    return RegExp(r'^\d{10}$').hasMatch(input);
   }
 
   String getTitleColor(String cashType){

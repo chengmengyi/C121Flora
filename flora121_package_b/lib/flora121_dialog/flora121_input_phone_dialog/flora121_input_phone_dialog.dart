@@ -4,21 +4,21 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_dialog/flora121_input_email_dialog/flora121_input_email_dialog_con.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_input_phone_dialog/flora121_input_phone_dialog_con.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flutter/material.dart';
 
-class Flora121InputEmailDialog extends Flora121BaseDialog<Flora121InputEmailDialogCon>{
+class Flora121InputPhoneDialog extends Flora121BaseDialog<Flora121InputPhoneDialogCon>{
   String cashType;
   Function(String account) sureCallback;
 
-  Flora121InputEmailDialog({
+  Flora121InputPhoneDialog({
     required this.cashType,
     required this.sureCallback,
   });
 
   @override
-  Flora121InputEmailDialogCon initBaseConFlora121() => Flora121InputEmailDialogCon();
+  Flora121InputPhoneDialogCon initBaseConFlora121() => Flora121InputPhoneDialogCon();
 
   @override
   Widget initBaseWidgetFlora121() => Column(
@@ -99,7 +99,7 @@ class Flora121InputEmailDialog extends Flora121BaseDialog<Flora121InputEmailDial
         Expanded(
           child: TextField(
             enabled: true,
-            maxLength: 30,
+            maxLength: 10,
             textAlign: TextAlign.right,
             controller: baseCon.textEditingController,
             textInputAction: TextInputAction.done,
@@ -111,7 +111,7 @@ class Flora121InputEmailDialog extends Flora121BaseDialog<Flora121InputEmailDial
             decoration: InputDecoration(
               counterText: '',
               isCollapsed: true,
-              hintText: "e.g. 123456789@abc.com",
+              hintText: "e.g.5551234567",
               hintStyle: TextStyle(
                 fontSize: 10.sp,
                 color: "#748262".toColor(),

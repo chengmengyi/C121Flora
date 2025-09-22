@@ -8,6 +8,7 @@ import 'package:flora121_package_a/flora121_hep/flora121_routers.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_sign_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_user_info_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_ad_probability_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart' as bFlora121UserInfoUtils;
 import 'package:flora121_package_b/flora121_hep/flora121_sign_utils.dart' as bFlora121SignUtils;
@@ -53,6 +54,7 @@ _initAll()async{
   Flora121ValueUtils.instance.initValue();
   bFlora121SignUtils.Flora121SignUtils.instance.initSignList();
   Flora121Ttt.instance.uploadInstallEvent();
+  Flora121AdProbabilityUtils.instance.initValue();
 }
 
 class MyApp extends StatelessWidget {

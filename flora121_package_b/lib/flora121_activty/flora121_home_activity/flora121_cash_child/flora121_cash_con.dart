@@ -10,6 +10,7 @@ import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_amount_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_config_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_cash_success_dialog/flora121_cash_success_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_cash_task_dialog/flora121_cash_task_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_input_email_dialog/flora121_input_email_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_input_phone_dialog/flora121_input_phone_dialog.dart';
@@ -51,6 +52,17 @@ class Flora121CashCon extends Flora121BaseCon{
 
   clickCash(){
     if(null!=taskBean){
+      var totalList = Flora121CashTaskUtils.instance.getCashTaskTotalList(taskBean);
+      var currentList = Flora121CashTaskUtils.instance.getCashTaskCurrentList(taskBean);
+      var completedCurrentTask = Flora121CashTaskUtils.instance.checkCompletedCurrentTask(currentList, totalList);
+      if(completedCurrentTask){
+        Flora121RoutersHep.dialog(
+          child: Flora121CashSuccessDialog(
+            taskBean: taskBean,
+          ),
+        );
+        return;
+      }
       showCashTaskDialog();
       return;
     }

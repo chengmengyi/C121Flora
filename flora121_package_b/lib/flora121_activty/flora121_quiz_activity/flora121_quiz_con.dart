@@ -4,11 +4,14 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121QuizCon extends Flora121BaseCon{
@@ -47,11 +50,14 @@ class Flora121QuizCon extends Flora121BaseCon{
     await Future.delayed(Duration(milliseconds: 1000));
     canClick=true;
     var result = quizBean?.selectedAnswer==quizBean?.answer;
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.quiz);
     if(result==true){
       answerRightNum++;
       Flora121RoutersHep.dialog(
         child: Flora121CommonGetDialog(
           addNum: Flora121ValueUtils.instance.getQuizAddNum(),
+          rvAdEnum: Flora121AdEnum.frfcn_quiz_rv,
+          intAdEnum: Flora121AdEnum.frfcn_quiz_int,
           dismissCallback: (received){
             _updateNextQuiz(result);
           },
@@ -92,6 +98,8 @@ class Flora121QuizCon extends Flora121BaseCon{
       Flora121RoutersHep.dialog(
         child: Flora121CommonGetDialog(
           addNum: Flora121ValueUtils.instance.getQuizWheelAddNum(),
+          rvAdEnum: Flora121AdEnum.frfcn_quiz_rv,
+          intAdEnum: Flora121AdEnum.frfcn_quiz_int,
           dismissCallback: (received){
             if(received){
               bean.type=Flora121QuizWheelRewardType.received;

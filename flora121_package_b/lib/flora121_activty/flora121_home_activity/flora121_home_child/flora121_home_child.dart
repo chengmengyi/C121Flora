@@ -3,7 +3,6 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
-import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_con.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
@@ -13,7 +12,6 @@ import 'package:flora121_package_b/flora121_view/flora121_energy_item_widget.dar
 import 'package:flora121_package_b/flora121_view/flora121_health_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_home_top_reward_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
-import 'package:flora121_package_b/flora121_view/flora121_water_view.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/material.dart';
 
@@ -129,7 +127,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     flora121energyType: type,
     treeGlobalKey: key,
     clickItem: (){
-      baseCon.clickEnergy();
+      baseCon.clickEnergy(type);
     },
   );
 

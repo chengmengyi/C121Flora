@@ -16,4 +16,6 @@ class Flora121StorageName{
   static const String bHomeWaterItemCD="bHomeWaterItemCD";
   static const String bCashTaskConfigStr="bCashTaskConfigStr";
   static const String bValueConfigStr="bValueConfigStr";
+  static const String bShowOpenAd="bShowOpenAd";
+  static const String bAdProbabilityConfigStr="bAdProbabilityConfigStr";
 }

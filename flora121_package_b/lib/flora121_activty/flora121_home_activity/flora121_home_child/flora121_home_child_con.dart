@@ -7,6 +7,8 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
@@ -27,6 +29,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
+import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +51,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   @override
   void onInit() {
     super.onInit();
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_page);
     _startEnergyTimer();
   }
 
@@ -59,7 +63,8 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     _getStoreList();
   }
 
-  clickEnergy()async{
+  clickEnergy(Flora121EnergyType type)async{
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_bubble_c,params: {"type":type.name});
     Flora121EnergyUtils.instance.updateCollectEnergyNum();
     update(["level","flower"]);
     _checkShowReward();
@@ -77,10 +82,14 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
         addNum: bean.addNum?.toDouble()??0.0,
+        rvAdEnum: Flora121AdEnum.frfcn_signin_rv,
+        intAdEnum: Flora121AdEnum.frfcn_signin_int,
         dismissCallback: (received)async{
           if(received){
             var result = await Flora121SignUtils.instance.sign(bean);
             if(result){
+              Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_signin_c,params: {"days":bean.day});
+              Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.sign);
               update(["level"]);
             }
           }
@@ -216,6 +225,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121Ttt.instance.uploadSessionEvent();
 
 
-    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.bubbles);
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
   }
 }

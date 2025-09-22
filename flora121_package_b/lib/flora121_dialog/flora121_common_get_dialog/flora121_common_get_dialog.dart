@@ -1,6 +1,7 @@
 import 'package:flora121_base/flora121_base/flora121_base_dialog.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
@@ -13,15 +14,28 @@ import 'package:flutter/material.dart';
 class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialogCon>{
   double addNum;
   bool fromNewUser;
+  Flora121AdEnum rvAdEnum;
+  Flora121AdEnum intAdEnum;
   Function(bool received) dismissCallback;
+  bool fromNewUserGuideStep1;
+  bool fromNewUserGuideStep4;
   Flora121CommonGetDialog({
     required this.addNum,
+    required this.rvAdEnum,
+    required this.intAdEnum,
     this.fromNewUser=false,
+    this.fromNewUserGuideStep1=false,
+    this.fromNewUserGuideStep4=false,
     required this.dismissCallback,
 });
 
   @override
   Flora121CommonGetDialogCon initBaseConFlora121() => Flora121CommonGetDialogCon();
+
+  @override
+  onFlora121Init() {
+    baseCon.uploadShowPointEvent(rvAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4);
+  }
 
   @override
   Widget initBaseWidgetFlora121() => Column(
@@ -61,7 +75,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
       SizedBox(height: 32.h,),
       Flora121Click(
         onTap: (){
-          baseCon.clickClose(addNum,dismissCallback);
+          baseCon.clickClose(addNum,intAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4,dismissCallback);
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),
@@ -113,8 +127,9 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
   _btnWidget()=>Flora121WatchVideoBtnWidget(
     text: "Claim",
     btnColor: "#FBAC00",
+    showVideoIcon: !fromNewUser,
     onTap: (){
-      baseCon.clickDouble(addNum,fromNewUser,dismissCallback);
+      baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4,dismissCallback);
     },
   );
 

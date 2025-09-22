@@ -48,7 +48,12 @@ String formatDuration(int seconds) {
 }
 
 extension StringBase64 on String{
-  String base64()=>const Utf8Decoder().convert(base64Decode(this));
+  String base64(){
+    if(isEmpty){
+      return "";
+    }
+    return const Utf8Decoder().convert(base64Decode(this));
+  }
 }
 
 toWebActivity(String title,String url){

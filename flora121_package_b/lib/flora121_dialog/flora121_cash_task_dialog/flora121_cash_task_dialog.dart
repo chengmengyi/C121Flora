@@ -1,6 +1,8 @@
 import 'package:flora121_base/flora121_base/flora121_base_dialog.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
@@ -17,6 +19,11 @@ class Flora121CashTaskDialog extends Flora121BaseDialog<Flora121CashTaskDialogCo
 
   @override
   Flora121CashTaskDialogCon initBaseConFlora121() => Flora121CashTaskDialogCon();
+
+  @override
+  onFlora121Init() {
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_task_pop,params: {"from_task":taskBean?.cashTaskIndex});
+  }
 
   @override
   Widget initBaseWidgetFlora121() => Column(

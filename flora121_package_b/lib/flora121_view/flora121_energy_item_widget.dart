@@ -5,10 +5,12 @@ import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.d
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
@@ -16,6 +18,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_routers.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -115,6 +118,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
       _clickWater();
       return;
     }
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.bubbles);
     widget.clickItem.call();
     setState(() {
       showEnergy=false;
@@ -127,6 +131,8 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         Flora121RoutersHep.dialog(
           child: Flora121CommonGetDialog(
             addNum: addNum,
+            rvAdEnum: Flora121AdEnum.frfcn_cash_rv,
+            intAdEnum: Flora121AdEnum.frfcn_cash_int,
             dismissCallback: (received){},
           ),
         );
@@ -161,11 +167,14 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     }else{
       bHomeWaterItemCD.saveData(3600);
     }
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.water);
     widget.clickItem.call();
     _startWaterTimer();
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
         addNum: addNum,
+        rvAdEnum: Flora121AdEnum.frfcn_drink_rv,
+        intAdEnum: Flora121AdEnum.frfcn_drink_int,
         dismissCallback: (received){},
       ),
     );

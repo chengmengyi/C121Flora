@@ -3,15 +3,20 @@ import 'dart:math';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_no_wheel_dialog/flora121_no_wheel_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_wheel_get_dialog/flora121_wheel_get_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProviderStateMixin{
@@ -31,6 +36,7 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     if(!canClick){
       return;
     }
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_c);
     if(Flora121WheelUtils.instance.wheelNum<=0){
       Flora121RoutersHep.dialog(child: Flora121NoWheelDialog());
       return;
@@ -45,6 +51,18 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     if(bWheelGiftNum.getData()<5){
       return;
     }
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page_gift);
+    // Flora121RoutersHep.dialog(
+    //   child: Flora121CommonGetDialog(
+    //     addNum: Flora121ValueUtils.instance.getWaterAddNum(),
+    //     rvAdEnum: rvAdEnum,
+    //     intAdEnum: intAdEnum,
+    //     dismissCallback: (r){
+    //       Flora121WheelUtils.instance.resetGiftNum();
+    //       update(["gift"]);
+    //     },
+    //   ),
+    // );
     // Flora121RoutersHep.dialog(
     //   child: Flora121GetWaterDialog(
     //     waterNum: 1,
@@ -82,6 +100,7 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
 
   _wheelAnimatorFinish()async{
     await Future.delayed(Duration(milliseconds: 1000));
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.wheel);
     Flora121WheelUtils.instance.updateWheelNum(-1);
     Flora121WheelUtils.instance.updateWheelGiftNum();
     update(["wheel_num","gift"]);

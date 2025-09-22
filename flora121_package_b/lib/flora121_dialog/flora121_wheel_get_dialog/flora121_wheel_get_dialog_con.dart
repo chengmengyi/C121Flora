@@ -4,6 +4,8 @@ import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_ad_probability_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 
@@ -19,8 +21,12 @@ class Flora121WheelGetDialogCon extends Flora121BaseCon{
   clickDouble(double addNum,Function(bool received) dismissCallback){
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.reward,
-      closeAd: (){
-        Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
+      adEnum: Flora121AdEnum.frfcn_wheel_rv,
+      showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.reward),
+      closeAd: (give){
+        if(give){
+          Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
+        }
         Flora121RoutersHep.back();
         dismissCallback.call(true);
       },
@@ -28,8 +34,15 @@ class Flora121WheelGetDialogCon extends Flora121BaseCon{
   }
 
   clickClose(double addNum,Function(bool received) dismissCallback){
-    Flora121RoutersHep.back();
-    dismissCallback.call(false);
+    Flora121AdHep.instance.showFlora121BBBBBBB(
+      adType: AdType.interstitial,
+      adEnum: Flora121AdEnum.frfcn_wheel_int,
+      showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.interstitial),
+      closeAd: (give){
+        Flora121RoutersHep.back();
+        dismissCallback.call(false);
+      },
+    );
   }
 
   _startTimer(){

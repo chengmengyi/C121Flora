@@ -2,10 +2,13 @@ import 'package:flora121_base/flora121_base/flora121_base_stateful.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +18,14 @@ class  Flora121HomeTopRewardView extends Flora121BaseStateful{
 }
 
 class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121HomeTopRewardView>{
+  GlobalKey globalKey=GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    _uploadTba();
+  }
+
   @override
   Widget initBaseWidgetFlora121() => Flora121Click(
     onTap: (){
@@ -23,6 +34,7 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
     child: Container(
       width: double.infinity,
       height: 75.h,
+      key: globalKey,
       margin: EdgeInsets.only(left: 18.w,right: 18.w),
       child: Stack(
         alignment: Alignment.centerLeft,
@@ -91,6 +103,21 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
     ),
   );
 
+  _uploadTba(){
+    var data = bMyMoneyNum.getData();
+    var type=0;
+    if(data<25){
+      type=1;
+    }else if (data<49){
+      type=2;
+    }else if(data<50){
+      type=3;
+    }else{
+      type=4;
+    }
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_progress_bar,params: {"type":type});
+  }
+
   String getTitleStr(){
     var data = bMyMoneyNum.getData();
     if(data<25){
@@ -125,6 +152,15 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
       case Flora121EventCode.updateMyMoney:
         setState(() {});
         break;
+      case Flora121EventCode.showNewUserStep8HomeProgressGuide:
+        showNewUserStep8HomeProgressGuide();
+        break;
     }
+  }
+
+  showNewUserStep8HomeProgressGuide(){
+    var renderBox = globalKey.currentContext?.findRenderObject() as RenderBox;
+    var offset = renderBox.localToGlobal(Offset.zero);
+    Flora121UserGuideUtils.instance.showStep8Guide(context, offset);
   }
 }

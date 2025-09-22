@@ -3,11 +3,16 @@ import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
@@ -43,6 +48,7 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
 
   clickStart({bool fromNewUserGuide=false}){
     if (_isAnimating) return; // 避免动画还在进行时重复触发
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.dice_c);
     _isAnimating = true;
 
     // 重置所有 controller
@@ -99,10 +105,14 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
     bDiceStepIndex.saveData(bDiceStepIndex.getData()+1);
     bDiceLargeIndex.saveData(currentDiceLargeIndex);
     bDiceSmallIndex.saveData(currentDiceSmallIndex);
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
         addNum: Flora121ValueUtils.instance.getDiceAddNum(),
+        rvAdEnum: Flora121AdEnum.frfcn_dice_rv,
+        intAdEnum: Flora121AdEnum.frfcn_dice_int,
         fromNewUser: fromNewUserGuide,
+        fromNewUserGuideStep4: true,
         dismissCallback: (received){
           if(fromNewUserGuide){
             Flora121UserGuideUtils.instance.showStep5Guide(context);

@@ -21,7 +21,10 @@ dependencies:
   webview_flutter: 4.13.0
   fluttertoast: 8.2.12
   outlined_text: 1.0.1
-  flutter_ad_ios_plugins: 0.1.4
+  flutter_ad_ios_plugins:
+    git:
+      url: https://github.com/Li-Xiang-Lan/flutter_ad_ios_plugins.git
+      ref: 0.1.6
   audioplayers: 6.1.0
   flutter_app_lifecycle: 0.0.3
   decimal: 3.2.4

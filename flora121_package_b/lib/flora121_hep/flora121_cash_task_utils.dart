@@ -84,22 +84,27 @@ class Flora121CashTaskUtils{
       if(totalIndex>=0&&currentIndex>=0){
         var totalTask = totalList[totalIndex];
         var currentTask = currentList[currentIndex];
-        if(taskBean.cashTaskIndex==Flora121CashTaskIndex.tasks5&&(currentTask.taskNum??0)>=(totalTask.taskNum??0)){
+        if(taskBean.cashTaskIndex==Flora121CashTaskIndex.tasks5&&checkCompletedCurrentTask(currentList, totalList)){
           continue;
         }
         currentTask.taskNum=(currentTask.taskNum??0)+1;
-        _checkCompletedCurrentTask(currentList,totalList);
-        // if((currentTask.taskNum??0)>=(totalTask.taskNum??0)){
-        if((currentTask.taskNum??0)>=(totalTask.taskNum??0)){
-          var nextCashTaskIndex = getNextCashTaskIndex(taskBean.cashTaskIndex);
-          taskBean.cashTaskIndex=nextCashTaskIndex;
-          var taskListByIndex = getTaskListByIndex(nextCashTaskIndex)??[];
-          List<Task1> currentProgressList=[];
-          for (var value in taskListByIndex) {
-            currentProgressList.add(Task1(taskName: value.taskName,taskNum: 0));
+        if((currentTask.taskNum??0)>(totalTask.taskNum??0)){
+          currentTask.taskNum=totalTask.taskNum;
+        }
+        if(checkCompletedCurrentTask(currentList, totalList)){
+          if(taskBean.cashTaskIndex==Flora121CashTaskIndex.tasks5){
+            taskBean.currentProgress=jsonEncode(currentList);
+          }else{
+            var nextCashTaskIndex = getNextCashTaskIndex(taskBean.cashTaskIndex);
+            taskBean.cashTaskIndex=nextCashTaskIndex;
+            var taskListByIndex = getTaskListByIndex(nextCashTaskIndex)??[];
+            List<Task1> currentProgressList=[];
+            for (var value in taskListByIndex) {
+              currentProgressList.add(Task1(taskName: value.taskName,taskNum: 0));
+            }
+            taskBean.currentProgress=jsonEncode(currentProgressList);
+            taskBean.totalProgress=jsonEncode(taskListByIndex);
           }
-          taskBean.currentProgress=jsonEncode(currentProgressList);
-          taskBean.totalProgress=jsonEncode(taskListByIndex);
         }else{
           taskBean.currentProgress=jsonEncode(currentList);
         }
@@ -109,8 +114,27 @@ class Flora121CashTaskUtils{
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateCashTask,);
   }
 
-  bool _checkCompletedCurrentTask(List<Task1> currentList, List<Task1> totalList){
+  deleteCashTask(Flora121CashTaskBean? taskBean)async{
+    var database = await Flora121BaseSqlUtils.instance.initSql();
+    var list = await database.query(Flora121SqlName.bCashTask,where: '"cashMoney" = ? AND "cashType" = ?',whereArgs: [taskBean?.cashMoney,taskBean?.cashType]);
+    if(list.isEmpty){
+      return;
+    }
+    await database.delete(Flora121SqlName.bCashTask,where: '"id" = ?',whereArgs: [list.first["id"]]);
+    Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateCashTask,);
+  }
 
+  bool checkCompletedCurrentTask(List<Task1> currentList, List<Task1> totalList){
+    if(currentList.length!=totalList.length){
+      return false;
+    }
+    for(var index=0;index<currentList.length;index++){
+      var currentTaskNum = currentList[index].taskNum??0;
+      var totalTaskNum = totalList[index].taskNum??0;
+      if(currentTaskNum<totalTaskNum){
+        return false;
+      }
+    }
     return true;
   }
 

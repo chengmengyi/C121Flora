@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
+import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
 import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 import 'package:flutter_check_af/dio/dio_hep.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
@@ -54,7 +58,49 @@ class Flora121Ttt {
     FlutterCheckAf.instance.log("ttt---->session--->result:${dioResult.success}---->$map");
   }
 
+  uploadAdEvent({
+    required AdMoneyInfoBean? ad,
+    required Flora121AdEnum adEnum,
+    required AdInfoData? adInfoData,
+    int tryNum=5,
+  })async{
+    var logId = await FlutterTbaInfo.instance.getLogId();
+    var map = await _initTopMap(logId);
+    map["pillar"]={
+      "off":(ad?.revenue??0)*1000000,
+      "patch":"USD",
+      "triton":ad?.networkName??"",
+      "irritant":adInfoData?.adPlat??"",
+      "mundane":adInfoData?.adId??"",
+      "benedict":adEnum.name,
+      "spoke":adInfoData?.adType.name,
+      "flesh":ad?.revenuePrecision??"",
+    };
+    var headerMap = await _initHeaderMap();
+    var url = await _initUrl(logId);
+    FlutterCheckAf.instance.log("ttt---->ad--->params:$map");
+    var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
+    FlutterCheckAf.instance.log("ttt---->ad--->result:${dioResult.success}---->$map");
+  }
 
+  uploadPointEvent({
+    required Flora121PointEnum pointEnum,
+    Map<String,dynamic>? params,
+  })async{
+    var logId = await FlutterTbaInfo.instance.getLogId();
+    var map = await _initTopMap(logId);
+    map["mullein"]=pointEnum.name;
+    if(null!=params){
+      for (var value in params.keys) {
+        map["ace\$$value"]=params[value];
+      }
+    }
+    var headerMap = await _initHeaderMap();
+    var url = await _initUrl(logId);
+    FlutterCheckAf.instance.log("ttt---->point--->params:$map");
+    var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
+    FlutterCheckAf.instance.log("ttt---->point--->result:${dioResult.success}---->$map");
+  }
 
   Future<Map<String,dynamic>> _initTopMap(String logId)async{
     Map<String,dynamic> map={};

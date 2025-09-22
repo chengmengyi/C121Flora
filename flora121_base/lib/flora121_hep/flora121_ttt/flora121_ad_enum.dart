@@ -1,0 +1,18 @@
+enum Flora121AdEnum{
+  none,
+  frfcn_launch,
+  frfcn_signin_rv,
+  frfcn_signin_int,
+  frfcn_quiz_rv,
+  frfcn_quiz_int,
+  frfcn_wheel_rv,
+  frfcn_wheel_int,
+  frfcn_dice_rv,
+  frfcn_dice_int,
+  frfcn_drink_rv,
+  frfcn_drink_int,
+  frfcn_cash_rv,
+  frfcn_cash_int,
+  frfcn_level_rv,
+  frfcn_level_int,
+}

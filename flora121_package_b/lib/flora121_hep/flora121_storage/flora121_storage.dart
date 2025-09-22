@@ -17,9 +17,11 @@ StorageData<String> bShowNewUserGuideTimer=StorageData<String>(key: Flora121Stor
 StorageData<String> bShowOldUserGuideTimer=StorageData<String>(key: Flora121StorageName.bShowOldUserGuideTimer, defaultValue: "");
 StorageData<String> bCashTaskConfigStr=StorageData<String>(key: Flora121StorageName.bCashTaskConfigStr, defaultValue: "");
 StorageData<String> bValueConfigStr=StorageData<String>(key: Flora121StorageName.bValueConfigStr, defaultValue: "");
+StorageData<String> bAdProbabilityConfigStr=StorageData<String>(key: Flora121StorageName.bAdProbabilityConfigStr, defaultValue: "");
 
 
 StorageData<bool> bMoneyStatusOpen=StorageData<bool>(key: Flora121StorageName.bMoneyStatusOpen, defaultValue: true);
+StorageData<bool> bShowOpenAd=StorageData<bool>(key: Flora121StorageName.bShowOpenAd, defaultValue: false);
 
 
 StorageData<double> bMyMoneyNum=StorageData<double>(key: Flora121StorageName.bMyMoneyNum, defaultValue: 0.0);

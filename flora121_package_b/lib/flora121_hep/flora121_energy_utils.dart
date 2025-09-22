@@ -2,6 +2,7 @@ import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.d
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
@@ -57,6 +58,8 @@ class Flora121EnergyUtils{
       Flora121RoutersHep.dialog(
         child: Flora121CommonGetDialog(
           addNum: Flora121ValueUtils.instance.getUpLevelAddNum(),
+          rvAdEnum: Flora121AdEnum.frfcn_level_rv,
+          intAdEnum: Flora121AdEnum.frfcn_level_int,
           dismissCallback: (received){},
         ),
       );

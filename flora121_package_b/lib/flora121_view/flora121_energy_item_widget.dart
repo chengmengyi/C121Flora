@@ -115,6 +115,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
       _clickWater();
       return;
     }
+    widget.clickItem.call();
     setState(() {
       showEnergy=false;
     });
@@ -123,7 +124,6 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 2);
         break;
       case Flora121EnergyType.money:
-        widget.clickItem.call();
         Flora121RoutersHep.dialog(
           child: Flora121CommonGetDialog(
             addNum: addNum,
@@ -218,7 +218,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     var moneyOffset = moneyRenderBox.localToGlobal(Offset.zero);
     var treeRenderBox = widget.treeGlobalKey?.currentContext?.findRenderObject() as RenderBox;
     var treeOffset = treeRenderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep1Overlay(context, moneyOffset, treeOffset,addNum);
+    Flora121UserGuideUtils.instance.showStep1Overlay(context, moneyOffset, treeOffset);
   }
 
   showNewUerStep3Guide(Map? flora121map){

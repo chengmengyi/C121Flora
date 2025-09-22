@@ -1,0 +1,41 @@
+{
+"skeleton": {
+	"hash": "5heiz5fBr64",
+	"spine": "4.2.43",
+	"x": -48,
+	"y": -48,
+	"width": 96,
+	"height": 96,
+	"images": "",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "Rectangle 71", "bone": "root", "attachment": "Rectangle 71" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Rectangle 71": {
+				"Rectangle 71": { "width": 96, "height": 96 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"Rectangle 71": {
+				"rgba": [
+					{ "color": "ffffff00" },
+					{ "time": 0.6667, "color": "ffffffff" },
+					{ "time": 1.3333, "color": "ffffff00" }
+				]
+			}
+		}
+	}
+}
+}

@@ -64,7 +64,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
           baseCon.clickClose(addNum,dismissCallback);
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
-      )
+      ),
     ],
   );
 

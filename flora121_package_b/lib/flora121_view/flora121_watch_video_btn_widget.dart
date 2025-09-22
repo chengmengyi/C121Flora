@@ -8,12 +8,14 @@ import 'package:flutter/material.dart';
 class Flora121WatchVideoBtnWidget extends StatelessWidget{
   String text;
   String btnColor;
+  bool showVideoIcon;
   EdgeInsetsGeometry? margin;
   Function()? onTap;
   Flora121WatchVideoBtnWidget({
     required this.text,
     required this.btnColor,
     this.margin,
+    this.showVideoIcon=true,
     this.onTap,
   });
 
@@ -38,7 +40,10 @@ class Flora121WatchVideoBtnWidget extends StatelessWidget{
             ),
             child:Flora121TextView(text: text, color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
           ),
-          Flora121ImagesView(imagesName: "icon_video",width: 42.w,height: 42.h,),
+          Visibility(
+            visible: showVideoIcon,
+            child: Flora121ImagesView(imagesName: "icon_video",width: 42.w,height: 42.h,),
+          ),
         ],
       ),
     ),

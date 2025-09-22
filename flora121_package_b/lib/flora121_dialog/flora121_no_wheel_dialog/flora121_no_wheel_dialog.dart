@@ -29,10 +29,10 @@ class Flora121NoWheelDialog extends Flora121BaseDialog<Flora121NoWheelDialogCon>
               children: [
                 Flora121TextView(text: "No more spins available", color: "#7A5040", size: 16.sp,fontWeight: FontWeight.bold,),
                 Flora121ImagesView(imagesName: "no_wheel2",width: 113.w,height: 113.w,),
-                Flora121TextView(text: "Continue to participate tomorrow", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
+                Flora121TextView(text: "Quiz Now - Earn Spins!", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
                 Flora121Click(
                   onTap: (){
-                    Flora121RoutersHep.back();
+                    baseCon.clickEarn();
                   },
                   child: Container(
                     width: double.infinity,
@@ -43,7 +43,7 @@ class Flora121NoWheelDialog extends Flora121BaseDialog<Flora121NoWheelDialogCon>
                       borderRadius: BorderRadius.circular(15.w),
                       color: "#4C7D0A".toColor(),
                     ),
-                    child: Flora121TextView(text: "OK", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold),
+                    child: Flora121TextView(text: "Earn Spins", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -54,7 +54,7 @@ class Flora121NoWheelDialog extends Flora121BaseDialog<Flora121NoWheelDialogCon>
       SizedBox(height: 18.h,),
       Flora121Click(
         onTap: (){
-          Flora121RoutersHep.back();
+          baseCon.clickClose();
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),

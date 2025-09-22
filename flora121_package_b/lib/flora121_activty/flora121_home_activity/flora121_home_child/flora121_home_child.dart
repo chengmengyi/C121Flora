@@ -3,12 +3,15 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
+import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_con.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
+import 'package:flora121_package_b/flora121_view/flora121_cash_record_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_energy_item_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_health_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_home_top_reward_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_water_view.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
@@ -26,7 +29,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 150.h,),
-          Flora121WaterView(),
+          Flora121HomeTopRewardView(),
         ],
       ),
       Align(
@@ -54,11 +57,11 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
   _flowerWidget()=>Stack(
     alignment: Alignment.bottomCenter,
     children: [
-      Flora121ImagesView(imagesName: "home15",width: 89.w,height: 27.h,),
+      Flora121ImagesView(imagesName: "home15",width: 200.w,height: 65.h,),
       Container(
         width: double.infinity,
         height: 280.h,
-        margin: EdgeInsets.only(bottom: 13.h),
+        margin: EdgeInsets.only(bottom: 30.h),
         child: Stack(
           children: [
             GetBuilder<Flora121HomeChildCon>(
@@ -74,6 +77,14 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                           baseCon.test();
                         },
                         child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
+                        // child: Flora121SpineAnimatorView(
+                        //   atlasFile: "flower5",
+                        //   skeletonFile: "skeleton",
+                        //   animatorName: "animation",
+                        //   folder: "flower5",
+                        //   width: 100.w,
+                        //   height: 200.h,
+                        // ),
                       ),
                     ),
                   ),
@@ -109,12 +120,14 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
             ),
           ],
         ),
-      )
+      ),
+      Flora121CashRecordView(),
     ],
   );
 
   _energyItemWidget(Flora121EnergyType type,{GlobalKey? key})=>Flora121EnergyItemWidget(
     flora121energyType: type,
+    treeGlobalKey: key,
     clickItem: (){
       baseCon.clickEnergy();
     },
@@ -174,7 +187,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                 ),
                 SizedBox(
                   key: baseCon.rewardGlobalKey,
-                  child: Flora121ImagesView(imagesName: "home8",width: 51.w,height: 51.w,),
+                  child: Flora121ImagesView(imagesName: "home16",width: 51.w,height: 51.w,),
                 ),
               ],
             ),
@@ -264,7 +277,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                             ),
                           ),
                         ),
-                        Flora121ImagesView(imagesName: baseCon.getSignIcon(bean),width: 20.w,height: 20.w,),
+                        Flora121ImagesView(imagesName: "icon_money",width: 20.w,height: 20.w,),
                         Visibility(
                           visible: bean.signedTimer?.isNotEmpty==true,
                           child: Container(

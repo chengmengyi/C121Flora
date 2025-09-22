@@ -26,6 +26,9 @@ dependencies:
   flutter_app_lifecycle: 0.0.3
   decimal: 3.2.4
   marqueer: 2.1.0
+  spine_flutter: 4.2.36
+  flutter_tba_info: 0.0.9
+  flutter_check_af: 0.0.7
 
 
 dev_dependencies:

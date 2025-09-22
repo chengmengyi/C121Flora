@@ -4,6 +4,7 @@ import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 
 class Flora121OldUserDialogCon extends Flora121BaseCon{
@@ -18,12 +19,8 @@ class Flora121OldUserDialogCon extends Flora121BaseCon{
   }
 
   clickDouble(){
-    Flora121AdHep.instance.showFlora121BBBBBBB(
-      adType: AdType.reward,
-      closeAd: (){
-        Flora121RoutersHep.back();
-      },
-    );
+    Flora121UserInfoUtils.instance.updateMyMoney(addNum);
+    Flora121RoutersHep.back();
   }
 
   clickClose(){

@@ -14,4 +14,6 @@ class Flora121StorageName{
   static const String bSelectCashType="bSelectCashType";
   static const String bShowOldUserGuideTimer="bShowOldUserGuideTimer";
   static const String bHomeWaterItemCD="bHomeWaterItemCD";
+  static const String bCashTaskConfigStr="bCashTaskConfigStr";
+  static const String bValueConfigStr="bValueConfigStr";
 }

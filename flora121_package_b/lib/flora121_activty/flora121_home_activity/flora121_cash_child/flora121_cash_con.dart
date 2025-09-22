@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
@@ -7,30 +8,35 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_amount_bean.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_cash_task_config_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_cash_task_dialog/flora121_cash_task_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_input_email_dialog/flora121_input_email_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_input_phone_dialog/flora121_input_phone_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_input_pix_dialog/flora121_input_pix_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_no_money_dialog/flora121_no_money_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121CashCon extends Flora121BaseCon{
   var chooseIndex=0;
-  List<List<Widget>> marqueeList=[];
+
   GlobalKey firstCashAmountGlobalKey=GlobalKey();
   GlobalKey cashBtnGlobalKey=GlobalKey();
   List<Flora121AmountBean> amountList=[];
+  Flora121CashTaskBean? taskBean;
 
   @override
   void onReady() {
     super.onReady();
-    _initMarqueeList();
     _initAmountList();
   }
 
@@ -40,20 +46,14 @@ class Flora121CashCon extends Flora121BaseCon{
     }
     chooseIndex=index;
     update(["amount"]);
+    _queryCashTaskInfo();
   }
 
   clickCash(){
-    Flora121RoutersHep.dialog(
-      child: Flora121InputPixDialog(
-        sureCallback: (account){
-
-        },
-      ),
-    );
-    return;
-
-
-
+    if(null!=taskBean){
+      showCashTaskDialog();
+      return;
+    }
     var myMoney= bMyMoneyNum.getData();
     var bean = amountList[chooseIndex];
     if(myMoney<bean.money){
@@ -70,7 +70,7 @@ class Flora121CashCon extends Flora121BaseCon{
           child: Flora121InputEmailDialog(
             cashType: cashType,
             sureCallback: (account){
-
+              _inputAccountResult(account,bean.money);
             },
           ),
         );
@@ -80,7 +80,7 @@ class Flora121CashCon extends Flora121BaseCon{
           child: Flora121InputPhoneDialog(
             cashType: cashType,
             sureCallback: (account){
-
+              _inputAccountResult(account,bean.money);
             },
           ),
         );
@@ -89,7 +89,7 @@ class Flora121CashCon extends Flora121BaseCon{
         Flora121RoutersHep.dialog(
           child: Flora121InputPixDialog(
             sureCallback: (account){
-
+              _inputAccountResult(account,bean.money);
             },
           ),
         );
@@ -97,64 +97,50 @@ class Flora121CashCon extends Flora121BaseCon{
     }
   }
 
-  _initAmountList(){
+  _inputAccountResult(String account, int money)async{
+    await Flora121CashTaskUtils.instance.createCashTask(cashMoney: money, cashType: bSelectCashType.getData(), account: account,);
+    _initAmountList();
+  }
+
+  showCashTaskDialog(){
+    Flora121RoutersHep.dialog(
+      child: Flora121CashTaskDialog(
+        taskBean: taskBean,
+      ),
+    );
+  }
+
+  _initAmountList()async{
     amountList.clear();
     for (var value in Flora121ValueUtils.instance.getCashList()) {
       amountList.add(Flora121AmountBean(money: value));
     }
     update(["amount"]);
-  }
-
-  _initMarqueeList()async{
-    var iconList = ["icon_cashapp_circle","icon_pagbank_circle","icon_paypal_circle","icon_pix_circle"];
-    while(marqueeList.length<3){
-      List<Widget> childList=[];
-      while(childList.length<20){
-        var id = Flora121UserInfoUtils.instance.generateRandomString(9);
-        var money = Flora121ValueUtils.instance.getCashList().random();
-        var icon = iconList.random();
-        childList.add(
-            Container(
-              padding: EdgeInsets.only(right: 16.w),
-              margin: EdgeInsets.only(left: 10.w,right: 10.w),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18.w),
-                color: "#565656".toColor(),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flora121ImagesView(imagesName: icon,width: 20.w,height: 20.w,),
-                  SizedBox(width: 10.w,),
-                  Flora121TextView(text: "Congrats,", color: "#FFFFFF", size: 10.sp,fontWeight: FontWeight.bold,),
-                  Flora121TextView(text: idStar(id), color: "#20D810", size: 10.sp,fontWeight: FontWeight.bold,),
-                  Flora121TextView(text: " withdraw ", color: "#FFFFFF", size: 10.sp,fontWeight: FontWeight.bold,),
-                  Flora121TextView(text: "\$$money", color: "#FFEA00", size: 10.sp,fontWeight: FontWeight.bold,),
-                ],
-              ),
-            )
-        );
-      }
-      await Future.delayed(Duration(milliseconds: Random().nextInt(1000)+1000));
-      marqueeList.add(childList);
-      update(["marquee"]);
+    if(amountList.isNotEmpty){
+      _queryCashTaskInfo();
     }
   }
 
-  double getCashLeft(){
-    var first = Flora121ValueUtils.instance.getCashList().first;
+  _queryCashTaskInfo()async{
+    taskBean = await Flora121CashTaskUtils.instance.queryCashTaskByMoneyAndType(cashMoney: amountList[chooseIndex].money, cashType: bSelectCashType.getData());
+    update(["task"]);
+  }
+
+  double getCashLeft(int money){
     var data = bMyMoneyNum.getData();
-    var result = (Decimal.fromInt(first)-Decimal.fromJson("$data")).toDouble();
+    var result = (Decimal.fromInt(money)-Decimal.fromJson("$data")).toDouble();
     if(result<0){
       return 0;
     }
     return result;
   }
 
-  double getCashLeftProgress(){
-    var first = Flora121ValueUtils.instance.getCashList().first;
+  double getCashLeftProgress(int money){
+    if(money==0){
+      return 0.0;
+    }
     var data = bMyMoneyNum.getData();
-    var d = data/first;
+    var d = data/money;
     if(d<0){
       return 0.0;
     }else if(d>1){
@@ -172,6 +158,9 @@ class Flora121CashCon extends Flora121BaseCon{
     switch(flora121Code){
       case Flora121EventCode.showNewUserStep6GuideFirstCashAmount:
         showNewUserStep6GuideFirstCashAmount();
+        break;
+      case Flora121EventCode.updateCashTask:
+        _queryCashTaskInfo();
         break;
     }
   }

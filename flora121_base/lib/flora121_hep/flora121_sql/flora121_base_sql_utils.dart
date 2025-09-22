@@ -7,18 +7,23 @@ class Flora121BaseSqlUtils{
 
   Future<Database> initSql() async => await openDatabase(
       "flora121.db",
-      version: 1,
+      version: 2,
       onCreate: (db,version)async{
         db.execute('CREATE TABLE ${Flora121SqlName.aUserInfo} (id INTEGER PRIMARY KEY AUTOINCREMENT, headIcon TEXT, userId TEXT, healthNum INTEGER)');
         db.execute('CREATE TABLE ${Flora121SqlName.aTask} (id INTEGER PRIMARY KEY AUTOINCREMENT, taskText TEXT, timeStr TEXT, currentPro INTEGER, totalPro INTEGER, healthReward INTEGER,taskType TEXT)');
         db.execute('CREATE TABLE ${Flora121SqlName.aEnergy} (id INTEGER PRIMARY KEY AUTOINCREMENT, energyType TEXT, currentTime INTEGER, totalTime INTEGER,addNum INTEGER,taskType TEXT)');
         db.execute('CREATE TABLE ${Flora121SqlName.aSign} (id INTEGER PRIMARY KEY AUTOINCREMENT, signType TEXT, addNum INTEGER, signedTimer TEXT, day INTEGER)');
-        // _createVersion2DB(db);
+        _createVersion2DB(db);
       },
-      // onUpgrade: (db,oldVersion,newVersion){
-      //   if(newVersion==2){
-      //     _createVersion2DB(db);
-      //   }
-      // }
+      onUpgrade: (db,oldVersion,newVersion){
+        if(newVersion==2){
+          _createVersion2DB(db);
+        }
+      }
   );
+
+  _createVersion2DB(Database db){
+    db.execute('CREATE TABLE ${Flora121SqlName.bCashTask} (id INTEGER PRIMARY KEY AUTOINCREMENT, cashMoney INTEGER, cashType TEXT, cashTaskIndex TEXT,currentProgress TEXT,totalProgress TEXT,cashAccount TEXT)');
+    db.execute('CREATE TABLE ${Flora121SqlName.bSign} (id INTEGER PRIMARY KEY AUTOINCREMENT, addNum INTEGER, signedTimer TEXT, day INTEGER)');
+  }
 }

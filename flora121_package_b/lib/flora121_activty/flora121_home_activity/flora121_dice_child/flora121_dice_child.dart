@@ -3,6 +3,7 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
+import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_con.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
         itemCount: 300,
         shrinkWrap: true,
         controller: baseCon.scrollController,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context,index)=>_listItemWidget(index),
       ),
     ),
@@ -108,20 +110,27 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
   );
 
   _diceItemWidget(int largeIndex,int smallIndex,icon)=>SizedBox(
-    width: 84,
+    width: 84.w,
     height: 84.w,
     child: Stack(
       alignment: Alignment.center,
       children: [
-        Flora121ImagesView(imagesName: icon,width: 70.w,height: 70.w,),
+        Opacity(
+          opacity: baseCon.currentDiceLargeIndex>=largeIndex&&baseCon.currentDiceSmallIndex>smallIndex?0.5:1,
+          child: Flora121ImagesView(imagesName: icon,width: 70.w,height: 70.w,),
+        ),
         Visibility(
           visible: baseCon.currentDiceLargeIndex==largeIndex&&baseCon.currentDiceSmallIndex==smallIndex,
-          child: Container(
-            width: 40.w,
-            height: 40.w,
-            color: Colors.red,
+          child: Flora121SpineAnimatorView(
+            atlasFile: "touzi-light",
+            skeletonFile: "skeleton",
+            animatorName: "animation",
+            folder: "dice",
+            width: 84.w,
+            height: 84.w,
           ),
-        )
+        ),
+
       ],
     ),
   );

@@ -7,13 +7,16 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_store_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_set_dialog/flora121_set_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_store_detail_dialog/flora121_store_detail_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
@@ -22,6 +25,8 @@ import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storag
 import 'package:flora121_package_b/flora121_hep/flora121_store_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +54,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   @override
   void onReady() {
     super.onReady();
-    Flora121UserGuideUtils.instance.checkShowNewUserGuide();
     _getEnergyList();
     _getSignList();
     _getStoreList();
@@ -70,28 +74,19 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     if(!canSign){
       return;
     }
-    if(bean.signType==TaskType.water){
-      Flora121RoutersHep.dialog(
-        child: Flora121GetWaterDialog(
-          waterNum: bean.addNum??0,
-          taskType: bean.signType??"",
-          isHealth: true,
-          getCallback: ()async{
+    Flora121RoutersHep.dialog(
+      child: Flora121CommonGetDialog(
+        addNum: bean.addNum?.toDouble()??0.0,
+        dismissCallback: (received)async{
+          if(received){
             var result = await Flora121SignUtils.instance.sign(bean);
             if(result){
-              Flora121TaskUtils.instance.updateTaskBySign(bean);
               update(["level"]);
             }
-          },
-        ),
-      );
-    }else{
-      var result = await Flora121SignUtils.instance.sign(bean);
-      if(result){
-        Flora121TaskUtils.instance.updateTaskBySign(bean);
-        update(["level"]);
-      }
-    }
+          }
+        },
+      ),
+    );
   }
 
   _getEnergyList()async{
@@ -105,7 +100,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     _generatePositions();
   }
 
-  _generatePositions() {
+  _generatePositions() async{
     final screenWidth = MediaQuery.of(context).size.width-70.w;
     double areaHeight = 260.h;
 
@@ -131,6 +126,8 @@ class Flora121HomeChildCon extends Flora121BaseCon{
       energyList[index].flowerCenter=flowerCenter;
     }
     update(["flower"]);
+    await Future.delayed(Duration(milliseconds: 1000));
+    Flora121UserGuideUtils.instance.checkShowNewUserGuide();
   }
 
   _getSignList()async{
@@ -187,15 +184,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     }
   }
 
-  String getSignIcon(Flora121SignBean signBean){
-    switch(signBean.signType){
-      case TaskType.suns: return "sign_sun";
-      case TaskType.fertilizer: return "sign_f";
-      case TaskType.water: return "sign_water";
-      default: return "sign_sun";
-    }
-  }
-
   clickStore(Flora121StoreBean bean){
     Flora121RoutersHep.dialog(child: Flora121StoreDetailDialog(bean: bean));
   }
@@ -218,9 +206,16 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     super.onClose();
   }
 
-  test(){
+  test()async{
     if(!kDebugMode){
       return;
     }
+    // Flora121EnergyUtils.instance.updateCollectEnergyNum();
+    // Flora121ValueUtils.instance.initValue();
+
+    // Flora121Ttt.instance.uploadSessionEvent();
+
+
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.bubbles);
   }
 }

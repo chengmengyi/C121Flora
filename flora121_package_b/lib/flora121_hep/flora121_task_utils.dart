@@ -71,26 +71,26 @@ class Flora121TaskUtils{
   }
 
   updateTaskBySign(Flora121SignBean bean)async{
-    var todayTask = await getTodayTask();
-    if(null==todayTask){
-      return;
-    }
-    if(bean.signType!=todayTask.taskType){
-      return;
-    }
-    todayTask.currentPro=(todayTask.currentPro??0)+(bean.addNum??0);
-    if((todayTask.currentPro??0)>(todayTask.totalPro??0)){
-      todayTask.currentPro=todayTask.totalPro;
-    }
-    var timeStr = getTodayTimeStr();
-    var database = await Flora121BaseSqlUtils.instance.initSql();
-    var list = await database.query(Flora121SqlName.aTask,where: 'timeStr = ?',whereArgs: [timeStr]);
-    if(list.isEmpty){
-      return;
-    }
-    await database.update(Flora121SqlName.aTask,todayTask.toJson(),where: 'timeStr = ?',whereArgs: [timeStr]);
-    print("kk======updateTaskBySign=");
-    Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateTask);
+    // var todayTask = await getTodayTask();
+    // if(null==todayTask){
+    //   return;
+    // }
+    // if(bean.signType!=todayTask.taskType){
+    //   return;
+    // }
+    // todayTask.currentPro=(todayTask.currentPro??0)+(bean.addNum??0);
+    // if((todayTask.currentPro??0)>(todayTask.totalPro??0)){
+    //   todayTask.currentPro=todayTask.totalPro;
+    // }
+    // var timeStr = getTodayTimeStr();
+    // var database = await Flora121BaseSqlUtils.instance.initSql();
+    // var list = await database.query(Flora121SqlName.aTask,where: 'timeStr = ?',whereArgs: [timeStr]);
+    // if(list.isEmpty){
+    //   return;
+    // }
+    // await database.update(Flora121SqlName.aTask,todayTask.toJson(),where: 'timeStr = ?',whereArgs: [timeStr]);
+    // print("kk======updateTaskBySign=");
+    // Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateTask);
   }
 
   updateTaskByType(String taskType,int addNum)async{

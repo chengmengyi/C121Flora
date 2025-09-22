@@ -163,6 +163,7 @@ class Flora121OldUserDialog extends Flora121BaseDialog<Flora121OldUserDialogCon>
   _claimBtnWidget()=>Flora121WatchVideoBtnWidget(
     text: "Claim",
     btnColor: "#E23D40",
+    showVideoIcon: false,
     onTap: (){
       baseCon.clickDouble();
     },

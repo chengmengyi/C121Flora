@@ -1,0 +1,99 @@
+{
+"skeleton": {
+	"hash": "kByjh7txl3k",
+	"spine": "4.2.43",
+	"x": -46.35,
+	"y": -40.68,
+	"width": 92.7,
+	"height": 106.03,
+	"images": "",
+	"audio": "D:/网赚/换皮/122/b-动画/light"
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "Group 16", "parent": "root" },
+	{ "name": "hua", "parent": "root" },
+	{ "name": "light33", "parent": "root" },
+	{ "name": "light34", "parent": "root" },
+	{ "name": "light35", "parent": "root" },
+	{ "name": "light36", "parent": "root" }
+],
+"slots": [
+	{ "name": "pen", "bone": "root", "attachment": "pen" },
+	{ "name": "hua", "bone": "hua", "attachment": "hua" },
+	{ "name": "light33", "bone": "light33", "attachment": "light33" },
+	{ "name": "light35", "bone": "light35", "attachment": "light33" },
+	{ "name": "light36", "bone": "light36", "attachment": "light33" },
+	{ "name": "light34", "bone": "light34" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"hua": {
+				"hua": { "x": -2.77, "y": 32.6, "scaleX": 0.18, "scaleY": 0.18, "width": 97, "height": 121 }
+			},
+			"light33": {
+				"light33": { "x": -2.68, "y": 48.87, "scaleX": 0.1288, "scaleY": 0.1288, "width": 256, "height": 256 }
+			},
+			"light35": {
+				"light33": { "x": 7.87, "y": 30.66, "scaleX": 0.1565, "scaleY": 0.1565, "width": 256, "height": 256 }
+			},
+			"light36": {
+				"light33": { "x": -13.35, "y": 25.49, "scaleX": 0.117, "scaleY": 0.117, "width": 256, "height": 256 }
+			},
+			"pen": {
+				"pen": { "scaleX": 0.18, "scaleY": 0.18, "width": 515, "height": 452 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"light33": {
+				"rgba": [
+					{ "color": "ffffff01", "curve": "stepped" },
+					{ "time": 1.3333, "color": "ffffff01" },
+					{ "time": 2, "color": "ffffffff" },
+					{ "time": 2.3333, "color": "ffffff00" }
+				]
+			},
+			"light34": {
+				"rgba": [
+					{ "color": "ffffff01", "curve": "stepped" },
+					{ "time": 1.3333, "color": "ffffff01" },
+					{ "time": 2, "color": "ffffffff" },
+					{ "time": 2.3333, "color": "ffffff00" }
+				]
+			},
+			"light35": {
+				"rgba": [
+					{ "color": "ffffff01", "curve": "stepped" },
+					{ "time": 1.3333, "color": "ffffff01" },
+					{ "time": 1.5, "color": "ffffffff" },
+					{ "time": 2.1667, "color": "ffffff00" }
+				]
+			},
+			"light36": {
+				"rgba": [
+					{ "color": "ffffff01", "curve": "stepped" },
+					{ "time": 1.3333, "color": "ffffff01" },
+					{ "time": 1.9333, "color": "ffffffff" },
+					{ "time": 2.5, "color": "ffffff00" }
+				]
+			}
+		},
+		"bones": {
+			"hua": {
+				"scale": [
+					{},
+					{ "time": 0.4333, "y": 0.9 },
+					{ "time": 0.6667, "y": 1.1 },
+					{ "time": 1 }
+				]
+			}
+		}
+	}
+}
+}

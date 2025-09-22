@@ -1,10 +1,13 @@
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
+import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_energy_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 
 class Flora121EnergyUtils{
 
@@ -48,14 +51,25 @@ class Flora121EnergyUtils{
 
   updateCollectEnergyNum(){
     bCollectEnergyNum.saveData(bCollectEnergyNum.getData()+1);
+    var levelQuantity = Flora121ValueUtils.instance.getUpLevelQuantity();
+    var isUpLevel = bCollectEnergyNum.getData()%levelQuantity==0;
+    if(isUpLevel){
+      Flora121RoutersHep.dialog(
+        child: Flora121CommonGetDialog(
+          addNum: Flora121ValueUtils.instance.getUpLevelAddNum(),
+          dismissCallback: (received){},
+        ),
+      );
+    }
   }
 
-  int getLevelNum()=>(bCollectEnergyNum.getData()~/3)+1;
+  int getLevelNum()=>(bCollectEnergyNum.getData()~/Flora121ValueUtils.instance.getUpLevelQuantity())+1;
 
-  int getCollectSurplusNum()=>3-bCollectEnergyNum.getData()%3;
+  int getCollectSurplusNum()=>Flora121ValueUtils.instance.getUpLevelQuantity()-bCollectEnergyNum.getData()%Flora121ValueUtils.instance.getUpLevelQuantity();
 
   double getLevelPro(){
-    var i = (bCollectEnergyNum.getData()%3)/3;
+    var levelQuantity = Flora121ValueUtils.instance.getUpLevelQuantity();
+    var i = (bCollectEnergyNum.getData()%levelQuantity)/levelQuantity;
     if(i<=0){
       return 0.0;
     }else if(i>=1){

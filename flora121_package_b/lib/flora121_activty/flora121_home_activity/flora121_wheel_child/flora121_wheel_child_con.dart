@@ -6,6 +6,7 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_no_wheel_dialog/flora121_no_wheel_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_wheel_get_dialog/flora121_wheel_get_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
@@ -139,5 +140,17 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     _wheelAnimationController.removeStatusListener(_statusListener);
     _wheelAnimationController.dispose();
     super.onClose();
+  }
+
+  @override
+  bool initFlora121Event() => true;
+
+  @override
+  receivedFlora121EventMsg(int flora121Code, int? flora121IntValue, String? flora121StringValue, Map? flora121Map) {
+    switch(flora121Code){
+      case Flora121EventCode.updateWheelNum:
+        update(["wheel_num"]);
+        break;
+    }
   }
 }

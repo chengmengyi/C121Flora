@@ -42,7 +42,7 @@ class Flora121UserGuideUtils{
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep1Guide);
   }
 
-  showStep1Overlay(BuildContext context,Offset moneyOffset,Offset treeOffset,double addNum){
+  showStep1Overlay(BuildContext context,Offset moneyOffset,Offset treeOffset){
     showOverlay(
       context: context,
       widget: Flora121NewUserStep1View(
@@ -52,7 +52,7 @@ class Flora121UserGuideUtils{
           hideOverlay();
           Flora121RoutersHep.dialog(
             child: Flora121CommonGetDialog(
-              addNum: addNum,
+              addNum: Flora121ValueUtils.instance.getNewUserGuideStep2AddNum().toDouble(),
               dismissCallback: (received){
                 _showStep2Guide(context);
               },
@@ -67,7 +67,7 @@ class Flora121UserGuideUtils{
     showOverlay(
       context: context,
       widget: Flora121NewUserStep2View(
-        addNum: Flora121ValueUtils.instance.getNewUserGuideStep2AddNum(),
+        addNum: Flora121ValueUtils.instance.getNewUserGuideStep2AddNum().toDouble(),
         dismissCallback: (){
           hideOverlay();
           Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep3Guide);

@@ -14,6 +14,7 @@ class Flora121TextView extends StatelessWidget{
   TextDecoration? decoration;
   Color? decorationColor;
   String? fontFamily;
+  TextAlign? textAlign;
 
   Flora121TextView({
     required this.text,
@@ -26,6 +27,7 @@ class Flora121TextView extends StatelessWidget{
     this.decoration,
     this.decorationColor,
     this.fontFamily,
+    this.textAlign,
 });
 
   @override
@@ -43,6 +45,7 @@ class Flora121TextView extends StatelessWidget{
           fontFamily: fontFamily,
         ),
         maxLines: maxLines,
+        textAlign: textAlign,
       ),
       strokes: outlineColor==null?
       []:

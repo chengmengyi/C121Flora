@@ -1,5 +1,7 @@
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
+import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_applife_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
@@ -24,6 +26,8 @@ class Flora121HomeCon extends Flora121BaseCon{
     super.onInit();
     Flora121MusicHep.instance.init();
     Flora121ApplifeHep.instance.init();
+    Flora121FengkongHep.instance.initFengkong();
+    Flora121AndroidLocalNotificationHep.instance.init(true);
   }
 
   clickBottom(int index){

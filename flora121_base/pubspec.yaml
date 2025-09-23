@@ -32,6 +32,15 @@ dependencies:
   spine_flutter: 4.2.36
   flutter_tba_info: 0.0.9
   flutter_check_af: 0.0.7
+  firebase_analytics: 11.5.2
+  firebase_core: 3.15.1
+  firebase_remote_config: 5.4.7
+  permission_handler: 12.0.1
+  app_settings: 6.1.1
+  flora_feng:
+    path: plugins/flora_feng
+  flutter_local_notifications:
+    path: plugins/common_notifications-master
 
 
 dev_dependencies:

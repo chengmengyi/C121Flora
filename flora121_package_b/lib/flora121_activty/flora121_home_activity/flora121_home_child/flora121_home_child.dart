@@ -88,23 +88,24 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                   ),
                   Positioned(
                     left: 80.w,
-                    bottom: 100.h,
+                    bottom: 80.h,
                     child: _energyItemWidget(Flora121EnergyType.wheel,),
                   ),
                   Positioned(
                     left: 20.w,
-                    bottom: 150.h,
+                    bottom: 130.h,
                     child: _energyItemWidget(
                       Flora121EnergyType.money,
                       key: baseCon.treeGlobalKey,
                     ),
                   ),
                   Positioned(
+                    top: 30.h,
                     left: 90.w,
                     child: _energyItemWidget(Flora121EnergyType.water),
                   ),
                   Positioned(
-                    top: 10.h,
+                    top: 20.h,
                     right: 100.w,
                     child: _energyItemWidget(Flora121EnergyType.dice),
                   ),

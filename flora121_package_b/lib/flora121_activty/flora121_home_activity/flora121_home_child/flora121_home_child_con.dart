@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
+import 'package:flora121_base/flora121_dialog/flora121_open_notification_dialog/flora121_open_notification_dialog.dart';
+import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
@@ -225,6 +228,12 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121Ttt.instance.uploadSessionEvent();
 
 
-    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
+    // Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
+    // Flora121FengkongHep.instance.initFengkong();
+    // Flora121AndroidLocalNotificationHep.instance.init();
+    // Flora121RoutersHep.dialog(
+    //   child: Flora121OpenNotificationDialog(),
+    // );
+    Flora121FengkongHep.instance.initFengkong();
   }
 }

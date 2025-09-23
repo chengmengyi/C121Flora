@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_value_bean.dart';
@@ -13,6 +14,16 @@ class Flora121ValueUtils{
   Flora121ValueBean? _valueBean;
 
   initValue(){
+    _startInit();
+    Flora121FirebaseHep.instance.initValueConfigCall=(String value){
+      if(bValueConfigStr.getData().isEmpty){
+        bValueConfigStr.saveData(value);
+        _startInit();
+      }
+    };
+  }
+
+  _startInit(){
     try{
       var data = bValueConfigStr.getData();
       if(data.isEmpty){

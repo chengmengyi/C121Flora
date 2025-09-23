@@ -1,12 +1,17 @@
 import 'dart:math';
+import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_user_info_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 
 class Flora121UserInfoUtils{
   static final Flora121UserInfoUtils _utils = Flora121UserInfoUtils();
@@ -61,5 +66,29 @@ class Flora121UserInfoUtils{
     }
     bMyMoneyNum.saveData((Decimal.fromJson("${bMyMoneyNum.getData()}")+Decimal.fromJson("$addNum")).toDouble());
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
+    if(addNum>0){
+      var moneyLevel = bLastTimeMoneyLevel.getData()+100;
+      var data = bMyMoneyNum.getData();
+      if(data>=moneyLevel){
+        var max = ((bMyMoneyNum.getData()-moneyLevel)~/100)+1;
+        for(var index=0; index<max; index++){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_dall,params: {"money":moneyLevel});
+          bLastTimeMoneyLevel.saveData(moneyLevel);
+          moneyLevel+=100;
+        }
+      }
+
+      var first = Flora121ValueUtils.instance.getCashList().first;
+      var getRewardNum = flora121RewardRevenuePaidAccount.getData();
+      var adLittle = Flora121FengkongHep.instance.getAdLittle();
+      if(data>=first&&getRewardNum<adLittle){
+        flora121HasMoneyRewardAdLittle.saveData(true);
+      }
+      var adMore = Flora121FengkongHep.instance.getAdMore();
+      if(data<first&&getRewardNum>=adMore){
+        flora121NoMoneyRewardAdMany.saveData(true);
+      }
+
+    }
   }
 }

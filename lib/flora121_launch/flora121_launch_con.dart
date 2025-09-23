@@ -1,6 +1,7 @@
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
+import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
@@ -24,6 +25,7 @@ class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStat
     super.onInit();
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.launch_page);
     _initAnimator();
+    Flora121AndroidLocalNotificationHep.instance.launchApp();
   }
 
   @override

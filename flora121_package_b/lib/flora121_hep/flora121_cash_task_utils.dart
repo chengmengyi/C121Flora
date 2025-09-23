@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
+import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
@@ -18,6 +19,16 @@ class Flora121CashTaskUtils{
   Flora121CashTaskConfigBean? _taskConfigBean;
 
   initCashTaskBean(){
+    _startInit();
+    Flora121FirebaseHep.instance.initCashTaskConfigCall=(String value){
+      if(bCashTaskConfigStr.getData().isEmpty){
+        bCashTaskConfigStr.saveData(value);
+        _startInit();
+      }
+    };
+  }
+
+  _startInit(){
     try{
       var data = bCashTaskConfigStr.getData();
       if(data.isEmpty){

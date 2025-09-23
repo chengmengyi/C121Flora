@@ -18,4 +18,5 @@ class Flora121StorageName{
   static const String bValueConfigStr="bValueConfigStr";
   static const String bShowOpenAd="bShowOpenAd";
   static const String bAdProbabilityConfigStr="bAdProbabilityConfigStr";
+  static const String bLastTimeMoneyLevel="bLastTimeMoneyLevel";
 }

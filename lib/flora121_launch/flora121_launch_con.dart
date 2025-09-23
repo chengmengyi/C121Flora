@@ -74,7 +74,7 @@ class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStat
   }
 
   _initAnimator(){
-    animationController=AnimationController(duration: const Duration(seconds: kDebugMode?2:10),vsync: this);
+    animationController=AnimationController(duration: const Duration(seconds: 10),vsync: this);
     animationController.addListener(() {
       update(["pro_view"]);
     });

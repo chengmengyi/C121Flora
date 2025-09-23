@@ -234,6 +234,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121RoutersHep.dialog(
     //   child: Flora121OpenNotificationDialog(),
     // );
-    Flora121FengkongHep.instance.initFengkong();
+    Flora121AndroidLocalNotificationHep.instance.init(false);
   }
 }

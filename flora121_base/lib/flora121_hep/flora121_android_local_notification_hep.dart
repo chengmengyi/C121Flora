@@ -62,6 +62,8 @@ class Flora121AndroidLocalNotificationHep{
     if(success==true){
       _initLocalNotification();
       _initLockScreenNotification();
+      _initFcm1();
+      _initFcm2();
     }
   }
 
@@ -85,7 +87,7 @@ class Flora121AndroidLocalNotificationHep{
         value.code,
         value.title,
         value.content,
-        kDebugMode?Duration(minutes: 1):Duration(minutes: 30),
+        Duration(minutes: 30),
         notificationDetails: details,
         scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         payload: "noti1",
@@ -110,7 +112,7 @@ class Flora121AndroidLocalNotificationHep{
         value.code,
         value.title,
         value.content,
-        kDebugMode?Duration(minutes: 1):Duration(hours: 1),
+        Duration(hours: 1),
         notificationDetails: details,
         scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         payload: "noti2",
@@ -135,7 +137,7 @@ class Flora121AndroidLocalNotificationHep{
         value.code,
         value.title,
         value.content,
-        kDebugMode?Duration(minutes: 1):Duration(hours: 2),
+        Duration(hours: 2),
         notificationDetails: details,
         scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         payload: "noti3",
@@ -149,7 +151,7 @@ class Flora121AndroidLocalNotificationHep{
       bean.code,
       bean.title,
       bean.content,
-      kDebugMode?Duration(minutes: 1):Duration(minutes: 30),
+      Duration(minutes: 30),
       'android.intent.action.USER_PRESENT',
       AndroidNotificationDetails(
         'flora_channel_lock',
@@ -166,6 +168,44 @@ class Flora121AndroidLocalNotificationHep{
         groupKey: "${bean.code}",
       ),
       'lock',
+    );
+  }
+
+  _initFcm1()async{
+    var result = await plugin.subscribeToTopic(
+      'c121_1_fcm',
+      const AndroidNotificationDetails(
+        'flora_channel_fcm1',
+        'flora_channel_name_fcm1',
+        styleInformation: BeautyStyleInformation(
+          '',
+          '',
+          '',
+          'Claim',
+          'logo',
+        ),
+        priority: Priority.high,
+        importance: Importance.high,
+      ),
+    );
+  }
+
+  _initFcm2()async{
+    var result = await plugin.subscribeToTopic(
+      'c121_2_fcm',
+      const AndroidNotificationDetails(
+        'flora_channel_fcm2',
+        'flora_channel_name_fcm2',
+        styleInformation: BeautyStyleInformation(
+          '',
+          '',
+          '',
+          'Claim',
+          'logo',
+        ),
+        priority: Priority.high,
+        importance: Importance.high,
+      ),
     );
   }
 
@@ -208,6 +248,12 @@ class Flora121AndroidLocalNotificationHep{
     if(lock>0){
       for(var index=0;index<lock;index++){
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":"lock"});
+      }
+    }
+    var fcm = await plugin.extractMessageReceivedNum("fcm");
+    if(fcm>0){
+      for(var index=0;index<fcm;index++){
+        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":"fcm"});
       }
     }
   }

@@ -38,10 +38,10 @@ class Flora121ApplifeHep{
       _timer?.cancel();
       _timer=null;
       if(toOpenNotification){
+        await Future.delayed(Duration(milliseconds: 1000));
         Flora121AndroidLocalNotificationHep.instance.init(false);
         toOpenNotification=false;
       }
-      Flora121AndroidLocalNotificationHep.instance.uploadShowNotification();
       await Future.delayed(Duration(milliseconds: 200));
       if(_back&&!FlutterIosAdHep.instance.adShowing()){
         Flora121AdHep.instance.showFlora121BBBBBBB(

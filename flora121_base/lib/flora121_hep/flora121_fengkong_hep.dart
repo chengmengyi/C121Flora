@@ -165,7 +165,7 @@ class Flora121FengkongHep{
       uploadRiskChanceData(FengkongTag.ad_short_show);
       return true;
     }
-    if(flora121CloseRewardAdIntervalTimeAccount.getData()>=(getAdShortShow()?.value??3)){
+    if(flora121CloseRewardAdIntervalTimeAccount.getData()>=(getAdShortClose()?.value??3)){
       uploadRiskChanceData(FengkongTag.ad_short_close);
       return true;
     }

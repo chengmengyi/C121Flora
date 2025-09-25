@@ -10,6 +10,7 @@ import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_config_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 
 class Flora121CashTaskUtils{
@@ -64,6 +65,7 @@ class Flora121CashTaskUtils{
       cashAccount: account,
     );
     await database.insert(Flora121SqlName.bCashTask, bean.toJson());
+    Flora121UserInfoUtils.instance.updateMyMoney(-(cashMoney.toDouble()));
     return true;
   }
 

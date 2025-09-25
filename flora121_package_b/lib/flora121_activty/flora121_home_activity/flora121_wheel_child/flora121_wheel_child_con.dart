@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
@@ -52,28 +53,17 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
       return;
     }
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page_gift);
-    // Flora121RoutersHep.dialog(
-    //   child: Flora121CommonGetDialog(
-    //     addNum: Flora121ValueUtils.instance.getWaterAddNum(),
-    //     rvAdEnum: rvAdEnum,
-    //     intAdEnum: intAdEnum,
-    //     dismissCallback: (r){
-    //       Flora121WheelUtils.instance.resetGiftNum();
-    //       update(["gift"]);
-    //     },
-    //   ),
-    // );
-    // Flora121RoutersHep.dialog(
-    //   child: Flora121GetWaterDialog(
-    //     waterNum: 1,
-    //     taskType: "",
-    //     isHealth: true,
-    //     getCallback: (){
-    //       Flora121WheelUtils.instance.resetGiftNum();
-    //       update(["gift"]);
-    //     },
-    //   ),
-    // );
+    Flora121RoutersHep.dialog(
+      child: Flora121CommonGetDialog(
+        addNum: Flora121ValueUtils.instance.getWaterAddNum(),
+        rvAdEnum: Flora121AdEnum.frfcn_gift_rv,
+        intAdEnum: Flora121AdEnum.frfcn_gift_int,
+        dismissCallback: (r){
+          Flora121WheelUtils.instance.resetGiftNum();
+          update(["gift"]);
+        },
+      ),
+    );
   }
 
   int _getWeightedRandom() {

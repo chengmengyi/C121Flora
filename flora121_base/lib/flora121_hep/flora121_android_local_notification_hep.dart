@@ -1,40 +1,32 @@
 import 'dart:io';
 
+import 'package:birdsong/birdsong.dart';
 import 'package:flora121_base/flora121_dialog/flora121_open_notification_dialog/flora121_open_notification_dialog.dart';
-import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Flora121AndroidLocalNotificationHep{
   static final Flora121AndroidLocalNotificationHep _hep=Flora121AndroidLocalNotificationHep();
   static Flora121AndroidLocalNotificationHep get instance => _hep;
 
-  AndroidFlutterLocalNotificationsPlugin plugin=AndroidFlutterLocalNotificationsPlugin();
-  
-  final List<AndroidLocalNotificationBean> _localNotificationList1=[
-    AndroidLocalNotificationBean(code:1,title: "Time to water your plants and earn coins! 💰", content: "Time to water your plants and earn coins! 💰"),
-    AndroidLocalNotificationBean(code:2,title: "Spin the wheel for big rewards! 🌟", content: "Spin the wheel for big rewards! 🌟"),
-    AndroidLocalNotificationBean(code:3,title: "Your plants miss you! Come back and play. 🌸", content: "Your plants miss you! Come back and play. 🌸"),
+  final List<BirdsongText> _localNotificationList1=[
+    BirdsongText(title: "Last Chance! \$30 Vanish in 60 Mins!", body: "Your cash bonus Tap NOW to rescue it!"),
+    BirdsongText(title: "Roll the dice to unlock \$20", body: "Your magical move: roll the dice → receive instant cash!"),
+    BirdsongText(title: "Ding Dong, wealth has arrived", body: "Just click and get \$10 easily"),
+    BirdsongText(title: "Bubble popping = coins waiting! ", body: "Wealth accumulation has reached its peak, claim it now"),
+    BirdsongText(title: "Ready to Cash Out?", body: "Click here to transfer your earnings instantly to PayPal or your bank account."),
+    BirdsongText(title: "\$10 wealth bubbles to collect", body: "Pop bubbles to unlock and win cash prizes."),
+    BirdsongText(title: "Quick! Spots Are Filling Up!", body: "The unmissable wealth reward is about to disappear!"),
+    BirdsongText(title: "Your Free Spin is Ready!", body: "Feel lucky? Tap to spin the prize wheel and win instant cash."),
   ];
 
-  final List<AndroidLocalNotificationBean> _localNotificationList2=[
-    AndroidLocalNotificationBean(code:4,title: "Answer quick quizzes and win coins! 🎯", content: "Answer quick quizzes and win coins! 🎯"),
-    AndroidLocalNotificationBean(code:5,title: "Don’t forget your daily reward! 🌼", content: "Don’t forget your daily reward! 🌼"),
-    AndroidLocalNotificationBean(code:6,title: "Bubble popping = coins waiting! 🫧", content: "Bubble popping = coins waiting! 🫧"),
-  ];
-
-  final List<AndroidLocalNotificationBean> _localNotificationList3=[
-    AndroidLocalNotificationBean(code:7,title: "Roll the dice and grow your garden! 🎲", content: "Roll the dice and grow your garden! 🎲"),
-    AndroidLocalNotificationBean(code:8,title: "Special bonus inside – open now! 🎁", content: "Special bonus inside – open now! 🎁"),
-  ];
-
-  final List<AndroidLocalNotificationBean> _lockScreenNotificationList=[
-    AndroidLocalNotificationBean(code:7,title: "Complete tasks and level up! ⬆️", content: "Complete tasks and level up! ⬆️"),
-    AndroidLocalNotificationBean(code:8,title: "Keep your garden happy and earn more! 💐", content: "Keep your garden happy and earn more! 💐"),
+  final List<BirdsongText> _lockNotificationList=[
+    BirdsongText(title: "\$100!Claim!", body: "Congrats! Your \$100 Spectacular ticket is activated!"),
+    BirdsongText(title: "\$50 Fast – Boost activated!", body: "Your \$50 Fast ticket is ready!"),
+    BirdsongText(title: "Test Rewards Available!", body: "24-Hour Special: Visible to 50% of Users Only")
   ];
 
 
@@ -53,220 +45,72 @@ class Flora121AndroidLocalNotificationHep{
       return;
     }
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.noti_req_allow);
-    var success = await plugin.initialize(
-      AndroidInitializationSettings("logo"),
-      onDidReceiveNotificationResponse: (NotificationResponse response) {
-        _uploadClickNotification(response.payload);
-      },
+
+    await Birdsong.instance.initialize(
+      image: BirdsongImage(big: "flora_large", small: "flora_small"),
+      button: "Claim",
     );
-    if(success==true){
-      _initLocalNotification();
-      _initLockScreenNotification();
-      _initFcm1();
-      _initFcm2();
-    }
+    _initLocalNotification();
+    _initLockScreenNotification();
+    _initFcmNotification();
+    _setShowListener();
+    _setClickListener();
   }
 
   _initLocalNotification()async{
-    for (var value in _localNotificationList1) {
-      AndroidNotificationDetails details = AndroidNotificationDetails(
-        'flora_channel1',
-        'flora_channel_name1',
-        styleInformation: BeautyStyleInformation(
-          value.title,
-          value.content,
-          'local_bg',
-          'Claim',
-          'logo',
-        ),
-        priority: Priority.high,
-        importance: Importance.high,
-        groupKey: "${value.code}",
-      );
-      await plugin.periodicallyShowWithDuration(
-        value.code,
-        value.title,
-        value.content,
-        Duration(minutes: 30),
-        notificationDetails: details,
-        scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        payload: "noti1",
-      );
-    }
-    for (var value in _localNotificationList2) {
-      AndroidNotificationDetails details = AndroidNotificationDetails(
-        'flora_channel2',
-        'flora_channel_name2',
-        styleInformation: BeautyStyleInformation(
-          value.title,
-          value.content,
-          'local_bg',
-          'Claim',
-          'logo',
-        ),
-        priority: Priority.high,
-        importance: Importance.high,
-        groupKey: "${value.code}",
-      );
-      await plugin.periodicallyShowWithDuration(
-        value.code,
-        value.title,
-        value.content,
-        Duration(hours: 1),
-        notificationDetails: details,
-        scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        payload: "noti2",
-      );
-    }
-    for (var value in _localNotificationList3) {
-      AndroidNotificationDetails details = AndroidNotificationDetails(
-        'flora_channel3',
-        'flora_channel_name3',
-        styleInformation: BeautyStyleInformation(
-          value.title,
-          value.content,
-          'local_bg',
-          'Claim',
-          'logo',
-        ),
-        priority: Priority.high,
-        importance: Importance.high,
-        groupKey: "${value.code}",
-      );
-      await plugin.periodicallyShowWithDuration(
-        value.code,
-        value.title,
-        value.content,
-        Duration(hours: 2),
-        notificationDetails: details,
-        scheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
-        payload: "noti3",
-      );
-    }
+    Birdsong.instance.repeat(content: _localNotificationList1, duration: kDebugMode?Duration(minutes: 1):Duration(minutes: 30));
   }
 
   _initLockScreenNotification()async{
-    AndroidLocalNotificationBean bean = _lockScreenNotificationList.random();
-    await plugin.showBroadcastNotification(
-      bean.code,
-      bean.title,
-      bean.content,
-      Duration(minutes: 30),
-      'android.intent.action.USER_PRESENT',
-      AndroidNotificationDetails(
-        'flora_channel_lock',
-        'flora_channel_name_lock',
-        priority: Priority.high,
-        importance: Importance.high,
-        styleInformation: BeautyStyleInformation(
-          bean.title,
-          bean.content,
-          'local_bg',
-          'Claim',
-          'logo',
-        ),
-        groupKey: "${bean.code}",
-      ),
-      'lock',
-    );
+    Birdsong.instance.present(content: _lockNotificationList, duration: kDebugMode?Duration(minutes: 1):Duration(minutes: 30));
   }
 
-  _initFcm1()async{
-    var result = await plugin.subscribeToTopic(
-      'c121_1_fcm',
-      const AndroidNotificationDetails(
-        'flora_channel_fcm1',
-        'flora_channel_name_fcm1',
-        styleInformation: BeautyStyleInformation(
-          '',
-          '',
-          '',
-          'Claim',
-          'logo',
-        ),
-        priority: Priority.high,
-        importance: Importance.high,
-      ),
-    );
+  _initFcmNotification(){
+    Birdsong.instance.subscribe(topic: "C121_us_data_fcm");
+    Birdsong.instance.subscribe(topic: "C121_us_normal_fcm");
   }
 
-  _initFcm2()async{
-    var result = await plugin.subscribeToTopic(
-      'c121_2_fcm',
-      const AndroidNotificationDetails(
-        'flora_channel_fcm2',
-        'flora_channel_name_fcm2',
-        styleInformation: BeautyStyleInformation(
-          '',
-          '',
-          '',
-          'Claim',
-          'logo',
-        ),
-        priority: Priority.high,
-        importance: Importance.high,
-      ),
-    );
+  _setShowListener(){
+    Birdsong.instance.onTrigger.listen((e){
+      _uploadShowNotification(e.source);
+    });
   }
 
-  launchApp()async{
-    if(Platform.isIOS){
-      return;
-    }
-    var launchDetails = await plugin.getNotificationAppLaunchDetails();
-    var fromNotification = launchDetails?.didNotificationLaunchApp==true;
-    if(fromNotification){
-      _uploadClickNotification(launchDetails?.notificationResponse?.payload);
-    }
-    uploadShowNotification();
+  _setClickListener(){
+    Birdsong.instance.onTap.listen((e){
+      _uploadClickNotification(e.source);
+    });
   }
 
-  _uploadClickNotification(String? payload){
-    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_c,params: {"type":payload});
+  _uploadClickNotification(String source){
+    var type=source;
+    switch(source){
+      case "firebase":
+        type="fcm";
+        break;
+      case "repeat":
+        type="noti";
+        break;
+      case "present":
+        type="unlock";
+        break;
+    }
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_c,params: {"type":type});
   }
 
-  uploadShowNotification()async{
-    var noti1 = await plugin.extractMessageReceivedNum("noti1");
-    if(noti1>0){
-      for(var index=0;index<noti1;index++){
-        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":"noti1"});
-      }
+  _uploadShowNotification(String source)async{
+    var type=source;
+    switch(source){
+      case "firebase":
+        type="fcm";
+        break;
+      case "repeat":
+        type="noti";
+        break;
+      case "present":
+        type="unlock";
+        break;
     }
-    var noti2 = await plugin.extractMessageReceivedNum("noti2");
-    if(noti2>0){
-      for(var index=0;index<noti2;index++){
-        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":"noti2"});
-      }
-    }
-    var noti3 = await plugin.extractMessageReceivedNum("noti3");
-    if(noti3>0){
-      for(var index=0;index<noti3;index++){
-        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":"noti3"});
-      }
-    }
-    var lock = await plugin.extractMessageReceivedNum("lock");
-    if(lock>0){
-      for(var index=0;index<lock;index++){
-        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":"lock"});
-      }
-    }
-    var fcm = await plugin.extractMessageReceivedNum("fcm");
-    if(fcm>0){
-      for(var index=0;index<fcm;index++){
-        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":"fcm"});
-      }
-    }
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.all_noti_t,params: {"type":type});
   }
-}
-
-
-class AndroidLocalNotificationBean{
-  int code;
-  String title;
-  String content;
-  AndroidLocalNotificationBean({
-    required this.code,
-    required this.title,
-    required this.content,
-  });
 }

@@ -15,4 +15,6 @@ enum Flora121AdEnum{
   frfcn_cash_int,
   frfcn_level_rv,
   frfcn_level_int,
+  frfcn_gift_rv,
+  frfcn_gift_int,
 }

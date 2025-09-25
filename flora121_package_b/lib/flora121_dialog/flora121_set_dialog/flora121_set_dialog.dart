@@ -6,6 +6,7 @@ import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_set_dialog/flora121_set_dialog_con.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flutter/material.dart';
 
 class Flora121SetDialog extends Flora121BaseDialog<Flora121SetDialogCon>{
@@ -30,6 +31,8 @@ class Flora121SetDialog extends Flora121BaseDialog<Flora121SetDialogCon>{
             Flora121TextView(text: "Setting", color: "#7A5040", size: 16.sp,fontWeight: FontWeight.bold,),
             SizedBox(height: 16.h,),
             _musicWidget(),
+            SizedBox(height: 16.h,),
+            _barrageWidget(),
             Container(
               width: double.infinity,
               height: 1.h,
@@ -113,6 +116,32 @@ class Flora121SetDialog extends Flora121BaseDialog<Flora121SetDialogCon>{
           child: GetBuilder<Flora121SetDialogCon>(
             id: "music",
             builder: (_)=>Flora121ImagesView(imagesName: musicSwitch.getData()?"music_on":"music_off",width: 75.w,height: 30.h,),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  _barrageWidget()=>Container(
+    width: double.infinity,
+    height: 40.h,
+    alignment: Alignment.centerLeft,
+    padding: EdgeInsets.only(left: 15.w,right: 15.w),
+    decoration: BoxDecoration(
+      color: "#EFF6E5".toColor(),
+      borderRadius: BorderRadius.circular(15.w),
+    ),
+    child: Row(
+      children: [
+        Flora121TextView(text: "Barrage", color: "#313831", size: 12.sp,fontWeight: FontWeight.bold,),
+        Spacer(),
+        Flora121Click(
+          onTap: (){
+            baseCon.clickBarrage();
+          },
+          child: GetBuilder<Flora121SetDialogCon>(
+            id: "barrage",
+            builder: (_)=>Flora121ImagesView(imagesName: bBarrageSwitch.getData()?"music_on":"music_off",width: 75.w,height: 30.h,),
           ),
         ),
       ],

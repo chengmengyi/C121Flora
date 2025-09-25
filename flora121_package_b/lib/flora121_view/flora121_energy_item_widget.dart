@@ -120,6 +120,27 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     }
     Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.bubbles);
     widget.clickItem.call();
+    if(widget.flora121energyType==Flora121EnergyType.money){
+      Flora121RoutersHep.dialog(
+        child: Flora121CommonGetDialog(
+          addNum: addNum,
+          rvAdEnum: Flora121AdEnum.frfcn_cash_rv,
+          intAdEnum: Flora121AdEnum.frfcn_cash_int,
+          dismissCallback: (received)async{
+            if(received){
+              setState(() {
+                showEnergy=false;
+              });
+              await Future.delayed(Duration(milliseconds: 3000));
+              setState(() {
+                showEnergy=true;
+              });
+            }
+          },
+        ),
+      );
+      return;
+    }
     setState(() {
       showEnergy=false;
     });
@@ -128,14 +149,6 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 2);
         break;
       case Flora121EnergyType.money:
-        Flora121RoutersHep.dialog(
-          child: Flora121CommonGetDialog(
-            addNum: addNum,
-            rvAdEnum: Flora121AdEnum.frfcn_cash_rv,
-            intAdEnum: Flora121AdEnum.frfcn_cash_int,
-            dismissCallback: (received){},
-          ),
-        );
         break;
       case Flora121EnergyType.water:
 
@@ -151,9 +164,6 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     await Future.delayed(Duration(milliseconds: 3000));
     setState(() {
       showEnergy=true;
-      if(widget.flora121energyType==Flora121EnergyType.money){
-        addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
-      }
     });
   }
 
@@ -169,13 +179,14 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     }
     Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.water);
     widget.clickItem.call();
-    _startWaterTimer();
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
         addNum: addNum,
         rvAdEnum: Flora121AdEnum.frfcn_drink_rv,
         intAdEnum: Flora121AdEnum.frfcn_drink_int,
-        dismissCallback: (received){},
+        dismissCallback: (received){
+          _startWaterTimer();
+        },
       ),
     );
   }

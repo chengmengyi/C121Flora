@@ -5,6 +5,8 @@ import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_ad_probability_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
@@ -15,10 +17,12 @@ class Flora121WheelGetDialogCon extends Flora121BaseCon{
   @override
   void onInit() {
     super.onInit();
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page_pop);
     _startTimer();
   }
 
   clickDouble(double addNum,Function(bool received) dismissCallback){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page_pop_c);
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.reward,
       adEnum: Flora121AdEnum.frfcn_wheel_rv,
@@ -34,6 +38,7 @@ class Flora121WheelGetDialogCon extends Flora121BaseCon{
   }
 
   clickClose(double addNum,Function(bool received) dismissCallback){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page_pop_close);
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.interstitial,
       adEnum: Flora121AdEnum.frfcn_wheel_int,

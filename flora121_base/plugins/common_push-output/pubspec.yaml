@@ -1,47 +1,16 @@
-name: flora121_base
+name: birdsong
 description: "A new Flutter project."
 version: 0.0.1
 homepage:
 
 environment:
-  sdk: ^3.6.0
+  sdk: ^3.8.1
   flutter: '>=3.3.0'
 
 dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
-  get: 4.6.6
-  flutter_screenutil: 5.9.0
-  event_bus: 2.0.0
-  get_storage: 2.1.1
-  flutter_staggered_grid_view: 0.7.0
-  lottie: 2.6.0
-  sqflite: 2.3.3+1
-  webview_flutter: 4.13.0
-  fluttertoast: 8.2.12
-  outlined_text: 1.0.1
-  flutter_ad_ios_plugins:
-    git:
-      url: https://github.com/Li-Xiang-Lan/flutter_ad_ios_plugins.git
-      ref: 0.1.7
-  audioplayers: 6.1.0
-  flutter_app_lifecycle: 0.0.3
-  decimal: 3.2.4
-  marqueer: 2.1.0
-  spine_flutter: 4.2.36
-  flutter_tba_info: 0.0.9
-  flutter_check_af: 0.0.7
-  firebase_analytics: 11.5.2
-  firebase_core: 3.15.1
-  firebase_remote_config: 5.4.7
-  permission_handler: 12.0.1
-  app_settings: 6.1.1
-  flora_feng:
-    path: plugins/flora_feng
-  birdsong:
-    path: plugins/common_push-output
-
 
 dev_dependencies:
   flutter_test:
@@ -66,10 +35,8 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.flora121_base
-        pluginClass: Flora121BasePlugin
-      ios:
-        pluginClass: Flora121BasePlugin
+        package: hi.birdsong.birdsong
+        pluginClass: BirdsongPlugin
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

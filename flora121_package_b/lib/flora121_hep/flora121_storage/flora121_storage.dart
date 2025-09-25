@@ -23,6 +23,7 @@ StorageData<String> bAdProbabilityConfigStr=StorageData<String>(key: Flora121Sto
 
 StorageData<bool> bMoneyStatusOpen=StorageData<bool>(key: Flora121StorageName.bMoneyStatusOpen, defaultValue: true);
 StorageData<bool> bShowOpenAd=StorageData<bool>(key: Flora121StorageName.bShowOpenAd, defaultValue: false);
+StorageData<bool> bBarrageSwitch=StorageData<bool>(key: Flora121StorageName.bBarrageSwitch, defaultValue: true);
 
 
 StorageData<double> bMyMoneyNum=StorageData<double>(key: Flora121StorageName.bMyMoneyNum, defaultValue: 0.0);

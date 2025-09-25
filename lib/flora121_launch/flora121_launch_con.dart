@@ -25,7 +25,6 @@ class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStat
     super.onInit();
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.launch_page);
     _initAnimator();
-    Flora121AndroidLocalNotificationHep.instance.launchApp();
   }
 
   @override

@@ -23,7 +23,7 @@ abstract class Flora121BasePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  Future<void> flora() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

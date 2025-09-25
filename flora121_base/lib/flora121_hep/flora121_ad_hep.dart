@@ -246,10 +246,11 @@ class Flora121AdHep{
 
   final IosLoadAdResultCallback iosLoadAdResultCallback=IosLoadAdResultCallback(
     startLoadAdCallback: (data){
-
+      //ad_code_id/ad_format/ad_platform
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.ad_request,params: {"ad_code_id":data?.adId,"ad_format":data?.adType.name,"ad_platform":data?.adPlat});
     },
-    loadAdSuccessCallback: (AdMoneyInfoBean adMoneyInfoBean,AdInfoData? bean,int loadTime){
-
+    loadAdSuccessCallback: (AdMoneyInfoBean adMoneyInfoBean,AdInfoData? data,int loadTime){
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.ad_request,params: {"ad_code_id":data?.adId,"ad_format":data?.adType.name,"ad_platform":data?.adPlat});
     },
     loadAdFailCallback: (data){
 

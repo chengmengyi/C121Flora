@@ -53,4 +53,6 @@ enum Flora121PointEnum{
   pv_dall,
   frfcn_ad_chance,
   frfcn_ad_impression_fail,
+  ad_request,
+  frfcn_ad_return,
 }

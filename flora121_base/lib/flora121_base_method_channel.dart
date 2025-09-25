@@ -10,8 +10,7 @@ class MethodChannelFlora121Base extends Flora121BasePlatform {
   final methodChannel = const MethodChannel('flora121_base');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<void> flora() async {
+    await methodChannel.invokeMethod<String>('flora');
   }
 }

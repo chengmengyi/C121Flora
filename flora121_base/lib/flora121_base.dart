@@ -2,7 +2,10 @@
 import 'flora121_base_platform_interface.dart';
 
 class Flora121Base {
-  Future<String?> getPlatformVersion() {
-    return Flora121BasePlatform.instance.getPlatformVersion();
+  static final Flora121Base _flora121base=Flora121Base();
+  static Flora121Base get instance=>_flora121base;
+
+  Future<void> flora() {
+    return Flora121BasePlatform.instance.flora();
   }
 }

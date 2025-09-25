@@ -37,6 +37,7 @@ dependencies:
   firebase_remote_config: 5.4.7
   permission_handler: 12.0.1
   app_settings: 6.1.1
+  connectivity_plus: 7.0.0
   flora_feng:
     path: plugins/flora_feng
   birdsong:

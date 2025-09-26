@@ -126,7 +126,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
   );
 
   _wheelWidget()=>Container(
-    margin: EdgeInsets.only(left: 40.w,right: 40.w),
+    margin: EdgeInsets.only(left: 20.w,right: 20.w),
     child: Stack(
       alignment: Alignment.topCenter,
       children: [
@@ -181,9 +181,9 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
                 Stack(
                   alignment: Alignment.bottomCenter,
                   children: [
-                    Flora121ImagesView(imagesName: "wheel5",width: 90.w,height: 110.h,),
+                    Flora121ImagesView(imagesName: "wheel13",width: 130.w,height: 130.w,),
                     Container(
-                      margin: EdgeInsets.only(bottom: 18.h),
+                      margin: EdgeInsets.only(bottom: 40.h),
                       child: GetBuilder<Flora121WheelChildCon>(
                         id: "wheel_num",
                         builder: (_)=>Flora121TextView(text: "${Flora121WheelUtils.instance.wheelNum}", color: "#1F4300", size: 16.sp),

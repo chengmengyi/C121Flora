@@ -155,7 +155,7 @@ class Flora121FengkongHep{
 
   bool checkFengkong(){
     if(kDebugMode){
-      return true;
+      return false;
     }
     var data = flora121RiskChanceStr.getData();
     if(data.isNotEmpty){

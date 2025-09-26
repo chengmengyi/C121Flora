@@ -30,7 +30,13 @@ class Flora121NoMoneyDialog extends Flora121BaseDialog<Flora121NoMoneyDialogCon>
             Flora121ImagesView(imagesName: "no_wheel2",width: 113.w,height: 113.w,),
             SizedBox(height: 10.h,),
             Flora121TextView(text: "Take a spin on the wheel –", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
-            Flora121TextView(text: "you might just win \$50!", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flora121TextView(text: "you might just win ", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
+                Flora121TextView(text: "\$50!", color: "#FF8800", size: 12.sp,fontWeight: FontWeight.bold,),
+              ],
+            ),
             Flora121TextView(text: "Top up easily and withdraw instantly!", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
             SizedBox(height: 10.h,),
             Flora121Click(

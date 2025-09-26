@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
@@ -19,6 +20,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
   void onInit() {
     super.onInit();
     _startTimer();
+    Flora121MusicHep.instance.playOtherAudio(AudioName.win);
   }
 
   clickDouble(double addNum,bool fromNewUser, Flora121AdEnum adEnum,bool fromNewUserGuideStep1, bool fromNewUserGuideStep4,bool fromQuiz,Function(bool received) dismissCallback){
@@ -73,7 +75,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
   }
 
   _startTimer(){
-    _timer=Timer.periodic(Duration(milliseconds: 800), (t){
+    _timer=Timer.periodic(Duration(milliseconds: 500), (t){
       progressIndex++;
       update(["progress"]);
       if(progressIndex>=2){

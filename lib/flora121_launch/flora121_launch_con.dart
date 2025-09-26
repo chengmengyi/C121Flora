@@ -41,6 +41,8 @@ class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStat
   }
 
   clickStart(){
+    selected=true;
+    update(["selected"]);
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.launch_start);
     _checkShowAd();
   }

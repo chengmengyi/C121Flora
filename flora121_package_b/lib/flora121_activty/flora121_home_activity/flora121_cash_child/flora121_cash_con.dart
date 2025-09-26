@@ -25,6 +25,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Flora121CashCon extends Flora121BaseCon{
@@ -175,7 +176,10 @@ class Flora121CashCon extends Flora121BaseCon{
         _queryCashTaskInfo();
         break;
       case Flora121EventCode.updateCashType:
-        update(["btn"]);
+        update(["btn","amount"]);
+        _queryCashTaskInfo();
+        break;
+      case Flora121EventCode.updateMyMoney:
         _queryCashTaskInfo();
         break;
     }
@@ -188,6 +192,46 @@ class Flora121CashCon extends Flora121BaseCon{
       case Flora121CashType.pix: return "#09A18F";
       case Flora121CashType.cashApp: return "#30A942";
       default: return "#30A942";
+    }
+  }
+
+  String getGouIcon(){
+    switch(bSelectCashType.getData()){
+      case Flora121CashType.paypal: return "icon_gou2";
+      case Flora121CashType.pagBank: return "icon_gou5";
+      case Flora121CashType.pix: return "icon_gou6";
+      case Flora121CashType.cashApp: return "icon_gou7";
+      default: return "icon_gou2";
+    }
+  }
+
+  String getAmountItemBgColor(){
+    switch(bSelectCashType.getData()){
+      case Flora121CashType.paypal: return "#E6F8FF";
+      case Flora121CashType.pagBank: return "#DDF8F9";
+      case Flora121CashType.pix: return "#E2F9F2";
+      case Flora121CashType.cashApp: return "#E3F9E7";
+      default: return "#E3F9E7";
+    }
+  }
+
+  String getBorderItemBgColor(){
+    switch(bSelectCashType.getData()){
+      case Flora121CashType.paypal: return "#4179B9";
+      case Flora121CashType.pagBank: return "#14A6A9";
+      case Flora121CashType.pix: return "#09A18F";
+      case Flora121CashType.cashApp: return "#30A942";
+      default: return "#E3F9E7";
+    }
+  }
+
+  String getInsBgColor(){
+    switch(bSelectCashType.getData()){
+      case Flora121CashType.paypal: return "#E6F8FF";
+      case Flora121CashType.pagBank: return "#DDF8F9";
+      case Flora121CashType.pix: return "#E2F9F2";
+      case Flora121CashType.cashApp: return "#E3F9E7";
+      default: return "#E3F9E7";
     }
   }
 

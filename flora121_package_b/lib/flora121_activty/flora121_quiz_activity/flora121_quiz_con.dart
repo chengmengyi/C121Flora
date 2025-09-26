@@ -52,7 +52,6 @@ class Flora121QuizCon extends Flora121BaseCon{
     await Future.delayed(Duration(milliseconds: 1000));
     canClick=true;
     var result = quizBean?.selectedAnswer==quizBean?.answer;
-    Flora121MusicHep.instance.playOtherAudio(result==true?AudioName.win:AudioName.fail);
     Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.quiz);
     if(result==true){
       answerRightNum++;
@@ -81,6 +80,7 @@ class Flora121QuizCon extends Flora121BaseCon{
         ),
       );
     }else{
+      Flora121MusicHep.instance.playOtherAudio(AudioName.fail);
       _updateNextQuiz(result);
     }
   }

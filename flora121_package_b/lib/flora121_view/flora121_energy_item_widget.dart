@@ -134,6 +134,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
                 showEnergy=false;
               });
               await Future.delayed(Duration(milliseconds: 3000));
+              addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
               setState(() {
                 showEnergy=true;
               });

@@ -236,4 +236,14 @@ class Flora121CashTaskUtils{
     }
     return "0/${task.taskNum??0}";
   }
+
+  bool showTaskCompletedIcon(Task1 task,List<Task1> currentList){
+    var indexWhere = currentList.indexWhere((value)=>value.taskName==task.taskName);
+    if(indexWhere>=0){
+      var current=currentList[indexWhere].taskNum??0;
+      var all = task.taskNum??0;
+      return current>=all;
+    }
+    return false;
+  }
 }

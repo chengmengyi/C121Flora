@@ -90,7 +90,7 @@ class Flora121UserInfoUtils{
       }
       Flora121MusicHep.instance.playOtherAudio(AudioName.money);
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showMoneyAnimator,flora121Map: {"bool":fromQuiz});
-      await Future.delayed(Duration(milliseconds: 800));
+      await Future.delayed(Duration(milliseconds: 1200));
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
     }else{
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);

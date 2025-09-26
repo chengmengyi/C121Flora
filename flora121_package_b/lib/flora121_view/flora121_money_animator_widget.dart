@@ -21,7 +21,7 @@ class _Flora121MoneyAnimatorWidgetState extends Flora121BaseStatefulState<Flora1
   @override
   void initState() {
     super.initState();
-    moneyLottieController=AnimationController(vsync: this,duration: const Duration(milliseconds: 800))..addStatusListener((status) {
+    moneyLottieController=AnimationController(vsync: this,duration: const Duration(milliseconds: 1200))..addStatusListener((status) {
       if(status==AnimationStatus.completed){
         showAnimator=false;
         setState(() {});

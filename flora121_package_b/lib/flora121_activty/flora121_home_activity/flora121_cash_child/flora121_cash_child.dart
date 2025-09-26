@@ -68,12 +68,12 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
                 height: 66.h,
                 key: index==0?baseCon.firstCashAmountGlobalKey:null,
                 decoration: BoxDecoration(
-                  color: "#E6F8FF".toColor(),
+                  color: baseCon.getAmountItemBgColor().toColor(),
                   borderRadius: BorderRadius.circular(16.w),
                   border: isSelect?
                   Border.all(
                     width: 2.w,
-                    color: "#4179B9".toColor(),
+                    color: baseCon.getBorderItemBgColor().toColor(),
                   ):null,
                 ),
                 child: Stack(
@@ -82,7 +82,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
                       alignment: Alignment.topRight,
                       child: Visibility(
                         visible: isSelect,
-                        child: Flora121ImagesView(imagesName: "icon_gou2",width: 20.w,height: 20.w,),
+                        child: Flora121ImagesView(imagesName: baseCon.getGouIcon(),width: 20.w,height: 20.w,),
                       ),
                     ),
                     Align(
@@ -161,19 +161,32 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     ),
     child: Stack(
       children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Flora121TextView(text: Flora121CashTaskUtils.instance.getCashTaskTitleStr(task1), color: "#313831", size: 10.sp,fontWeight: FontWeight.bold,),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flora121ImagesView(imagesName: Flora121CashTaskUtils.instance.getCashTaskIcon(task1),height: 35.h,fit: BoxFit.fitHeight,),
-                SizedBox(width: 12.w,),
-                Flora121TextView(text: Flora121CashTaskUtils.instance.getCashTaskPro(task1, currentList), color: "#DB6F2C", size: 10.sp,fontWeight: FontWeight.bold,),
-              ],
+        Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            margin: EdgeInsets.only(right: 6.w),
+            child: Visibility(
+              visible: Flora121CashTaskUtils.instance.showTaskCompletedIcon(task1, currentList),
+              child: Flora121ImagesView(imagesName: "icon_gou4",width: 52.w,height: 52.w,),
             ),
-          ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flora121TextView(text: Flora121CashTaskUtils.instance.getCashTaskTitleStr(task1), color: "#313831", size: 10.sp,fontWeight: FontWeight.bold,),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flora121ImagesView(imagesName: Flora121CashTaskUtils.instance.getCashTaskIcon(task1),height: 35.h,fit: BoxFit.fitHeight,),
+                  SizedBox(width: 12.w,),
+                  Flora121TextView(text: Flora121CashTaskUtils.instance.getCashTaskPro(task1, currentList), color: "#DB6F2C", size: 10.sp,fontWeight: FontWeight.bold,),
+                ],
+              ),
+            ],
+          ),
         ),
       ],
     ),
@@ -183,7 +196,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     width: double.infinity,
     padding: EdgeInsets.all(12.w),
     decoration: BoxDecoration(
-      color: "#E2F9F2".toColor(),
+      color: baseCon.getInsBgColor().toColor(),
       borderRadius: BorderRadius.circular(10.w),
     ),
     child: Column(
@@ -310,16 +323,19 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     onTap: (){
       baseCon.clickCash();
     },
-    child: Container(
-      width: double.infinity,
-      height: 48.h,
-      key: baseCon.cashBtnGlobalKey,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: baseCon.getBtnColor().toColor(),
-        borderRadius: BorderRadius.circular(100.w),
+    child: GetBuilder<Flora121CashCon>(
+      id: "btn",
+      builder: (_)=>Container(
+        width: double.infinity,
+        height: 48.h,
+        key: baseCon.cashBtnGlobalKey,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: baseCon.getBtnColor().toColor(),
+          borderRadius: BorderRadius.circular(100.w),
+        ),
+        child: Flora121TextView(text: "Withdraw", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
       ),
-      child: Flora121TextView(text: "Withdraw", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
     ),
   );
 }

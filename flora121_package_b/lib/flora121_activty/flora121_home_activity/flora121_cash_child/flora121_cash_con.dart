@@ -174,6 +174,20 @@ class Flora121CashCon extends Flora121BaseCon{
       case Flora121EventCode.updateCashTask:
         _queryCashTaskInfo();
         break;
+      case Flora121EventCode.updateCashType:
+        update(["btn"]);
+        _queryCashTaskInfo();
+        break;
+    }
+  }
+
+  String getBtnColor(){
+    switch(bSelectCashType.getData()){
+      case Flora121CashType.paypal: return "#1363AE";
+      case Flora121CashType.pagBank: return "#58BCBE";
+      case Flora121CashType.pix: return "#09A18F";
+      case Flora121CashType.cashApp: return "#30A942";
+      default: return "#30A942";
     }
   }
 

@@ -18,4 +18,5 @@ class Flora121EventCode{
   static const int updateCashTask=115;
   static const int updateWheelNum=116;
   static const int updateBarrageShow=117;
+  static const int showMoneyAnimator=118;
 }

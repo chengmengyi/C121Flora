@@ -1,4 +1,5 @@
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
@@ -48,8 +49,30 @@ class Flora121NewUserStep3View extends StatelessWidget{
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 22.h),
-                        child: Flora121TextView(text: "Tap Here for Your Lucky Cash Reward!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                        margin: EdgeInsets.only(bottom: 25.h),
+                        // child: Flora121TextView(text: "Tap Here for Your Lucky Cash Reward!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                        child: RichText(
+                          text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "Tap Here for Your ",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: "#3B6204".toColor(),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "Lucky Cash Reward!",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: "#EF5D00".toColor(),
+                                  ),
+                                ),
+                              ]
+                          ),
+                        ),
                       ),
                     ),
                   ],

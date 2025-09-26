@@ -316,7 +316,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
       key: baseCon.cashBtnGlobalKey,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: "#1363AE".toColor(),
+        color: baseCon.getBtnColor().toColor(),
         borderRadius: BorderRadius.circular(100.w),
       ),
       child: Flora121TextView(text: "Withdraw", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),

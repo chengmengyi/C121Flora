@@ -19,6 +19,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
   Function(bool received) dismissCallback;
   bool fromNewUserGuideStep1;
   bool fromNewUserGuideStep4;
+  bool fromQuiz;
   Flora121CommonGetDialog({
     required this.addNum,
     required this.rvAdEnum,
@@ -26,6 +27,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     this.fromNewUser=false,
     this.fromNewUserGuideStep1=false,
     this.fromNewUserGuideStep4=false,
+    this.fromQuiz=false,
     required this.dismissCallback,
 });
 
@@ -129,7 +131,11 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     btnColor: "#FBAC00",
     showVideoIcon: !fromNewUser,
     onTap: (){
-      baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4,dismissCallback);
+      if(rvAdEnum==Flora121AdEnum.frfcn_level_rv||rvAdEnum==Flora121AdEnum.frfcn_signin_rv){
+        baseCon.fromLevelClickDouble(addNum, rvAdEnum,intAdEnum, fromNewUserGuideStep1,fromNewUserGuideStep4,dismissCallback);
+        return;
+      }
+      baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4,fromQuiz,dismissCallback);
     },
   );
 

@@ -29,7 +29,6 @@ class Flora121HomeCon extends Flora121BaseCon{
     Flora121MusicHep.instance.init();
     Flora121ApplifeHep.instance.init();
     Flora121FengkongHep.instance.initFengkong();
-    Flora121AndroidLocalNotificationHep.instance.init(true);
     Flora121Base.instance.flora();
     Flora121NetworkHep.instance.init();
   }

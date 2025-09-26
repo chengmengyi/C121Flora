@@ -6,9 +6,8 @@ class Flora121SpineAnimatorView extends StatelessWidget{
   String skeletonFile;
   String animatorName;
   String folder;
-  double width;
-  double height;
-  BoxFit? fit;
+  double? width;
+  double? height;
   SpineWidgetController? controller;
   Flora121SpineAnimatorView({
     required this.atlasFile,
@@ -17,7 +16,6 @@ class Flora121SpineAnimatorView extends StatelessWidget{
     required this.folder,
     required this.width,
     required this.height,
-    this.fit,
     this.controller,
   });
   @override
@@ -32,7 +30,7 @@ class Flora121SpineAnimatorView extends StatelessWidget{
           controller.animationState.setAnimationByName(0, animatorName, true);
         },
       ),
-      fit: fit??BoxFit.fill,
+      // fit: fit??BoxFit.fill,
     ),
   );
 }

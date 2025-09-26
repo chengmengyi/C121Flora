@@ -1,6 +1,7 @@
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'dart:math';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
@@ -26,11 +27,15 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
   late AnimationController _wheelAnimationController;
   Animation<double>? wheelAnimation;
   late AnimationStatusListener _statusListener;
+  late WebViewController controller;
 
   @override
   void onInit() {
     super.onInit();
     _initAnimator();
+    controller=WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(Flora121LocalInfo.moreFun));
   }
 
   clickStart(){

@@ -25,5 +25,6 @@ class Flora121BaseSqlUtils{
   _createVersion2DB(Database db){
     db.execute('CREATE TABLE ${Flora121SqlName.bCashTask} (id INTEGER PRIMARY KEY AUTOINCREMENT, cashMoney INTEGER, cashType TEXT, cashTaskIndex TEXT,currentProgress TEXT,totalProgress TEXT,cashAccount TEXT)');
     db.execute('CREATE TABLE ${Flora121SqlName.bSign} (id INTEGER PRIMARY KEY AUTOINCREMENT, addNum INTEGER, signedTimer TEXT, day INTEGER)');
+    db.execute('CREATE TABLE ${Flora121SqlName.bQuizRecord} (id INTEGER PRIMARY KEY AUTOINCREMENT, timer TEXT, list TEXT)');
   }
 }

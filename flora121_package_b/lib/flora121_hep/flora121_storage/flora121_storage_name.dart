@@ -20,4 +20,5 @@ class Flora121StorageName{
   static const String bAdProbabilityConfigStr="bAdProbabilityConfigStr";
   static const String bLastTimeMoneyLevel="bLastTimeMoneyLevel";
   static const String bBarrageSwitch="bBarrageSwitch";
+  static const String bHasReceivedLevelMoney="bHasReceivedLevelMoney";
 }

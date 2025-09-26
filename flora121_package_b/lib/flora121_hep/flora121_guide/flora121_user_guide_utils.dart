@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
@@ -9,6 +10,7 @@ import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_task_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_change_cash_type_dialog/flora121_change_cash_type_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_newuser_get_dialog/flora121_newuser_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new_user_step1_view.dart';
@@ -22,6 +24,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new
 import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new_user_step9_view.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Flora121UserGuideUtils{
@@ -39,12 +42,21 @@ class Flora121UserGuideUtils{
       if(newTime!=todayTimeStr&&oldTime!=todayTimeStr){
         bShowOldUserGuideTimer.saveData(todayTimeStr);
         Flora121RoutersHep.dialog(
-          child: Flora121OldUserDialog(),
+          child: Flora121OldUserDialog(
+            dismissCall: (){
+
+            },
+          ),
         );
       }
+      Flora121AndroidLocalNotificationHep.instance.init(true);
       return;
     }
     bShowNewUserGuideTimer.saveData(getTodayTimeStr());
+    Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep1Guide);
+  }
+
+  test(){
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep1Guide);
   }
 
@@ -59,11 +71,7 @@ class Flora121UserGuideUtils{
           Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop1"});
           hideOverlay();
           Flora121RoutersHep.dialog(
-            child: Flora121CommonGetDialog(
-              fromNewUser: true,
-              rvAdEnum: Flora121AdEnum.none,
-              intAdEnum: Flora121AdEnum.none,
-              fromNewUserGuideStep1: true,
+            child: Flora121NewuserGetDialog(
               addNum: Flora121ValueUtils.instance.getNewUserGuideStep2AddNum().toDouble(),
               dismissCallback: (received){
                 _showStep2Guide(context);
@@ -217,6 +225,7 @@ class Flora121UserGuideUtils{
         dismissCallback: (){
           hideOverlay();
           Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop9"});
+          Flora121AndroidLocalNotificationHep.instance.init(true);
         },
       ),
     );

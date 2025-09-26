@@ -44,7 +44,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   List<Flora121StoreBean> storeList=[];
   Timer? _energyTimer;
   Offset? rewardTipsOffset;
-  var canClick=true;
+  var canClick=true,showLevelMoneyAnimator=false;
 
   var flowerHeight=200.h;
   var flowerWidth=100.w;
@@ -64,6 +64,8 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     _getEnergyList();
     _getSignList();
     _getStoreList();
+    _checkShowReward();
+    _checkShowLevelMoneyAnimator();
   }
 
   clickEnergy(Flora121EnergyType type)async{
@@ -71,6 +73,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     Flora121EnergyUtils.instance.updateCollectEnergyNum();
     update(["level","flower"]);
     _checkShowReward();
+    _checkShowLevelMoneyAnimator();
   }
 
   clickSignItem(int index,Flora121SignBean bean)async{
@@ -157,7 +160,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   }
 
   _checkShowReward(){
-    if(bCollectEnergyNum.getData()!=1){
+    if(Flora121EnergyUtils.instance.getLevelNum()>=5){
       rewardTipsOffset=null;
       update(["reward_tips"]);
       return;
@@ -165,6 +168,35 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     var renderBox = rewardGlobalKey.currentContext?.findRenderObject() as RenderBox;
     rewardTipsOffset = renderBox.localToGlobal(Offset.zero);
     update(["reward_tips"]);
+  }
+
+  _checkShowLevelMoneyAnimator(){
+    if(bHasReceivedLevelMoney.getData()){
+      showLevelMoneyAnimator=false;
+      update(["level_money"]);
+      return;
+    }
+    var levelQuantity = Flora121ValueUtils.instance.getUpLevelQuantity();
+    var isUpLevel = bCollectEnergyNum.getData()%levelQuantity==0;
+    showLevelMoneyAnimator=isUpLevel;
+    update(["level_money"]);
+  }
+
+  clickLevelMoney(){
+    Flora121RoutersHep.dialog(
+      child: Flora121CommonGetDialog(
+        addNum: Flora121ValueUtils.instance.getUpLevelAddNum(),
+        rvAdEnum: Flora121AdEnum.frfcn_level_rv,
+        intAdEnum: Flora121AdEnum.frfcn_level_int,
+        dismissCallback: (received){
+          if(received){
+            bHasReceivedLevelMoney.saveData(true);
+            showLevelMoneyAnimator=false;
+            update(["level_money"]);
+          }
+        },
+      ),
+    );
   }
 
   _startEnergyTimer(){
@@ -198,6 +230,10 @@ class Flora121HomeChildCon extends Flora121BaseCon{
 
   clickStore(Flora121StoreBean bean){
     Flora121RoutersHep.dialog(child: Flora121StoreDetailDialog(bean: bean));
+  }
+
+  clickMoreFun(){
+    toWebActivity("More Fun", Flora121LocalInfo.moreFun);
   }
 
   @override
@@ -237,5 +273,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121AndroidLocalNotificationHep.instance.init(false);
     Flora121UserInfoUtils.instance.updateMyMoney(100);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
+
+    // Flora121UserGuideUtils.instance.test();
   }
 }

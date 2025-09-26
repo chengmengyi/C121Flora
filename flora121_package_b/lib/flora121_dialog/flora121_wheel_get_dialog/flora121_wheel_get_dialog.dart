@@ -22,29 +22,22 @@ class Flora121WheelGetDialog extends Flora121BaseDialog<Flora121WheelGetDialogCo
   Flora121WheelGetDialogCon initBaseConFlora121() => Flora121WheelGetDialogCon();
 
   @override
-  Widget initBaseWidgetFlora121() => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Flora121ImagesView(imagesName: "get4",height: 62.h,fit: BoxFit.fitHeight,),
-      _contentWidget(),
-    ],
-  );
+  Widget initBaseWidgetFlora121() => _contentWidget();
 
   _contentWidget()=>Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Container(
         width: double.infinity,
-        height: 490.h,
+        height: 448.h,
         margin: EdgeInsets.only(left: 34.w,right: 34.w),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Flora121ImagesView(imagesName: "get5",width: double.infinity,height: double.infinity,),
+            Flora121ImagesView(imagesName: "wheel12",width: double.infinity,height: double.infinity,),
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _titleWidget(),
                 _monetWidget(),
                 _progressListWidget(),
                 _btnWidget(),

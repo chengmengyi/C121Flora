@@ -13,6 +13,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flora121_package_b/flora121_view/flora121_health_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_shake_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
 import 'package:flutter/material.dart';
 
@@ -23,36 +24,43 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
   @override
   Widget initBaseWidgetFlora121() => Stack(
     children: [
-      Flora121ImagesView(
-        imagesName: "wheel8",
-        width: double.infinity,
-        height: double.infinity,
+      WebViewWidget(controller: baseCon.controller),
+      PointerTapSimulator(
+        child: Stack(
+          children: [
+            Flora121ImagesView(
+              imagesName: "wheel8",
+              width: double.infinity,
+              height: double.infinity,
+            ),
+            Column(
+              children: [
+                _topWidget(),
+                _wheelWidget(),
+                _giftWidget(),
+                _btnWidget(),
+                SizedBox(height: 10.h,),
+                _bottomWidget(),
+              ],
+            ),
+            Positioned(
+              left: 0,
+              top: 130.h,
+              child: Flora121ImagesView(imagesName: "wheel10",width: 188.w,height: 188.h,),
+            ),
+            _myAccountWidget(),
+          ],
+        ),
       ),
-      Column(
-        children: [
-          _topWidget(),
-          _wheelWidget(),
-          _giftWidget(),
-          _btnWidget(),
-          SizedBox(height: 10.h,),
-          _bottomWidget(),
-        ],
-      ),
-      Positioned(
-        left: 0,
-        top: 130.h,
-        child: Flora121ImagesView(imagesName: "wheel10",width: 188.w,height: 188.h,),
-      ),
-      _myAccountWidget(),
     ],
   );
 
-  _giftWidget()=>Stack(
-    alignment: Alignment.centerRight,
-    children: [
-      GetBuilder<Flora121WheelChildCon>(
-        id: "gift",
-        builder: (_)=>Container(
+  _giftWidget()=>GetBuilder<Flora121WheelChildCon>(
+    id: "gift",
+    builder: (_)=>Stack(
+      alignment: Alignment.centerRight,
+      children: [
+        Container(
           width: 254.w,
           height: 33.h,
           alignment: Alignment.centerLeft,
@@ -94,14 +102,27 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
             },
           ),
         ),
-      ),
-      Flora121Click(
-        onTap: (){
-          baseCon.clickBox();
-        },
-        child: Flora121ImagesView(imagesName: "icon_box",width: 50.w,height: 47.h,),
-      ),
-    ],
+        Flora121Click(
+          onTap: (){
+            baseCon.clickBox();
+          },
+          child: bWheelGiftNum.getData()>=5?
+          RotateShakeWidget(
+            angle: 0.2,
+            duration: Duration(milliseconds: 600),
+            child: Flora121ImagesView(
+              imagesName: "icon_box",
+              width: 50.w,
+              height: 47.h,
+            ),
+          ):Flora121ImagesView(
+            imagesName: "icon_box",
+            width: 50.w,
+            height: 47.h,
+          ),
+        ),
+      ],
+    ),
   );
 
   _wheelWidget()=>Container(

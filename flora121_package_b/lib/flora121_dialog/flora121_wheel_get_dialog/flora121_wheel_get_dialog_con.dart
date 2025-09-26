@@ -51,7 +51,7 @@ class Flora121WheelGetDialogCon extends Flora121BaseCon{
   }
 
   _startTimer(){
-    _timer=Timer.periodic(Duration(milliseconds: 2000), (t){
+    _timer=Timer.periodic(Duration(milliseconds: 800), (t){
       progressIndex++;
       update(["progress"]);
       if(progressIndex>=3){

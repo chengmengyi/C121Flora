@@ -4,6 +4,7 @@ import 'package:flora121_base/flora121_base/flora121_base_stateful.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
@@ -114,6 +115,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
   }
 
   _clickItem()async{
+    Flora121MusicHep.instance.playOtherAudio(AudioName.clickPaoPao);
     if(widget.flora121energyType==Flora121EnergyType.water){
       _clickWater();
       return;

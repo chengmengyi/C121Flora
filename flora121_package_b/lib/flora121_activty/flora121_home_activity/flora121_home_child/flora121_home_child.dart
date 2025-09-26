@@ -11,6 +11,7 @@ import 'package:flora121_package_b/flora121_view/flora121_cash_record_view.dart'
 import 'package:flora121_package_b/flora121_view/flora121_energy_item_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_health_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_home_top_reward_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_shake_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 150.h,),
+          SizedBox(height: 140.h,),
           Flora121HomeTopRewardView(),
         ],
       ),
@@ -39,7 +40,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
   );
 
   _bottomWidget()=>Container(
-    margin: EdgeInsets.only(bottom: 100.h),
+    margin: EdgeInsets.only(bottom: 80.h),
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -58,7 +59,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
       Flora121ImagesView(imagesName: "home15",width: 200.w,height: 65.h,),
       Container(
         width: double.infinity,
-        height: 280.h,
+        height: 260.h,
         margin: EdgeInsets.only(bottom: 30.h),
         child: Stack(
           children: [
@@ -75,14 +76,6 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                           baseCon.test();
                         },
                         child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
-                        // child: Flora121SpineAnimatorView(
-                        //   atlasFile: "flower5",
-                        //   skeletonFile: "skeleton",
-                        //   animatorName: "animation",
-                        //   folder: "flower5",
-                        //   width: 100.w,
-                        //   height: 200.h,
-                        // ),
                       ),
                     ),
                   ),
@@ -93,19 +86,19 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                   ),
                   Positioned(
                     left: 20.w,
-                    bottom: 130.h,
+                    bottom: 150.h,
                     child: _energyItemWidget(
                       Flora121EnergyType.money,
                       key: baseCon.treeGlobalKey,
                     ),
                   ),
                   Positioned(
-                    top: 30.h,
-                    left: 90.w,
+                    top: 20.h,
+                    left: 100.w,
                     child: _energyItemWidget(Flora121EnergyType.water),
                   ),
                   Positioned(
-                    top: 20.h,
+                    top: 10.h,
                     right: 100.w,
                     child: _energyItemWidget(Flora121EnergyType.dice),
                   ),
@@ -114,13 +107,26 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                     right: 36.w,
                     child: _energyItemWidget(Flora121EnergyType.quiz),
                   ),
+                  Positioned(
+                    top: 0,
+                    right: 16.w,
+                    child: Flora121Click(
+                      onTap: (){
+                        baseCon.clickMoreFun();
+                      },
+                      child: Flora121ImagesView(imagesName: "more_fun",width: 52.w,height: 52.w,),
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      Flora121CashRecordView(),
+      Container(
+        margin: EdgeInsets.only(bottom: 20.h),
+        child: Flora121CashRecordView(),
+      ),
     ],
   );
 
@@ -186,11 +192,35 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                 ),
                 SizedBox(
                   key: baseCon.rewardGlobalKey,
-                  child: Flora121ImagesView(imagesName: "home16",width: 51.w,height: 51.w,),
+                  child: GetBuilder<Flora121HomeChildCon>(
+                    id: "level_money",
+                    builder: (_){
+                      if(baseCon.showLevelMoneyAnimator){
+                        return Flora121Click(
+                          onTap: (){
+                            baseCon.clickLevelMoney();
+                          },
+                          child: RotateShakeWidget(
+                            angle: 0.2,
+                            duration: Duration(milliseconds: 600),
+                            child: Flora121ImagesView(imagesName: "home16",width: 51.w,height: 51.w,),
+                          ),
+                        );
+                      }
+                      return Flora121ImagesView(imagesName: "home16",width: 51.w,height: 51.w,);
+                    },
+                  ),
                 ),
               ],
             ),
-            Flora121TextView(text: "Collect ${Flora121EnergyUtils.instance.getCollectSurplusNum()} bubbles to upgrade", color: "#313831", size: 12.sp,fontWeight: FontWeight.bold,),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flora121TextView(text: "Collect ", color: "#313831", size: 12.sp,fontWeight: FontWeight.bold,),
+                Flora121TextView(text: "${Flora121EnergyUtils.instance.getCollectSurplusNum()}", color: "#FFFFFF", size: 12.sp,fontWeight: FontWeight.bold,outlineColor: "#82381A",),
+                Flora121TextView(text: " bubbles to upgrade", color: "#313831", size: 12.sp,fontWeight: FontWeight.bold,),
+              ],
+            ),
           ],
         );
       }
@@ -276,7 +306,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                             ),
                           ),
                         ),
-                        Flora121ImagesView(imagesName: "icon_money",width: 20.w,height: 20.w,),
+                        Flora121ImagesView(imagesName: "icon_money",width: 30.w,height: 30.w,),
                         Visibility(
                           visible: bean.signedTimer?.isNotEmpty==true,
                           child: Container(
@@ -331,7 +361,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     ),
   );
 
-  _rewardTipsWidget()=>GetBuilder<Flora121HomeChildCon>(
+  _rewardTipsWidget()=> GetBuilder<Flora121HomeChildCon>(
     id: "reward_tips",
     builder: (_){
       if(null==baseCon.rewardTipsOffset){

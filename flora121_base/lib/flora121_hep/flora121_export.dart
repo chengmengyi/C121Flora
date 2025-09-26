@@ -8,3 +8,5 @@ export 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
 export 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 export 'package:decimal/decimal.dart';
 export 'package:marqueer/marqueer.dart';
+export 'package:pointer_tap_simulator/pointer_tap_simulator.dart';
+export 'package:lottie/lottie.dart';

@@ -4,6 +4,7 @@ import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.d
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
@@ -60,12 +61,11 @@ class Flora121UserInfoUtils{
     return List.generate(length, (index) => chars[random.nextInt(chars.length)]).join();
   }
 
-  updateMyMoney(double addNum){
+  updateMyMoney(double addNum,{bool fromQuiz=false})async{
     if(addNum==0){
       return;
     }
     bMyMoneyNum.saveData((Decimal.fromJson("${bMyMoneyNum.getData()}")+Decimal.fromJson("$addNum")).toDouble());
-    Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
     if(addNum>0){
       var moneyLevel = bLastTimeMoneyLevel.getData()+100;
       var data = bMyMoneyNum.getData();
@@ -88,7 +88,12 @@ class Flora121UserInfoUtils{
       if(data<first&&getRewardNum>=adMore){
         flora121NoMoneyRewardAdMany.saveData(true);
       }
-
+      Flora121MusicHep.instance.playOtherAudio(AudioName.money);
+      Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showMoneyAnimator,flora121Map: {"bool":fromQuiz});
+      await Future.delayed(Duration(milliseconds: 800));
+      Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
+    }else{
+      Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
     }
   }
 }

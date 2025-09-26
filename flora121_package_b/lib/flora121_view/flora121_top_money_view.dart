@@ -28,7 +28,7 @@ class _Flora121TopMoneyViewState extends Flora121BaseStatefulState<Flora121TopMo
     },
     child: SizedBox(
       width: double.infinity,
-      height: 148.h,
+      height: 138.h,
       child: Stack(
         children: [
           Flora121ImagesView(imagesName: _getBgImages(),width: double.infinity,height: double.infinity,),

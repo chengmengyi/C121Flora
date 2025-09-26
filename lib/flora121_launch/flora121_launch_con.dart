@@ -42,10 +42,6 @@ class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStat
 
   clickStart(){
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.launch_start);
-    if(!selected){
-      "Please read and check the privacy agreement".showToast();
-      return;
-    }
     _checkShowAd();
   }
 

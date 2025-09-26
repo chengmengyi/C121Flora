@@ -51,8 +51,37 @@ class Flora121NewUserStep2View extends StatelessWidget{
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 22.h),
-                          child: Flora121TextView(text: "Nice! + $addNum for you!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                          margin: EdgeInsets.only(bottom: 25.h),
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: "Nice! ",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: "#3B6204".toColor(),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: "+ $addNum",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: "#EF5D00".toColor(),
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: " for you!",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: "#3B6204".toColor(),
+                                  ),
+                                ),
+                              ]
+                            ),
+                          ),
                         ),
                       ),
                     ],

@@ -60,7 +60,7 @@ class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121Cas
         );
 
       }).toList(),
-    );;
+    );
   }
 
   _initMarqueeList()async{

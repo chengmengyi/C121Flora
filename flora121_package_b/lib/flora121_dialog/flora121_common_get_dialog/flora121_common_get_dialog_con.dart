@@ -21,9 +21,9 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     _startTimer();
   }
 
-  clickDouble(double addNum,bool fromNewUser, Flora121AdEnum adEnum,bool fromNewUserGuideStep1, bool fromNewUserGuideStep4,Function(bool received) dismissCallback){
+  clickDouble(double addNum,bool fromNewUser, Flora121AdEnum adEnum,bool fromNewUserGuideStep1, bool fromNewUserGuideStep4,bool fromQuiz,Function(bool received) dismissCallback){
     if(fromNewUser){
-      Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
+      Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2(),fromQuiz: fromQuiz);
       Flora121RoutersHep.back();
       dismissCallback.call(true);
       return;
@@ -34,8 +34,24 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
       adEnum: adEnum,
       showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.reward),
       closeAd: (giveReward){
-        if(!giveReward){
-          Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
+        if(giveReward){
+          Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2(),fromQuiz: fromQuiz);
+        }
+        Flora121RoutersHep.back();
+        dismissCallback.call(true);
+      },
+    );
+  }
+
+  fromLevelClickDouble(double addNum,Flora121AdEnum rvEnum,Flora121AdEnum intEnum,bool fromNewUserGuideStep1, bool fromNewUserGuideStep4,Function(bool received) dismissCallback){
+    _uploadClickDoublePontEvent(rvEnum,fromNewUserGuideStep1,fromNewUserGuideStep4);
+    Flora121AdHep.instance.showFlora121BBBBBBB(
+      adType: AdType.interstitial,
+      adEnum: intEnum,
+      showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.interstitial),
+      closeAd: (giveReward){
+        if(giveReward){
+          Flora121UserInfoUtils.instance.updateMyMoney(addNum);
         }
         Flora121RoutersHep.back();
         dismissCallback.call(true);
@@ -57,7 +73,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
   }
 
   _startTimer(){
-    _timer=Timer.periodic(Duration(milliseconds: 2000), (t){
+    _timer=Timer.periodic(Duration(milliseconds: 800), (t){
       progressIndex++;
       update(["progress"]);
       if(progressIndex>=2){

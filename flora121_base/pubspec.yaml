@@ -38,6 +38,7 @@ dependencies:
   permission_handler: 12.0.1
   app_settings: 6.1.1
   connectivity_plus: 7.0.0
+  pointer_tap_simulator: 0.0.2
   flora_feng:
     path: plugins/flora_feng
   birdsong:

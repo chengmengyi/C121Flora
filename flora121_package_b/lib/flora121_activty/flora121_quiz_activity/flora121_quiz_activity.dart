@@ -7,6 +7,7 @@ import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_quiz_activity/flora121_quiz_con.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
+import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,13 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
           Flora121TopMoneyView(),
           _quizWidget(),
         ],
-      )
+      ),
+      Align(
+        alignment: Alignment.topCenter,
+        child: Flora121MoneyAnimatorWidget(
+          fromQuiz: true,
+        ),
+      ),
     ],
   );
 
@@ -69,7 +76,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
                   _progressWidget(),
                   SizedBox(height: 18.h,),
                   _quizContentWidget(),
-                  SizedBox(height: 40.h,),
+                  SizedBox(height: 30.h,),
                   _bottomWidget(),
                 ],
               ),
@@ -103,15 +110,15 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
     ),
   );
 
-  _progressItemWidget(index, Flora121QuizWheelRewardBean bean,){
+  _progressItemWidget(index, String bean,){
     var isFirst = index==0;
     var isLast = index==baseCon.rewardStatusList.length-1;
     return Flora121Click(
       onTap: (){
-        baseCon.clickWheelItem(bean);
+        baseCon.clickWheelItem(index);
       },
       child: Stack(
-        key: bean.globalKey,
+        // key: bean.globalKey,
         alignment: Alignment.center,
         children: [
           Container(
@@ -150,7 +157,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
               ),
             ),
           ),
-          Flora121ImagesView(imagesName: bean.type==Flora121QuizWheelRewardType.unReceived?"icon_wheel_sel":"icon_wheel_uns",width: 47.w,height: 47.h,),
+          Flora121ImagesView(imagesName: bean==Flora121QuizWheelRewardType.unReceived?"icon_wheel_sel":"icon_wheel_uns",width: 47.w,height: 47.h,),
         ],
       ),
     );

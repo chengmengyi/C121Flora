@@ -29,9 +29,9 @@ class Flora121NewUserStep1View extends StatelessWidget{
         child: Stack(
           children: [
             Positioned(
-              top: treeOffset.dy,
-              left: treeOffset.dx,
-              child: Flora121ImagesView(imagesName: "flower1",width: 100.w,),
+              top: treeOffset.dy-130.h,
+              left: treeOffset.dx-20.w,
+              child: Flora121ImagesView(imagesName: "flower5",width: 150.w,fit: BoxFit.fitWidth,),
             ),
             Positioned(
               top: moneyOffset.dy,

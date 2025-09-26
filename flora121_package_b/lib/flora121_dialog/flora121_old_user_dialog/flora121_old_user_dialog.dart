@@ -11,6 +11,10 @@ import 'package:flora121_package_b/flora121_view/flora121_watch_video_btn_widget
 import 'package:flutter/material.dart';
 
 class Flora121OldUserDialog extends Flora121BaseDialog<Flora121OldUserDialogCon>{
+  Function() dismissCall;
+  Flora121OldUserDialog({
+    required this.dismissCall,
+});
 
   @override
   Flora121OldUserDialogCon initBaseConFlora121() => Flora121OldUserDialogCon();
@@ -50,7 +54,7 @@ class Flora121OldUserDialog extends Flora121BaseDialog<Flora121OldUserDialogCon>
       SizedBox(height: 25.h,),
       Flora121Click(
         onTap: (){
-          baseCon.clickClose();
+          baseCon.clickClose(dismissCall);
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),
@@ -165,7 +169,7 @@ class Flora121OldUserDialog extends Flora121BaseDialog<Flora121OldUserDialogCon>
     btnColor: "#E23D40",
     showVideoIcon: false,
     onTap: (){
-      baseCon.clickDouble();
+      baseCon.clickDouble(dismissCall);
     },
   );
 

@@ -9,6 +9,8 @@ class AudioName{
   static const String fail="fail";
   static const String wheel="wheel";
   static const String win="win";
+  static const String dice="dice";
+  static const String money="money";
 }
 
 class Flora121MusicHep{
@@ -17,18 +19,35 @@ class Flora121MusicHep{
 
 
   final AudioPlayer _bgm=AudioPlayer();
-  final AudioPlayer _audio=AudioPlayer();
+  // final AudioPlayer _audio=AudioPlayer();
 
-  init(){
-    _audio.onPlayerStateChanged.listen((event) {
-      if(musicSwitch.getData()){
-        if(event==PlayerState.playing){
-          _bgm.pause();
-        }else if(event==PlayerState.completed){
-          _bgm.resume();
-        }
-      }
-    });
+  init()async{
+    final audioContext = AudioContext(
+      android: const AudioContextAndroid(
+        isSpeakerphoneOn: true,
+        stayAwake: false,
+        contentType: AndroidContentType.music,
+        usageType: AndroidUsageType.media,
+        audioFocus: AndroidAudioFocus.none,
+      ),
+      iOS: AudioContextIOS(
+        category: AVAudioSessionCategory.playback,
+        options: {
+          AVAudioSessionOptions.mixWithOthers
+        },
+      ),
+    );
+    await AudioPlayer.global.setAudioContext(audioContext);
+
+    // _audio.onPlayerStateChanged.listen((event) {
+    //   if(musicSwitch.getData()){
+    //     if(event==PlayerState.playing){
+    //       _bgm.pause();
+    //     }else if(event==PlayerState.completed){
+    //       _bgm.resume();
+    //     }
+    //   }
+    // });
     playBgm();
   }
 
@@ -57,7 +76,13 @@ class Flora121MusicHep{
 
   playOtherAudio(String audioName){
     if(musicSwitch.getData()){
-      _audio.play(AssetSource("$audioName.MP3"));
+      AudioPlayer audio=AudioPlayer();
+      audio.onPlayerStateChanged.listen((state){
+        if(state==PlayerState.completed){
+          audio.dispose();
+        }
+      });
+      audio.play(AssetSource("$audioName.MP3"));
     }
   }
 }

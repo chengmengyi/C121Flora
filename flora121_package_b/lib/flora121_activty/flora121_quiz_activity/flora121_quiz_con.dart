@@ -3,12 +3,14 @@ import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
+import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_quiz_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
@@ -18,7 +20,7 @@ class Flora121QuizCon extends Flora121BaseCon{
   var wheelRewardIndex=-1,canClick=true,answerRightNum=0;
   List<Flora121QuizBean> quizList=[];
   Flora121QuizBean? quizBean;
-  List<Flora121QuizWheelRewardBean> rewardStatusList=[];
+  List<String> rewardStatusList=[];
   ScrollController scrollController=ScrollController();
 
   final List<String> _bottomTextList=[
@@ -50,14 +52,29 @@ class Flora121QuizCon extends Flora121BaseCon{
     await Future.delayed(Duration(milliseconds: 1000));
     canClick=true;
     var result = quizBean?.selectedAnswer==quizBean?.answer;
+    Flora121MusicHep.instance.playOtherAudio(result==true?AudioName.win:AudioName.fail);
     Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.quiz);
     if(result==true){
       answerRightNum++;
+      if(answerRightNum%3==0){
+        Flora121WheelUtils.instance.updateWheelNum(1);
+        wheelRewardIndex++;
+        try{
+          if(rewardStatusList[wheelRewardIndex]==Flora121QuizWheelRewardType.none){
+            rewardStatusList[wheelRewardIndex]=Flora121QuizWheelRewardType.unReceived;
+            Flora121QuizUtils.instance.updateTodayRecord(rewardStatusList);
+            update(["progress"]);
+          }
+        }catch(e){
+
+        }
+      }
       Flora121RoutersHep.dialog(
         child: Flora121CommonGetDialog(
           addNum: Flora121ValueUtils.instance.getQuizAddNum(),
           rvAdEnum: Flora121AdEnum.frfcn_quiz_rv,
           intAdEnum: Flora121AdEnum.frfcn_quiz_int,
+          fromQuiz: true,
           dismissCallback: (received){
             _updateNextQuiz(result);
           },
@@ -71,39 +88,34 @@ class Flora121QuizCon extends Flora121BaseCon{
   _updateNextQuiz(bool result){
     quizBean?.selectedAnswer=null;
     quizBean=quizList.random();
-    wheelRewardIndex=(answerRightNum~/3)-1;
-    try{
-      if(rewardStatusList[wheelRewardIndex].type==Flora121QuizWheelRewardType.none){
-        rewardStatusList[wheelRewardIndex].type=Flora121QuizWheelRewardType.unReceived;
-      }
-    }catch(e){
-
-    }
-    var lastIndexWhere = rewardStatusList.lastIndexWhere((value)=>value.type!=Flora121QuizWheelRewardType.none);
-    if(lastIndexWhere>=0){
-      scrollController.animateTo(
-        lastIndexWhere*(64.w),
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    }
-    update(["answer_list","quiz_content","progress"]);
+    // wheelRewardIndex=(answerRightNum~/3)-1;
+    // var lastIndexWhere = rewardStatusList.lastIndexWhere((value)=>value!=Flora121QuizWheelRewardType.none);
+    // if(lastIndexWhere>=0){
+    //   scrollController.animateTo(
+    //     lastIndexWhere*(64.w),
+    //     duration: const Duration(milliseconds: 500),
+    //     curve: Curves.easeInOut,
+    //   );
+    // }
+    update(["answer_list","quiz_content",]);
     if(result){
       update(["bottom_text"]);
     }
   }
 
-  clickWheelItem(Flora121QuizWheelRewardBean bean){
-    if(bean.type==Flora121QuizWheelRewardType.unReceived){
+  clickWheelItem(int index){
+    var status = rewardStatusList[index];
+    if(status==Flora121QuizWheelRewardType.unReceived){
       Flora121RoutersHep.dialog(
         child: Flora121CommonGetDialog(
           addNum: Flora121ValueUtils.instance.getQuizWheelAddNum(),
           rvAdEnum: Flora121AdEnum.frfcn_quiz_rv,
           intAdEnum: Flora121AdEnum.frfcn_quiz_int,
+          fromQuiz: true,
           dismissCallback: (received){
             if(received){
-              bean.type=Flora121QuizWheelRewardType.received;
-              Flora121WheelUtils.instance.updateWheelNum(1);
+              rewardStatusList[index]=Flora121QuizWheelRewardType.received;
+              Flora121QuizUtils.instance.updateTodayRecord(rewardStatusList);
               update(["progress"]);
             }
           },
@@ -128,7 +140,7 @@ class Flora121QuizCon extends Flora121BaseCon{
     return null;
   }
 
-  _initQuiz(){
+  _initQuiz()async{
     try{
       var list = jsonDecode(Flora121LocalInfo.localQuizStrBase64.base64());
 
@@ -141,10 +153,18 @@ class Flora121QuizCon extends Flora121BaseCon{
       }
       var size = quizList.length~/3;
       if(size>0){
-        while(rewardStatusList.length<size){
-          rewardStatusList.add(Flora121QuizWheelRewardBean(type: Flora121QuizWheelRewardType.none, globalKey: GlobalKey()));
+        var result = await Flora121QuizUtils.instance.queryTodayRecord();
+        rewardStatusList.clear();
+        if(result.isEmpty){
+          while(rewardStatusList.length<size){
+            rewardStatusList.add(Flora121QuizWheelRewardType.none);
+          }
+        }else{
+          rewardStatusList.addAll(result);
         }
-        wheelRewardIndex = rewardStatusList.lastIndexWhere((value)=>value==Flora121QuizWheelRewardType.unReceived);
+        wheelRewardIndex = rewardStatusList.lastIndexWhere((value)=>value!=Flora121QuizWheelRewardType.none);
+        Flora121QuizUtils.instance.insertTodayRecord(rewardStatusList);
+        update(["progress"]);
       }
     }catch(e){
 

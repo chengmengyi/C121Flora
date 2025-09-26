@@ -52,18 +52,6 @@ class Flora121EnergyUtils{
 
   updateCollectEnergyNum(){
     bCollectEnergyNum.saveData(bCollectEnergyNum.getData()+1);
-    var levelQuantity = Flora121ValueUtils.instance.getUpLevelQuantity();
-    var isUpLevel = bCollectEnergyNum.getData()%levelQuantity==0;
-    if(isUpLevel){
-      Flora121RoutersHep.dialog(
-        child: Flora121CommonGetDialog(
-          addNum: Flora121ValueUtils.instance.getUpLevelAddNum(),
-          rvAdEnum: Flora121AdEnum.frfcn_level_rv,
-          intAdEnum: Flora121AdEnum.frfcn_level_int,
-          dismissCallback: (received){},
-        ),
-      );
-    }
   }
 
   int getLevelNum()=>(bCollectEnergyNum.getData()~/Flora121ValueUtils.instance.getUpLevelQuantity())+1;

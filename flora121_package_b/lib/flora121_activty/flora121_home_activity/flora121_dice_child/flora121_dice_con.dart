@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
@@ -47,7 +48,8 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
   }
 
   clickStart({bool fromNewUserGuide=false}){
-    if (_isAnimating) return; // 避免动画还在进行时重复触发
+    if (_isAnimating) return;
+    Flora121MusicHep.instance.playOtherAudio(AudioName.dice);
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.dice_c);
     _isAnimating = true;
 

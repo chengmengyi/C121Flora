@@ -3,6 +3,8 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_con.dart';
+import 'package:flora121_package_b/flora121_view/flora121_finger_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +30,12 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
           child: Flora121TopMoneyView(),
         ),
       ),
+      Align(
+        alignment: Alignment.center,
+        child: Flora121MoneyAnimatorWidget(
+          fromQuiz: false,
+        ),
+      ),
     ],
   );
   
@@ -35,7 +43,7 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
     alignment: Alignment.bottomCenter,
     child: SizedBox(
       width: double.infinity,
-      height: 80.h,
+      height: 70.h,
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [

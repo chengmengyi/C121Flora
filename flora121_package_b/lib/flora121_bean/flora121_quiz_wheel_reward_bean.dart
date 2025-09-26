@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 
-enum Flora121QuizWheelRewardType{
-  none,received,unReceived,
+class Flora121QuizWheelRewardType{
+  static const String none="none";
+  static const String received="received";
+  static const String unReceived="unReceived";
 }
 
 class Flora121QuizWheelRewardBean{
-  Flora121QuizWheelRewardType type;
-  GlobalKey globalKey;
+  String? type;
+  GlobalKey? globalKey;
   Flora121QuizWheelRewardBean({
-    required this.type,
-    required this.globalKey,
+    this.type,
+    this.globalKey,
 });
+
+  Flora121QuizWheelRewardBean.fromJson(dynamic json) {
+    type = json['type'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['type'] = type;
+    return map;
+  }
+
 }

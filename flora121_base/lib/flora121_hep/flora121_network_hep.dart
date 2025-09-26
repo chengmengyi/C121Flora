@@ -9,7 +9,7 @@ class Flora121NetworkHep{
   var _showing=false;
   init(){
     Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
-      if(!result.contains(ConnectivityResult.mobile)||!result.contains(ConnectivityResult.wifi)){
+      if(!result.contains(ConnectivityResult.mobile)&&!result.contains(ConnectivityResult.wifi)){
         _showDialog();
       }
     });

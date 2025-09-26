@@ -7,4 +7,5 @@ class Flora121SqlName{
 
   static const String bCashTask="bCashTask";
   static const String bSign="bSign";
+  static const String bQuizRecord="bQuizRecord";
 }

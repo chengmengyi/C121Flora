@@ -21,14 +21,16 @@ class Flora121OldUserDialogCon extends Flora121BaseCon{
     _startTimer();
   }
 
-  clickDouble(){
+  clickDouble(Function() dismissCall){
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.old_users_award_c);
     Flora121UserInfoUtils.instance.updateMyMoney(addNum);
     Flora121RoutersHep.back();
+    dismissCall.call();
   }
 
-  clickClose(){
+  clickClose(Function() dismissCall){
     Flora121RoutersHep.back();
+    dismissCall.call();
   }
 
   _startTimer(){

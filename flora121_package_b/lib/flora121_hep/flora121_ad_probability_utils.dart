@@ -7,6 +7,7 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_ad_probability_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flutter/foundation.dart';
 
 class Flora121AdProbabilityUtils{
   static final Flora121AdProbabilityUtils _utils=Flora121AdProbabilityUtils();
@@ -35,9 +36,9 @@ class Flora121AdProbabilityUtils{
   }
 
   bool showAd(AdType type){
-    // if(kDebugMode){
-    //   return false;
-    // }
+    if(kDebugMode){
+      return false;
+    }
     if(type==AdType.reward){
       return true;
     }

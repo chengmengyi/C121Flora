@@ -1,15 +1,11 @@
 import 'dart:async';
-
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
-import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
-import 'package:flora121_package_b/flora121_bean/flora121_task_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_change_cash_type_dialog/flora121_change_cash_type_dialog.dart';
-import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_newuser_get_dialog/flora121_newuser_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
@@ -24,7 +20,6 @@ import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new
 import 'package:flora121_package_b/flora121_hep/flora121_guide/view/flora121_new_user_step9_view.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Flora121UserGuideUtils{
@@ -44,12 +39,13 @@ class Flora121UserGuideUtils{
         Flora121RoutersHep.dialog(
           child: Flora121OldUserDialog(
             dismissCall: (){
-
+              Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
             },
           ),
         );
+      }else{
+        Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
       }
-      Flora121AndroidLocalNotificationHep.instance.init(true);
       return;
     }
     bShowNewUserGuideTimer.saveData(getTodayTimeStr());
@@ -70,10 +66,12 @@ class Flora121UserGuideUtils{
         clickCallback: (){
           Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop1"});
           hideOverlay();
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop2"});
           Flora121RoutersHep.dialog(
             child: Flora121NewuserGetDialog(
               addNum: Flora121ValueUtils.instance.getNewUserGuideStep2AddNum().toDouble(),
               dismissCallback: (received){
+                Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop2"});
                 _showStep2Guide(context);
               },
             ),
@@ -83,7 +81,8 @@ class Flora121UserGuideUtils{
     );
   }
 
-  _showStep2Guide(BuildContext context){
+  _showStep2Guide(BuildContext context)async{
+    await Future.delayed(Duration(milliseconds: 1200));
     _timer=Timer(Duration(milliseconds: 3000), (){
       hideOverlay();
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep3Guide);
@@ -106,59 +105,20 @@ class Flora121UserGuideUtils{
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop3"});
     showOverlay(
       context: context,
-      widget: Flora121NewUserStep3View(
+      widget: Flora121NewUserStep9View(
         offset: offset,
-        clickCallback: (){
+        dismissCallback: (){
           hideOverlay();
           Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop3"});
-          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 1);
-          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep4DiceBtn);
-        },
-      ),
-    );
-  }
-
-  showStep4Overlay({
-    required BuildContext context,
-    required Offset offset,
-    required Function() dismissCallback,
-  }){
-    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop4"});
-    showOverlay(
-      context: context,
-      widget: Flora121NewUserStep4View(
-        offset: offset,
-        clickCallback: (){
-          hideOverlay();
-          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop4"});
-          dismissCallback.call();
-        },
-      ),
-    );
-  }
-
-  showStep5Guide(BuildContext context){
-    _timer=Timer(Duration(milliseconds: 3000), (){
-      hideOverlay();
-      Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 3);
-      Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep6GuideFirstCashAmount);
-    });
-    showOverlay(
-      context: context,
-      widget: Flora121NewUserStep5View(
-        dismissCallback: (){
-          _timer?.cancel();
-          _timer=null;
-          hideOverlay();
           Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 3);
-          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep6GuideFirstCashAmount);
+          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep4GuideFirstCashAmount);
         },
       ),
     );
   }
 
-  showStep6Guide(BuildContext context,Offset firstOffset,Size firstSize,Offset cashBtnOffset){
-    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop6"});
+  showStep4Overlay(BuildContext context,Offset firstOffset,Size firstSize,Offset cashBtnOffset){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop4"});
     showOverlay(
       context: context,
       widget: Flora121NewUserStep6View(
@@ -167,7 +127,7 @@ class Flora121UserGuideUtils{
         firstSize: firstSize,
         dismissCallback: (){
           hideOverlay();
-          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop6"});
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop4"});
           Flora121RoutersHep.dialog(
             child: Flora121ChangeCashTypeDialog(
               fromNewUserGuide: true,
@@ -178,58 +138,100 @@ class Flora121UserGuideUtils{
     );
   }
 
-  showStep7Guide({
+  showStep5Guide({
     required BuildContext context,
     required Offset offset,
     required Size size,
     required Function() dismissCallback,
-}){
-    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop7"});
+  }){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop5"});
     showOverlay(
       context: context,
       widget: Flora121NewUserStep7View(
         offset: offset,
         size: size,
         dismissCallback: (){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop5"});
           hideOverlay();
-          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop7"});
           dismissCallback.call();
           Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 0);
-          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep8HomeProgressGuide);
+          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep6HomeProgressGuide);
         },
       ),
     );
   }
 
-  showStep8Guide(BuildContext context,Offset offset){
-    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop8"});
+  showStep6Guide(BuildContext context,Offset offset){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop6"});
     showOverlay(
       context: context,
       widget: Flora121NewUserStep8View(
         offset: offset,
         dismissCallback: (){
           hideOverlay();
-          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop8"});
-          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep9QuizGuide);
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop6"});
+          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep7DiceGuide);
         },
       ),
     );
   }
 
-  showStep9Guide(BuildContext context,Offset offset){
-    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop9"});
+  showStep7Guide(BuildContext context,Offset offset){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop7"});
     showOverlay(
       context: context,
-      widget: Flora121NewUserStep9View(
+      widget: Flora121NewUserStep3View(
         offset: offset,
-        dismissCallback: (){
+        clickCallback: (){
           hideOverlay();
-          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop9"});
-          Flora121AndroidLocalNotificationHep.instance.init(true);
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop7"});
+          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 1);
+          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep8DiceBtn);
         },
       ),
     );
   }
+
+  showStep8Guide({
+    required BuildContext context,
+    required Offset offset,
+    required Function() dismissCallback,
+  }){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop8"});
+    showOverlay(
+      context: context,
+      widget: Flora121NewUserStep4View(
+        offset: offset,
+        clickCallback: (){
+          hideOverlay();
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop8"});
+          dismissCallback.call();
+          Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+        },
+      ),
+    );
+  }
+
+  // showStep9Guide(BuildContext context){
+  //   Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop9"});
+  //   _timer=Timer(Duration(milliseconds: 3000), (){
+  //     hideOverlay();
+  //     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop9"});
+  //     Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+  //   });
+  //   showOverlay(
+  //     context: context,
+  //     widget: Flora121NewUserStep5View(
+  //       dismissCallback: (){
+  //         _timer?.cancel();
+  //         _timer=null;
+  //         hideOverlay();
+  //         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop9"});
+  //         Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+  //       },
+  //     ),
+  //   );
+  // }
 
 
   showOverlay({

@@ -132,76 +132,83 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
       children: [
         Container(
           margin: EdgeInsets.only(top: 30.h),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.all(10.w),
-                  child: GetBuilder<Flora121WheelChildCon>(
-                    id: "wheel",
-                    builder: (_){
-                      if(null==baseCon.wheelAnimation){
-                        return Container();
-                      }
-                      return LayoutBuilder(
-                        builder: (context,bc){
-                          var size = bc.maxWidth;
-                          final radius = (size / 2 - 30)*0.9;
-                          return AnimatedBuilder(
-                            animation: baseCon.wheelAnimation!,
-                            builder: (context,child)=>Transform.rotate(
-                              angle: baseCon.wheelAnimation!.value,
-                              child: AspectRatio(
-                                aspectRatio: 1,
-                                child: Stack(
-                                  alignment: Alignment.center,
-                                  children: [
-                                    Flora121ImagesView(imagesName: "wheel3",width: double.infinity,height: double.infinity,),
-                                    ...List.generate(
-                                      baseCon.wheelList.length, (i) =>
-                                        _wheelItemWidget(
-                                          money: baseCon.wheelList[i],
-                                          angleDeg: i * 45.0 - 90,
-                                          radius: radius,
-                                        ),
-                                    )
-                                  ],
+          child: Flora121Click(
+            onTap: (){
+              baseCon.clickStart();
+            },
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10.w),
+                    child: GetBuilder<Flora121WheelChildCon>(
+                      id: "wheel",
+                      builder: (_){
+                        if(null==baseCon.wheelAnimation){
+                          return Container();
+                        }
+                        return LayoutBuilder(
+                          builder: (context,bc){
+                            var size = bc.maxWidth;
+                            final radius = (size / 2 - 30)*0.9;
+                            return AnimatedBuilder(
+                              animation: baseCon.wheelAnimation!,
+                              builder: (context,child)=>Transform.rotate(
+                                angle: baseCon.wheelAnimation!.value,
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Flora121ImagesView(imagesName: "wheel3",width: double.infinity,height: double.infinity,),
+                                      ...List.generate(
+                                        baseCon.wheelList.length, (i) =>
+                                          _wheelItemWidget(
+                                            money: baseCon.wheelList[i],
+                                            angleDeg: i * 45.0 - 90,
+                                            radius: radius,
+                                          ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-                Flora121ImagesView(imagesName: "wheel2",width: double.infinity,height: double.infinity,),
-                Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Flora121ImagesView(imagesName: "wheel13",width: 130.w,height: 130.w,),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 40.h),
-                      child: GetBuilder<Flora121WheelChildCon>(
-                        id: "wheel_num",
-                        builder: (_)=>Flora121TextView(text: "${Flora121WheelUtils.instance.wheelNum}", color: "#1F4300", size: 16.sp),
-                      ),
+                            );
+                          },
+                        );
+                      },
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  Flora121ImagesView(imagesName: "wheel2",width: double.infinity,height: double.infinity,),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Flora121ImagesView(imagesName: "wheel13",width: 130.w,height: 130.w,),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 40.h),
+                        child: GetBuilder<Flora121WheelChildCon>(
+                          id: "wheel_num",
+                          builder: (_)=>Flora121TextView(text: "${Flora121WheelUtils.instance.wheelNum}", color: "#1F4300", size: 16.sp),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-        Flora121ImagesView(imagesName: "wheel4",width: 315.w,height: 130.h,),
+        IgnorePointer(
+          child: Flora121ImagesView(imagesName: "wheel4",width: 315.w,height: 130.h,),
+        ),
       ],
     ),
   );
 
   Widget _wheelItemWidget({
-    required int money,
+    required double money,
     required double angleDeg,
     required double radius,
   }) {

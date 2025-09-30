@@ -21,4 +21,5 @@ class Flora121StorageName{
   static const String bLastTimeMoneyLevel="bLastTimeMoneyLevel";
   static const String bBarrageSwitch="bBarrageSwitch";
   static const String bHasReceivedLevelMoney="bHasReceivedLevelMoney";
+  static const String bLastShowHasMoneyDialogTimer="bLastShowHasMoneyDialogTimer";
 }

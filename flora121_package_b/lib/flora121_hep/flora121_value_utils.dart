@@ -48,7 +48,7 @@ class Flora121ValueUtils{
   double getOldUserAddNum()=>_getAddReward(_valueBean?.oldUsersAward?.prize??[]);
   double getQuizAddNum()=>_getAddReward(_valueBean?.quizAward?.prize??[]);
   double getQuizWheelAddNum()=>_getAddReward(_valueBean?.quizAward?.prize??[]);
-  int getWheelAddNum()=>_getAddReward(_valueBean?.wheelAward?.prize??[]).ceil();
+  double getWheelAddNum()=>_getAddReward(_valueBean?.wheelAward?.prize??[]);
   double getWaterAddNum()=>_getAddReward(_valueBean?.cashBubble?.prize??[]);
 
   double getUpLevelAddNum()=>_getAddReward(_valueBean?.giveUp?.prize??[]);
@@ -92,6 +92,6 @@ class Flora121ValueUtils{
     var max = list.last;
     final random = Random();
     double value = min + (max - min) * random.nextDouble();
-    return double.parse(value.toStringAsFixed(3));
+    return double.parse(value.toStringAsFixed(2));
   }
 }

@@ -152,7 +152,7 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
       case Flora121EventCode.updateMyMoney:
         setState(() {});
         break;
-      case Flora121EventCode.showNewUserStep8HomeProgressGuide:
+      case Flora121EventCode.showNewUserStep6HomeProgressGuide:
         showNewUserStep8HomeProgressGuide();
         break;
     }
@@ -161,6 +161,6 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
   showNewUserStep8HomeProgressGuide(){
     var renderBox = globalKey.currentContext?.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep8Guide(context, offset);
+    Flora121UserGuideUtils.instance.showStep6Guide(context, offset);
   }
 }

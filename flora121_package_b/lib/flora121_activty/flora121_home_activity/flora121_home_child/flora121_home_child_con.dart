@@ -18,6 +18,7 @@ import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_store_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_has_money_tips_dialog/flora121_has_money_tips_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_set_dialog/flora121_set_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_store_detail_dialog/flora121_store_detail_dialog.dart';
@@ -269,14 +270,14 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121Ttt.instance.uploadSessionEvent();
 
 
-    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.water);
+    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.sign);
     // Flora121FengkongHep.instance.initFengkong();
     // Flora121AndroidLocalNotificationHep.instance.init();
     // Flora121RoutersHep.dialog(
-    //   child: Flora121OpenNotificationDialog(),
+    //   child: Flora121HasMoneyTipsDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    // Flora121UserInfoUtils.instance.updateMyMoney(100);
+    // Flora121UserInfoUtils.instance.updateMyMoney(20);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();

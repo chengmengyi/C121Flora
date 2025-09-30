@@ -14,16 +14,63 @@ class Flora121LaunchActivity extends Flora121BaseActivity<Flora121LaunchCon>{
   @override
   Widget initBaseWidgetFlora121() => Stack(
     children: [
-      Flora121ImagesView(imagesName: "launch1",width: double.infinity,height: double.infinity,),
+      Flora121ImagesView(imagesName: "launch6",width: double.infinity,height: double.infinity,),
       Align(
         alignment: Alignment.topCenter,
         child: Container(
-          margin: EdgeInsets.only(left: 6.w,right: 6.w,top: 80.h),
+          margin: EdgeInsets.only(left: 6.w,right: 6.w,top: 100.h),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Flora121ImagesView(imagesName: "launch2",width: double.infinity,fit: BoxFit.fitWidth,),
-              Flora121ImagesView(imagesName: "launch5",width: double.infinity,fit: BoxFit.fitWidth,),
+              // Flora121ImagesView(imagesName: "launch2",width: double.infinity,fit: BoxFit.fitWidth,),
+              // Flora121ImagesView(imagesName: "launch5",width: double.infinity,fit: BoxFit.fitWidth,),
+
+              // Every tap gets you closer to payout.
+              // Plus, we'll donate to planet care when you earn
+              Flora121TextView(text: "Grow Flowers", color: "#124C74", size: 32.sp,fontWeight: FontWeight.bold,),
+              Flora121TextView(text: "Earn Real Cash", color: "#124C74", size: 32.sp,fontWeight: FontWeight.bold,),
+              SizedBox(height: 12.h,),
+              Flora121TextView(text: "Every tap gets you closer to payout.", color: "#EFF1F1", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#134A71",),
+              Flora121TextView(text: "Plus, we'll donate to planet care when you earn", color: "#EFF1F1", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#134A71",),
+              SizedBox(height: 18.h,),
+              Visibility(
+                visible: launchShowLoading.getData(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 42.w,right: 42.w),
+                      child: LayoutBuilder(
+                        builder: (context,bc){
+                          var maxWidth = bc.maxWidth-2.w;
+                          return Stack(
+                            alignment: Alignment.centerLeft,
+                            children: [
+                              Flora121ImagesView(imagesName: "launch4",width: double.infinity,height: 16.h,),
+                              GetBuilder<Flora121LaunchCon>(
+                                id: "pro_view",
+                                builder: (_)=>Container(
+                                  width: maxWidth*baseCon.animationController.value,
+                                  height: 14.h,
+                                  margin: EdgeInsets.only(left: 1.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.w),
+                                    gradient: LinearGradient(
+                                      colors: ["#7EFD65".toColor(),"#32DDD4".toColor()],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 12.h,),
+                    Flora121TextView(text: "Loading Steps...", color: "#472B0A", size: 10.sp,fontWeight: FontWeight.bold,),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -38,38 +85,9 @@ class Flora121LaunchActivity extends Flora121BaseActivity<Flora121LaunchCon>{
     ],
   );
 
-  _bottomWidget(){
-    if(launchShowLoading.getData()){
-      return Container(
-        margin: EdgeInsets.only(left: 42.w,right: 42.w),
-        child: LayoutBuilder(
-          builder: (context,bc){
-            var maxWidth = bc.maxWidth-2.w;
-            return Stack(
-              alignment: Alignment.centerLeft,
-              children: [
-                Flora121ImagesView(imagesName: "launch4",width: double.infinity,height: 16.h,),
-                GetBuilder<Flora121LaunchCon>(
-                  id: "pro_view",
-                  builder: (_)=>Container(
-                    width: maxWidth*baseCon.animationController.value,
-                    height: 14.h,
-                    margin: EdgeInsets.only(left: 1.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.w),
-                      gradient: LinearGradient(
-                        colors: ["#FFEA00".toColor(),"#C3DD32".toColor()],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      );
-    }
-    return Column(
+  _bottomWidget()=>Visibility(
+    visible: !launchShowLoading.getData(),
+    child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Flora121Click(
@@ -96,11 +114,11 @@ class Flora121LaunchActivity extends Flora121BaseActivity<Flora121LaunchCon>{
               onTap: (){
                 baseCon.clickPrivacy();
               },
-              child: Flora121TextView(text: "Privacy Policy&Terms of Service", color: "#472B0A", size: 14.sp,fontWeight: FontWeight.bold,),
+              child: Flora121TextView(text: "Privacy Policy&Terms of Service", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,outlineColor: "#000000",),
             ),
           ],
         ),
       ],
-    );
-  }
+    ),
+  );
 }

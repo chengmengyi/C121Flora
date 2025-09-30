@@ -46,8 +46,8 @@ class Flora121NewUserStep9View extends StatelessWidget{
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Flora121TextView(text: "Train your brain & earn!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                            Flora121TextView(text: "Smart players win fast. Quiz your way to cash!", color: "#3B6204", size: 12.sp,),
+                            Flora121TextView(text: "Cash Prizes and Props", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                            Flora121TextView(text: "Environmental Protection Knowledge Quiz.", color: "#3B6204", size: 12.sp,),
                           ],
                         ),
                       ),

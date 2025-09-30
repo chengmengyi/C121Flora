@@ -2,6 +2,7 @@ import 'package:flora121_base/flora121_base.dart';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_applife_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_network_hep.dart';
@@ -52,6 +53,7 @@ class Flora121HomeCon extends Flora121BaseCon{
         break;
       case 3:
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_page);
+        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.cashPageShowNextCaskTaskDialog);
         break;
     }
     update(["page","top_view"]);
@@ -86,6 +88,7 @@ class Flora121HomeCon extends Flora121BaseCon{
         break;
       case 3:
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_page);
+        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.cashPageShowNextCaskTaskDialog);
         break;
     }
     update(["page","top_view"]);

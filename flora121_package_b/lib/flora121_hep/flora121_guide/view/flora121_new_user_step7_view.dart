@@ -77,7 +77,7 @@ class Flora121NewUserStep7View extends StatelessWidget{
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Flora121TextView(text: "Quick pick!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                            Flora121TextView(text: "Tap PayPal or Pix - both instant!", color: "#3B6204", size: 12.sp,),
+                            Flora121TextView(text: "Cash out & keep supporting the Earth.", color: "#3B6204", size: 12.sp,),
                           ],
                         ),
                       ),

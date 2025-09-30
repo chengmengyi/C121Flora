@@ -17,17 +17,15 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
   Flora121AdEnum rvAdEnum;
   Flora121AdEnum intAdEnum;
   Function(bool received) dismissCallback;
-  bool fromNewUserGuideStep1;
-  bool fromNewUserGuideStep4;
   bool fromQuiz;
+  bool fromDice;
   Flora121CommonGetDialog({
     required this.addNum,
     required this.rvAdEnum,
     required this.intAdEnum,
     this.fromNewUser=false,
-    this.fromNewUserGuideStep1=false,
-    this.fromNewUserGuideStep4=false,
     this.fromQuiz=false,
+    this.fromDice=false,
     required this.dismissCallback,
 });
 
@@ -36,7 +34,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
 
   @override
   onFlora121Init() {
-    baseCon.uploadShowPointEvent(rvAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4);
+    baseCon.uploadShowPointEvent(rvAdEnum);
   }
 
   @override
@@ -64,7 +62,16 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
               children: [
                 _titleWidget(),
                 _monetWidget(),
-                _progressListWidget(),
+                // _progressListWidget(),
+                SizedBox(height: 12.h,),
+                Flora121TextView(
+                  text: fromDice?"Nice! Your play=🌱 for the planet=Cash Prizes":"Double win: \nCash for you, care for the planet!",
+                  color: "#324631",
+                  size: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 12.h,),
                 _btnWidget(),
                 SizedBox(height: 12.h,),
                 _myCashWidget(),
@@ -77,7 +84,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
       SizedBox(height: 32.h,),
       Flora121Click(
         onTap: (){
-          baseCon.clickClose(addNum,intAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4,dismissCallback);
+          baseCon.clickClose(addNum,intAdEnum,dismissCallback);
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),
@@ -132,10 +139,10 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     showVideoIcon: !fromNewUser,
     onTap: (){
       if(rvAdEnum==Flora121AdEnum.frfcn_level_rv||rvAdEnum==Flora121AdEnum.frfcn_signin_rv){
-        baseCon.fromLevelClickDouble(addNum, rvAdEnum,intAdEnum, fromNewUserGuideStep1,fromNewUserGuideStep4,dismissCallback);
+        baseCon.fromLevelClickDouble(addNum, rvAdEnum,intAdEnum, dismissCallback);
         return;
       }
-      baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromNewUserGuideStep1,fromNewUserGuideStep4,fromQuiz,dismissCallback);
+      baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromQuiz,dismissCallback);
     },
   );
 
@@ -149,8 +156,12 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     ),
     child: Row(
       children: [
-        Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
-        Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get9",height: 14.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get10",height: 14.h,fit: BoxFit.fitHeight,),
         Spacer(),
         Flora121TextView(text: "My Cash: ", color: "#324631", size: 10.sp,fontWeight: FontWeight.bold,),
         Flora121TextView(text: "\$${bMyMoneyNum.getData()}", color: "#239E04", size: 12.sp,fontWeight: FontWeight.bold,),

@@ -39,7 +39,7 @@ class Flora121ApplifeHep{
       _timer=null;
       if(toOpenNotification){
         await Future.delayed(Duration(milliseconds: 1000));
-        Flora121AndroidLocalNotificationHep.instance.init(false);
+        Flora121AndroidLocalNotificationHep.instance.initNotification();
         toOpenNotification=false;
       }
       await Future.delayed(Duration(milliseconds: 200));

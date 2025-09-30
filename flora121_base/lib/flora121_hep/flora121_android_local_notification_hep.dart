@@ -2,11 +2,16 @@ import 'dart:io';
 
 import 'package:birdsong/birdsong.dart';
 import 'package:flora121_base/flora121_dialog/flora121_open_notification_dialog/flora121_open_notification_dialog.dart';
+import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+StorageData<String> bLastTimeShowNotificationTimer=StorageData<String>(key: "bLastTimeShowNotificationTimer", defaultValue: "");
+
 
 class Flora121AndroidLocalNotificationHep{
   static final Flora121AndroidLocalNotificationHep _hep=Flora121AndroidLocalNotificationHep();
@@ -30,18 +35,18 @@ class Flora121AndroidLocalNotificationHep{
   ];
 
 
-  init(bool showOpenDialog)async{
+  initNotification()async{
     if(Platform.isIOS){
       return;
     }
     var status = await Permission.notification.request();
     if(!status.isGranted){
       Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.noti_req_refuse);
-      if(showOpenDialog){
-        Flora121RoutersHep.dialog(
-          child: Flora121OpenNotificationDialog(),
-        );
-      }
+      // if(showOpenDialog){
+      //   Flora121RoutersHep.dialog(
+      //     child: Flora121OpenNotificationDialog(),
+      //   );
+      // }
       return;
     }
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.noti_req_allow);
@@ -55,6 +60,19 @@ class Flora121AndroidLocalNotificationHep{
     _initFcmNotification();
     _setShowListener();
     _setClickListener();
+  }
+
+  checkHasNotification()async{
+    if(bLastTimeShowNotificationTimer.getData()==getTodayTimeStr()){
+      return;
+    }
+    final status = await Permission.notification.status;
+    if (!status.isGranted) {
+      bLastTimeShowNotificationTimer.saveData(getTodayTimeStr());
+      Flora121RoutersHep.dialog(
+        child: Flora121OpenNotificationDialog(),
+      );
+    }
   }
 
   _initLocalNotification()async{

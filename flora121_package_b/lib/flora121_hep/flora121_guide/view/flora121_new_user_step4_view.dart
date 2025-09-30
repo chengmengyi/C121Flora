@@ -73,7 +73,7 @@ class Flora121NewUserStep4View extends StatelessWidget{
                           alignment: Alignment.topCenter,
                           child: Container(
                             margin: EdgeInsets.only(top: 22.h),
-                            child: Flora121TextView(text: "Roll Dice - Test Your Luck!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                            child: Flora121TextView(text: "Every move helps nature!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
                           ),
                         ),
                       ],

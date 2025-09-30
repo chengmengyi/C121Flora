@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
-import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
@@ -22,6 +22,10 @@ class Flora121QuizCon extends Flora121BaseCon{
   Flora121QuizBean? quizBean;
   List<String> rewardStatusList=[];
   ScrollController scrollController=ScrollController();
+  GlobalKey answerAGlobalKey=GlobalKey();
+  GlobalKey answerBGlobalKey=GlobalKey();
+  Timer? _timer;
+  Offset? offset;
 
   final List<String> _bottomTextList=[
     "Treasure awaits your answer!",
@@ -46,6 +50,9 @@ class Flora121QuizCon extends Flora121BaseCon{
     if(!canClick){
       return;
     }
+    offset=null;
+    update(["finger"]);
+    _stopTimer();
     canClick=false;
     quizBean?.selectedAnswer=index==0?"a":"b";
     update(["answer_list"]);
@@ -101,6 +108,7 @@ class Flora121QuizCon extends Flora121BaseCon{
     if(result){
       update(["bottom_text"]);
     }
+    _startTimer();
   }
 
   clickWheelItem(int index){
@@ -166,13 +174,29 @@ class Flora121QuizCon extends Flora121BaseCon{
         Flora121QuizUtils.instance.insertTodayRecord(rewardStatusList);
         update(["progress"]);
       }
+      _startTimer();
     }catch(e){
 
     }
   }
 
+  _startTimer(){
+    _timer=Timer(Duration(milliseconds: 2000), (){
+      var key = quizBean?.answer=="a"?answerAGlobalKey:answerBGlobalKey;
+      var renderBox = key.currentContext?.findRenderObject() as RenderBox;
+      offset = renderBox.localToGlobal(Offset.zero);
+      update(["finger"]);
+    });
+  }
+
+  _stopTimer(){
+    _timer?.cancel();
+    _timer=null;
+  }
+
   @override
   void onClose() {
+    _stopTimer();
     scrollController.dispose();
     super.onClose();
   }

@@ -10,13 +10,15 @@ class Flora121EventCode{
   static const int updateMyMoney=107;
   static const int showNewUerStep3Guide=108;
   static const int showHomeTab=109;
-  static const int showNewUserStep4DiceBtn=110;
-  static const int showNewUserStep6GuideFirstCashAmount=111;
+  static const int showNewUserStep8DiceBtn=110;
+  static const int showNewUserStep4GuideFirstCashAmount=111;
   static const int updateCashType=112;
-  static const int showNewUserStep8HomeProgressGuide=113;
-  static const int showNewUserStep9QuizGuide=114;
+  static const int showNewUserStep6HomeProgressGuide=113;
   static const int updateCashTask=115;
   static const int updateWheelNum=116;
   static const int updateBarrageShow=117;
   static const int showMoneyAnimator=118;
+  static const int showNewUserStep7DiceGuide=119;
+  static const int setCashPageShowNextCaskTaskDialogTag=120;
+  static const int cashPageShowNextCaskTaskDialog=121;
 }

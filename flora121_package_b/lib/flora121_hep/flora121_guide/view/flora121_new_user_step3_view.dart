@@ -39,9 +39,9 @@ class Flora121NewUserStep3View extends StatelessWidget{
             ),
             Positioned(
               top: offset.dy+80.h,
-              left: 40.w,
+              left: 20.w,
               child: SizedBox(
-                width: 260.w,
+                width: 300.w,
                 height: 82.h,
                 child: Stack(
                   children: [
@@ -55,21 +55,21 @@ class Flora121NewUserStep3View extends StatelessWidget{
                           text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: "Tap Here for Your ",
+                                  text: "Play & test your luck ",
                                   style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.bold,
                                     color: "#3B6204".toColor(),
                                   ),
                                 ),
-                                TextSpan(
-                                  text: "Lucky Cash Reward!",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#EF5D00".toColor(),
-                                  ),
-                                ),
+                                // TextSpan(
+                                //   text: "every move helps nature!",
+                                //   style: TextStyle(
+                                //     fontSize: 12.sp,
+                                //     fontWeight: FontWeight.bold,
+                                //     color: "#EF5D00".toColor(),
+                                //   ),
+                                // ),
                               ]
                           ),
                         ),

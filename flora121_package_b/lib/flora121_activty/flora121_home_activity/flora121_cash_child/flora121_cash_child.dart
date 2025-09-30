@@ -126,8 +126,8 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Flora121TextView(text: "Human Verification", color: "#313831", size: 14.sp,fontWeight: FontWeight.bold,),
-          Flora121TextView(text: "Please complete human verification before withdrawing.", color: "#738473", size: 12.sp),
+          Flora121TextView(text: baseCon.getTitleStr(), color: "#313831", size: 14.sp,fontWeight: FontWeight.bold,),
+          Flora121TextView(text: baseCon.getDescStr(), color: "#738473", size: 12.sp),
           SizedBox(height: 12.h,),
           LayoutBuilder(
             builder: (context,bc){

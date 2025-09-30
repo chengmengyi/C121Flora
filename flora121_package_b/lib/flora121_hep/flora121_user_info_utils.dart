@@ -5,11 +5,13 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_user_info_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_has_money_tips_dialog/flora121_has_money_tips_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
@@ -92,6 +94,12 @@ class Flora121UserInfoUtils{
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showMoneyAnimator,flora121Map: {"bool":fromQuiz});
       await Future.delayed(Duration(milliseconds: 1200));
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
+      if(data>=Flora121ValueUtils.instance.getCashList().first&&bLastShowHasMoneyDialogTimer.getData()!=getTodayTimeStr()){
+        bLastShowHasMoneyDialogTimer.saveData(getTodayTimeStr());
+        Flora121RoutersHep.dialog(
+          child: Flora121HasMoneyTipsDialog(),
+        );
+      }
     }else{
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
     }

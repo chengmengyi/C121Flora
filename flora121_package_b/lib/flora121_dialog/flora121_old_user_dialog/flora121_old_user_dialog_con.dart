@@ -34,10 +34,10 @@ class Flora121OldUserDialogCon extends Flora121BaseCon{
   }
 
   _startTimer(){
-    _timer=Timer.periodic(Duration(milliseconds: 2000), (t){
+    _timer=Timer.periodic(Duration(milliseconds: 800), (t){
       progressIndex++;
       update(["progress"]);
-      if(progressIndex>=2){
+      if(progressIndex>=3){
         _stopTimer();
       }
     });

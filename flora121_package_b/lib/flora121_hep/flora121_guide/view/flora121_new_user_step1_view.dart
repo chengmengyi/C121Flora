@@ -44,7 +44,7 @@ class Flora121NewUserStep1View extends StatelessWidget{
                     children: [
                       Flora121ImagesView(imagesName: "energy_money",width: 66.w,height: 66.w,),
                       SizedBox(
-                        width: 260.w,
+                        width: 290.w,
                         height: 82.h,
                         child: Stack(
                           children: [
@@ -53,7 +53,7 @@ class Flora121NewUserStep1View extends StatelessWidget{
                               alignment: Alignment.bottomCenter,
                               child: Container(
                                 margin: EdgeInsets.only(bottom: 22.h),
-                                child: Flora121TextView(text: "Collect bubbles to start your cash flow!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                                child: Flora121TextView(text: "Complete tasks → Earn cash & plant progress.", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
                               ),
                             ),
                           ],

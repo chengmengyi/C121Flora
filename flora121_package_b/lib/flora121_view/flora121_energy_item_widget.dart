@@ -227,8 +227,8 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
       case Flora121EventCode.showNewUerStep3Guide:
         showNewUerStep3Guide(flora121Map);
         break;
-      case Flora121EventCode.showNewUserStep9QuizGuide:
-        showNewUserStep9QuizGuide(flora121Map);
+      case Flora121EventCode.showNewUserStep7DiceGuide:
+        showNewUserStep7DiceGuide(flora121Map);
         break;
     }
   }
@@ -245,7 +245,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
   }
 
   showNewUerStep3Guide(Map? flora121map){
-    if(widget.flora121energyType!=Flora121EnergyType.dice){
+    if(widget.flora121energyType!=Flora121EnergyType.quiz){
       return;
     }
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
@@ -253,13 +253,13 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     Flora121UserGuideUtils.instance.showStep3Overlay(context, offset);
   }
 
-  showNewUserStep9QuizGuide(Map? flora121map){
-    if(widget.flora121energyType!=Flora121EnergyType.quiz){
+  showNewUserStep7DiceGuide(Map? flora121map){
+    if(widget.flora121energyType!=Flora121EnergyType.dice){
       return;
     }
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep9Guide(context, offset);
+    Flora121UserGuideUtils.instance.showStep7Guide(context, offset);
   }
 
   @override

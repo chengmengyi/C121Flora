@@ -88,6 +88,7 @@ class Flora121CashTaskUtils{
     if(list.isEmpty){
       return;
     }
+    bool completedCurrentTask=false;
     for (var value in list) {
       var taskBean = Flora121CashTaskBean.fromJson(value);
       var totalList = getCashTaskTotalList(taskBean);
@@ -108,6 +109,7 @@ class Flora121CashTaskUtils{
           if(taskBean.cashTaskIndex==Flora121CashTaskIndex.tasks5){
             taskBean.currentProgress=jsonEncode(currentList);
           }else{
+            completedCurrentTask=true;
             var nextCashTaskIndex = getNextCashTaskIndex(taskBean.cashTaskIndex);
             taskBean.cashTaskIndex=nextCashTaskIndex;
             var taskListByIndex = getTaskListByIndex(nextCashTaskIndex)??[];
@@ -125,6 +127,9 @@ class Flora121CashTaskUtils{
       }
     }
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateCashTask,);
+    if(completedCurrentTask){
+      Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.setCashPageShowNextCaskTaskDialogTag,);
+    }
   }
 
   deleteCashTask(Flora121CashTaskBean? taskBean)async{

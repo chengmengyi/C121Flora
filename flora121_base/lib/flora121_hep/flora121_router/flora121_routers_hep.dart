@@ -36,6 +36,10 @@ class Flora121RoutersHep{
     Get.back();
   }
 
+  static toHome({required String str}){
+    Get.until((route)=>route.settings.name==str);
+  }
+
   static Map<String, dynamic> getParams(){
     try {
       return Get.arguments as Map<String, dynamic>;

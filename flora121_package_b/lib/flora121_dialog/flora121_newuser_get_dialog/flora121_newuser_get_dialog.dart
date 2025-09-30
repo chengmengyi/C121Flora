@@ -41,7 +41,10 @@ class Flora121NewuserGetDialog extends Flora121BaseDialog<Flora121NewuserGetDial
               mainAxisSize: MainAxisSize.min,
               children: [
                 _monetWidget(),
-                _progressListWidget(),
+                // _progressListWidget(),
+                SizedBox(height: 20.h,),
+                Flora121TextView(text: "Double win: \nCash for you, care for the planet!", color: "#324631", size: 16.sp,fontWeight: FontWeight.bold,textAlign: TextAlign.center,),
+                SizedBox(height: 20.h,),
                 _btnWidget(),
                 SizedBox(height: 12.h,),
                 _myCashWidget(),
@@ -122,8 +125,12 @@ class Flora121NewuserGetDialog extends Flora121BaseDialog<Flora121NewuserGetDial
     ),
     child: Row(
       children: [
-        Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
-        Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get9",height: 14.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get10",height: 14.h,fit: BoxFit.fitHeight,),
         Spacer(),
         Flora121TextView(text: "My Cash: ", color: "#324631", size: 10.sp,fontWeight: FontWeight.bold,),
         Flora121TextView(text: "\$${bMyMoneyNum.getData()}", color: "#239E04", size: 12.sp,fontWeight: FontWeight.bold,),

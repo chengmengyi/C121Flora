@@ -30,6 +30,7 @@ class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStat
   @override
   void onReady() {
     super.onReady();
+    Flora121AndroidLocalNotificationHep.instance.initNotification();
     if(launchShowLoading.getData()){
       animationController.forward();
     }

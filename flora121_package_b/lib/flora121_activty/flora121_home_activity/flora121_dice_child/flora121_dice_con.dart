@@ -114,11 +114,11 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
         rvAdEnum: Flora121AdEnum.frfcn_dice_rv,
         intAdEnum: Flora121AdEnum.frfcn_dice_int,
         fromNewUser: fromNewUserGuide,
-        fromNewUserGuideStep4: true,
+        fromDice: true,
         dismissCallback: (received){
-          if(fromNewUserGuide){
-            Flora121UserGuideUtils.instance.showStep5Guide(context);
-          }
+          // if(fromNewUserGuide){
+          //   Flora121UserGuideUtils.instance.showStep9Guide(context);
+          // }
         },
       ),
     );
@@ -212,16 +212,16 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
   @override
   receivedFlora121EventMsg(int flora121Code, int? flora121IntValue, String? flora121StringValue, Map? flora121Map) {
     switch(flora121Code){
-      case Flora121EventCode.showNewUserStep4DiceBtn:
-        showNewUserStep4DiceBtn();
+      case Flora121EventCode.showNewUserStep8DiceBtn:
+        showNewUserStep8DiceBtn();
         break;
     }
   }
 
-  showNewUserStep4DiceBtn(){
+  showNewUserStep8DiceBtn(){
     var renderBox = diceGlobalKey.currentContext?.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep4Overlay(
+    Flora121UserGuideUtils.instance.showStep8Guide(
       context: context,
       offset: offset,
       dismissCallback: (){

@@ -44,10 +44,21 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        _flowerWidget(),
-        SizedBox(height: 10.h,),
-        _flowerLevelWidget(),
-        SizedBox(height: 10.h,),
+        Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: 90.h),
+              child: _flowerWidget(),
+            ),
+            Container(
+              width: double.infinity,
+              height: 120.h,
+              alignment: Alignment.center,
+              child: _flowerLevelWidget(),
+            ),
+          ],
+        ),
         _bottomCardWidget(),
       ],
     ),
@@ -123,10 +134,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
           ],
         ),
       ),
-      Container(
-        margin: EdgeInsets.only(bottom: 20.h),
-        child: Flora121CashRecordView(),
-      ),
+      Flora121CashRecordView(),
     ],
   );
 
@@ -233,28 +241,57 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
       return Container();
     }
     return Container(
-      width: double.infinity,
-      height: 62.h,
-      margin: EdgeInsets.only(left: 12.w,right: 12.w),
+      margin: EdgeInsets.only(left: 12.w,right: 12.w,),
       child: Stack(
-        alignment: Alignment.centerLeft,
         children: [
-          Flora121ImagesView(imagesName: "home14",width: double.infinity,height: double.infinity,),
           Container(
-            margin: EdgeInsets.only(left: 5.w,right: 5.w),
-            child: MasonryGridView.count(
-              padding: const EdgeInsets.all(0),
-              itemCount: 7,
-              shrinkWrap: true,
-              crossAxisCount: 7,
-              mainAxisSpacing: 0,
-              crossAxisSpacing: 0,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return _signItemWidget(index,baseCon.signList[index]);
-              },
+            width: 85.w,
+            height: 56.h,
+            alignment: Alignment.topCenter,
+            decoration: BoxDecoration(
+              color: "#66B918".toColor(),
+              borderRadius: BorderRadius.circular(10.w),
+            ),
+            child: Container(
+              width: 85.w,
+              height: 26.h,
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flora121ImagesView(imagesName: "home20",width: 23.w,height: 23.h,),
+                  SizedBox(width: 2.w,),
+                  Flora121TextView(text: "Sign In", color: "#FFFFFF", size: 12.sp,fontWeight: FontWeight.bold,),
+                ],
+              ),
             ),
           ),
+          Container(
+            width: double.infinity,
+            height: 62.h,
+            margin: EdgeInsets.only(top: 26.h),
+            child: Stack(
+              alignment: Alignment.centerLeft,
+              children: [
+                Flora121ImagesView(imagesName: "home14",width: double.infinity,height: double.infinity,),
+                Container(
+                  margin: EdgeInsets.only(left: 5.w,right: 5.w),
+                  child: MasonryGridView.count(
+                    padding: const EdgeInsets.all(0),
+                    itemCount: 7,
+                    shrinkWrap: true,
+                    crossAxisCount: 7,
+                    mainAxisSpacing: 0,
+                    crossAxisSpacing: 0,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return _signItemWidget(index,baseCon.signList[index]);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -436,7 +473,10 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                               ),
                               borderRadius: BorderRadius.circular(23.w),
                             ),
-                            child: Flora121ImagesView(imagesName: bean.head??"",width: 46.w,height: 46.w,),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(23.w),
+                              child: Flora121ImagesView(imagesName: bean.head??"",width: 46.w,height: 46.w,ext: "png",),
+                            ),
                           ),
                         ),
                         SizedBox(height: 6.h,),

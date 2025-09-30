@@ -30,22 +30,22 @@ class Flora121CashTaskDialogCon extends Flora121BaseCon{
 
   String getTitleStr(Flora121CashTaskBean? taskBean){
     switch(taskBean?.cashTaskIndex){
-      case Flora121CashTaskIndex.tasks1: return "Withdrawal Unlock";
-      case Flora121CashTaskIndex.tasks2: return "The device being used is not your usual device.";
-      case Flora121CashTaskIndex.tasks3: return "Withdrawal Sprint";
-      case Flora121CashTaskIndex.tasks4: return "Human Verification";
-      case Flora121CashTaskIndex.tasks5: return "Withdrawal Complete! ";
+      case Flora121CashTaskIndex.tasks1: return "Security Verification";
+      case Flora121CashTaskIndex.tasks2: return "Earnings Review";
+      case Flora121CashTaskIndex.tasks3: return "Transaction Processing";
+      case Flora121CashTaskIndex.tasks4: return "Identity Confirmation";
+      case Flora121CashTaskIndex.tasks5: return "Compliance Check";
       default: return "";
     }
   }
 
   String getDescStr(Flora121CashTaskBean? taskBean){
     switch(taskBean?.cashTaskIndex){
-      case Flora121CashTaskIndex.tasks1: return "Abnormal activity detected on your account.Complete the task to verify you're a real person.";
-      case Flora121CashTaskIndex.tasks2: return "Just one more step to withdraw.";
-      case Flora121CashTaskIndex.tasks3: return "Keep going! Roll the Dice and claim your reward.";
-      case Flora121CashTaskIndex.tasks4: return "Please complete human verification before withdrawing.";
-      case Flora121CashTaskIndex.tasks5: return "The payment was successful, but the current bank queue is long. Complete tasks to become a VIP and enjoy priority payments.";
+      case Flora121CashTaskIndex.tasks1: return "Your withdrawal is under security verification. Please complete the required task to confirm account authenticity.";
+      case Flora121CashTaskIndex.tasks2: return "Your Eco earnings are being reviewed. Verification is needed to ensure all contributions are valid.";
+      case Flora121CashTaskIndex.tasks3: return "Withdrawal request is being processed. We are confirming account and transaction details for your security.";
+      case Flora121CashTaskIndex.tasks4: return "Suspicious activity detected. Please complete verification tasks to confirm your identity and proceed with withdrawal.";
+      case Flora121CashTaskIndex.tasks5: return "Your withdrawal is pending compliance review. Complete the required steps to validate your account and release funds.";
       default: return "";
     }
   }

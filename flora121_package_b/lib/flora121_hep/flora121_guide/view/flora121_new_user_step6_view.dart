@@ -72,37 +72,37 @@ class Flora121NewUserStep6View extends StatelessWidget{
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         margin: EdgeInsets.only(bottom: 25.h),
-                        // child: Flora121TextView(text: "Almost there! Earn \$50 more today!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                        child: RichText(
-                          text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Almost there! Earn ",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#3B6204".toColor(),
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "\$50",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#EF5D00".toColor(),
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: " more today!",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#3B6204".toColor(),
-                                  ),
-                                ),
-                              ]
-                          ),
-                        ),
+                        child: Flora121TextView(text: "Redeem your eco-reward cash.", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                        // child: RichText(
+                        //   text: TextSpan(
+                        //       children: [
+                        //         TextSpan(
+                        //           text: "Almost there! Earn ",
+                        //           style: TextStyle(
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.bold,
+                        //             color: "#3B6204".toColor(),
+                        //           ),
+                        //         ),
+                        //         TextSpan(
+                        //           text: "\$50",
+                        //           style: TextStyle(
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.bold,
+                        //             color: "#EF5D00".toColor(),
+                        //           ),
+                        //         ),
+                        //         TextSpan(
+                        //           text: " more today!",
+                        //           style: TextStyle(
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.bold,
+                        //             color: "#3B6204".toColor(),
+                        //           ),
+                        //         ),
+                        //       ]
+                        //   ),
+                        // ),
                       ),
                     ),
                   ],

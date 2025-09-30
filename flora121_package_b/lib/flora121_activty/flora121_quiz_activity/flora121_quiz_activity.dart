@@ -7,6 +7,7 @@ import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_quiz_activity/flora121_quiz_con.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
+import 'package:flora121_package_b/flora121_view/flora121_finger_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
           fromQuiz: true,
         ),
       ),
+      _fingerWidget(),
     ],
   );
 
@@ -212,6 +214,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
                         child: Container(
                           width: double.infinity,
                           height: 50.h,
+                          key: index==0?baseCon.answerAGlobalKey:baseCon.answerBGlobalKey,
                           margin: EdgeInsets.only(top: 6.h,bottom: 6.h),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.w),
@@ -263,5 +266,26 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
       fontFamily: "saf",
       outlineColor: "#253D04",
     ),
+  );
+
+  _fingerWidget()=>GetBuilder<Flora121QuizCon>(
+    id: "finger",
+    builder: (_){
+      var offset = baseCon.offset;
+      if(null==offset){
+        return Container();
+      }
+      var dx = offset.dx+200.w;
+      var dy = offset.dy+25.h;
+      return Container(
+        margin: EdgeInsets.only(top: dy,left: dx),
+        child: Flora121Click(
+          onTap: (){
+            baseCon.clickAnswerItem(baseCon.quizBean?.answer=="a"?0:1);
+          },
+          child: Flora121FingerView(),
+        ),
+      );
+    },
   );
 }

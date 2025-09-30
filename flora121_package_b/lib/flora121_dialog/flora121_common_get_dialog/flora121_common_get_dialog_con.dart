@@ -23,14 +23,14 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     Flora121MusicHep.instance.playOtherAudio(AudioName.win);
   }
 
-  clickDouble(double addNum,bool fromNewUser, Flora121AdEnum adEnum,bool fromNewUserGuideStep1, bool fromNewUserGuideStep4,bool fromQuiz,Function(bool received) dismissCallback){
+  clickDouble(double addNum,bool fromNewUser, Flora121AdEnum adEnum,bool fromQuiz,Function(bool received) dismissCallback){
     if(fromNewUser){
       Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2(),fromQuiz: fromQuiz);
       Flora121RoutersHep.back();
       dismissCallback.call(true);
       return;
     }
-    _uploadClickDoublePontEvent(adEnum,fromNewUserGuideStep1,fromNewUserGuideStep4);
+    _uploadClickDoublePontEvent(adEnum);
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.reward,
       adEnum: adEnum,
@@ -45,8 +45,8 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     );
   }
 
-  fromLevelClickDouble(double addNum,Flora121AdEnum rvEnum,Flora121AdEnum intEnum,bool fromNewUserGuideStep1, bool fromNewUserGuideStep4,Function(bool received) dismissCallback){
-    _uploadClickDoublePontEvent(rvEnum,fromNewUserGuideStep1,fromNewUserGuideStep4);
+  fromLevelClickDouble(double addNum,Flora121AdEnum rvEnum,Flora121AdEnum intEnum,Function(bool received) dismissCallback){
+    _uploadClickDoublePontEvent(rvEnum);
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.interstitial,
       adEnum: intEnum,
@@ -61,8 +61,8 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     );
   }
 
-  clickClose(double addNum,Flora121AdEnum adEnum,bool fromNewUserGuideStep1, bool fromNewUserGuideStep4,Function(bool received) dismissCallback){
-    _uploadClickClosePointEvent(adEnum,fromNewUserGuideStep1,fromNewUserGuideStep4);
+  clickClose(double addNum,Flora121AdEnum adEnum,Function(bool received) dismissCallback){
+    _uploadClickClosePointEvent(adEnum);
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.interstitial,
       adEnum: adEnum,
@@ -89,15 +89,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     _timer=null;
   }
 
-  uploadShowPointEvent(Flora121AdEnum adEnum, bool fromNewUserGuideStep1, bool fromNewUserGuideStep4){
-    if(fromNewUserGuideStep1){
-      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop2"});
-      return;
-    }
-    if(fromNewUserGuideStep4){
-      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"pop5"});
-      return;
-    }
+  uploadShowPointEvent(Flora121AdEnum adEnum){
     Flora121PointEnum? pointEnum;
     switch(adEnum){
       case Flora121AdEnum.frfcn_level_rv:
@@ -120,15 +112,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     }
   }
 
-  _uploadClickDoublePontEvent(Flora121AdEnum adEnum, bool fromNewUserGuideStep1, bool fromNewUserGuideStep4){
-    if(fromNewUserGuideStep1){
-      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop2"});
-      return;
-    }
-    if(fromNewUserGuideStep4){
-      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop5"});
-      return;
-    }
+  _uploadClickDoublePontEvent(Flora121AdEnum adEnum){
     Flora121PointEnum? pointEnum;
     switch(adEnum){
       case Flora121AdEnum.frfcn_level_rv:
@@ -151,15 +135,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     }
   }
 
-  _uploadClickClosePointEvent(Flora121AdEnum adEnum, bool fromNewUserGuideStep1, bool fromNewUserGuideStep4){
-    if(fromNewUserGuideStep1){
-      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop2"});
-      return;
-    }
-    if(fromNewUserGuideStep4){
-      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"pop5"});
-      return;
-    }
+  _uploadClickClosePointEvent(Flora121AdEnum adEnum){
     Flora121PointEnum? pointEnum;
     switch(adEnum){
       case Flora121AdEnum.frfcn_level_int:

@@ -115,53 +115,54 @@ class Flora121OldUserDialog extends Flora121BaseDialog<Flora121OldUserDialogCon>
         colors: ["#FFFFFF".toColor().withOpacity(0.1),"#FFD9DB".toColor(),"#FFDEDF".toColor().withOpacity(0.8),"#FFFFFF".toColor().withOpacity(0.1),],
       )
     ),
-    child: RichText(
-      text: TextSpan(
-        children: [
-          //Watch a ad to earn $xxx for yourself AND unlock a $xxx donation from us to plant native flowers in California's wildfire recovery regions.
-          TextSpan(
-            text: "Watch a ad to earn ",
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: "#4E1010".toColor(),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: "\$${Flora121ValueUtils.instance.getOldUserMoney1()}",
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: "#FFB127".toColor(),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: " for yourself AND unlock a ",
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: "#4E1010".toColor(),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: "\$${Flora121ValueUtils.instance.getOldUserMoney1()}",
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: "#FFB127".toColor(),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          TextSpan(
-            text: " donation from us to plant native flowers in California's wildfire recovery regions.",
-            style: TextStyle(
-              fontSize: 12.sp,
-              color: "#4E1010".toColor(),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-    ),
+    child: Flora121TextView(text: "Thank you for your continued contributions to environmental protection.", color: "#4E1010", size: 12.sp,fontWeight: FontWeight.bold,),
+    // child: RichText(
+    //   text: TextSpan(
+    //     children: [
+    //       //Watch a ad to earn $xxx for yourself AND unlock a $xxx donation from us to plant native flowers in California's wildfire recovery regions.
+    //       TextSpan(
+    //         text: "Watch a ad to earn ",
+    //         style: TextStyle(
+    //           fontSize: 12.sp,
+    //           color: "#4E1010".toColor(),
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //       ),
+    //       TextSpan(
+    //         text: "\$${Flora121ValueUtils.instance.getOldUserMoney1()}",
+    //         style: TextStyle(
+    //           fontSize: 12.sp,
+    //           color: "#FFB127".toColor(),
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //       ),
+    //       TextSpan(
+    //         text: " for yourself AND unlock a ",
+    //         style: TextStyle(
+    //           fontSize: 12.sp,
+    //           color: "#4E1010".toColor(),
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //       ),
+    //       TextSpan(
+    //         text: "\$${Flora121ValueUtils.instance.getOldUserMoney1()}",
+    //         style: TextStyle(
+    //           fontSize: 12.sp,
+    //           color: "#FFB127".toColor(),
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //       ),
+    //       TextSpan(
+    //         text: " donation from us to plant native flowers in California's wildfire recovery regions.",
+    //         style: TextStyle(
+    //           fontSize: 12.sp,
+    //           color: "#4E1010".toColor(),
+    //           fontWeight: FontWeight.bold,
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // ),
   );
 
   _claimBtnWidget()=>Flora121WatchVideoBtnWidget(
@@ -183,8 +184,12 @@ class Flora121OldUserDialog extends Flora121BaseDialog<Flora121OldUserDialogCon>
     ),
     child: Row(
       children: [
-        Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
-        Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get9",height: 14.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get10",height: 14.h,fit: BoxFit.fitHeight,),
         Spacer(),
         Flora121TextView(text: "My Cash: ", color: "#324631", size: 10.sp,fontWeight: FontWeight.bold,),
         Flora121TextView(text: "\$${bMyMoneyNum.getData()}", color: "#239E04", size: 12.sp,fontWeight: FontWeight.bold,),

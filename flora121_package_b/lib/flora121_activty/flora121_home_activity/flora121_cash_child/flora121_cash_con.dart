@@ -29,7 +29,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Flora121CashCon extends Flora121BaseCon{
-  var chooseIndex=0;
+  var chooseIndex=0,_showNextCaskTaskDialog=false;
 
   GlobalKey firstCashAmountGlobalKey=GlobalKey();
   GlobalKey cashBtnGlobalKey=GlobalKey();
@@ -169,7 +169,7 @@ class Flora121CashCon extends Flora121BaseCon{
   @override
   receivedFlora121EventMsg(int flora121Code, int? flora121IntValue, String? flora121StringValue, Map? flora121Map) {
     switch(flora121Code){
-      case Flora121EventCode.showNewUserStep6GuideFirstCashAmount:
+      case Flora121EventCode.showNewUserStep4GuideFirstCashAmount:
         showNewUserStep6GuideFirstCashAmount();
         break;
       case Flora121EventCode.updateCashTask:
@@ -181,6 +181,15 @@ class Flora121CashCon extends Flora121BaseCon{
         break;
       case Flora121EventCode.updateMyMoney:
         _queryCashTaskInfo();
+        break;
+      case Flora121EventCode.setCashPageShowNextCaskTaskDialogTag:
+        _showNextCaskTaskDialog=true;
+        break;
+      case Flora121EventCode.cashPageShowNextCaskTaskDialog:
+        if(_showNextCaskTaskDialog){
+          _showNextCaskTaskDialog=false;
+          clickCash();
+        }
         break;
     }
   }
@@ -242,6 +251,28 @@ class Flora121CashCon extends Flora121BaseCon{
 
     var cashBtnRenderBox = cashBtnGlobalKey.currentContext?.findRenderObject() as RenderBox;
     var cashBtnOffset = cashBtnRenderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep6Guide(context, firstOffset, firstSize,cashBtnOffset);
+    Flora121UserGuideUtils.instance.showStep4Overlay(context, firstOffset, firstSize,cashBtnOffset);
+  }
+
+  String getTitleStr(){
+    switch(taskBean?.cashTaskIndex){
+      case Flora121CashTaskIndex.tasks1: return "Security Verification";
+      case Flora121CashTaskIndex.tasks2: return "Earnings Review";
+      case Flora121CashTaskIndex.tasks3: return "Transaction Processing";
+      case Flora121CashTaskIndex.tasks4: return "Identity Confirmation";
+      case Flora121CashTaskIndex.tasks5: return "Compliance Check";
+      default: return "";
+    }
+  }
+
+  String getDescStr(){
+    switch(taskBean?.cashTaskIndex){
+      case Flora121CashTaskIndex.tasks1: return "Your withdrawal is under security verification. Please complete the required task to confirm account authenticity.";
+      case Flora121CashTaskIndex.tasks2: return "Your Eco earnings are being reviewed. Verification is needed to ensure all contributions are valid.";
+      case Flora121CashTaskIndex.tasks3: return "Withdrawal request is being processed. We are confirming account and transaction details for your security.";
+      case Flora121CashTaskIndex.tasks4: return "Suspicious activity detected. Please complete verification tasks to confirm your identity and proceed with withdrawal.";
+      case Flora121CashTaskIndex.tasks5: return "Your withdrawal is pending compliance review. Complete the required steps to validate your account and release funds.";
+      default: return "";
+    }
   }
 }

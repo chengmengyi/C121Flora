@@ -165,8 +165,12 @@ class Flora121WheelGetDialog extends Flora121BaseDialog<Flora121WheelGetDialogCo
     ),
     child: Row(
       children: [
-        Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
-        Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
+        // Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get9",height: 14.h,fit: BoxFit.fitHeight,),
+        SizedBox(width: 8.w,),
+        Flora121ImagesView(imagesName: "get10",height: 14.h,fit: BoxFit.fitHeight,),
         Spacer(),
         Flora121TextView(text: "My Cash: ", color: "#324631", size: 10.sp,fontWeight: FontWeight.bold,),
         Flora121TextView(text: "\$${bMyMoneyNum.getData()}", color: "#239E04", size: 12.sp,fontWeight: FontWeight.bold,),

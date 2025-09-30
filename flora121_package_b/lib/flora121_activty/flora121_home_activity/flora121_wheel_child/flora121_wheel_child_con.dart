@@ -22,8 +22,8 @@ import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/material.dart';
 
 class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProviderStateMixin{
-  var wheelReward=0,canClick=true;
-  List<int> wheelList=[];
+  var wheelReward=0.0,canClick=true;
+  List<double> wheelList=[];
   late AnimationController _wheelAnimationController;
   Animation<double>? wheelAnimation;
   late AnimationStatusListener _statusListener;
@@ -116,10 +116,11 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     wheelList.clear();
     wheelReward=Flora121ValueUtils.instance.getWheelAddNum();
     wheelList.add(wheelReward);
-    wheelList.add(100);
+    wheelList.add(100.0);
     while(wheelList.length<8){
       wheelList.add(_randomWithVariance(wheelReward));
     }
+    wheelList.shuffle();
 
     var indexWhere = wheelList.indexWhere((value)=>value==wheelReward);
     if(indexWhere<0){
@@ -130,18 +131,14 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
     wheelAnimation=Tween<double>(begin: 0,end: (720+angle)*(pi/180)).animate(_wheelAnimationController);
   }
 
-  int _randomWithVariance(int base) {
+  double _randomWithVariance(double value) {
+    if (value == 0) return value;
+
     final random = Random();
-
-    // 计算上下限
-    int minVal = (base * 0.8).floor();
-    int maxVal = (base * 1.2).ceil();
-
-    // 保证最小值 >= 1
-    minVal = max(minVal, 1);
-
-    // 在范围内随机取值
-    return minVal + random.nextInt(maxVal - minVal + 1);
+    final factor = (random.nextDouble() * 0.4) - 0.2;
+    final result = value * (1 + factor);
+    final fixed = double.parse(result.toStringAsFixed(2));
+    return fixed <= 0 ? value : fixed;
   }
 
   String getToday(){

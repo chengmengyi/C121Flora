@@ -45,15 +45,26 @@ class Flora121NewUserStep1View extends StatelessWidget{
                       Flora121ImagesView(imagesName: "energy_money",width: 66.w,height: 66.w,),
                       SizedBox(
                         width: 290.w,
-                        height: 82.h,
+                        height: 100.h,
                         child: Stack(
                           children: [
                             Flora121ImagesView(imagesName: "step1",width: double.infinity,height: double.infinity,),
                             Align(
                               alignment: Alignment.bottomCenter,
                               child: Container(
-                                margin: EdgeInsets.only(bottom: 22.h),
-                                child: Flora121TextView(text: "Complete tasks → Earn cash & plant progress.", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                                margin: EdgeInsets.only(bottom: 16.h,),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(width: 10.w,),
+                                    Flora121ImagesView(imagesName: "icon_head",width: 43.w,height: 43.w,),
+                                    SizedBox(width: 10.w,),
+                                    Expanded(
+                                      child: Flora121TextView(text: "Hello, I’m Jessica, the promoter of this app. Tap the bubbles to earn cash and help plants grow.", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                                    ),
+                                    SizedBox(width: 10.w,),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

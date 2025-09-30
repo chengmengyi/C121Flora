@@ -44,15 +44,25 @@ class Flora121NewUserStep2View extends StatelessWidget{
                 ),
                 SizedBox(
                   width: 340.w,
-                  height: 82.h,
+                  height: 90.h,
                   child: Stack(
                     children: [
                       Flora121ImagesView(imagesName: "step1",width: double.infinity,height: double.infinity,),
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          margin: EdgeInsets.only(bottom: 25.h),
-                          child: Flora121TextView(text: "Every \$$addNum you earn = \$$addNum donated to eco projects.", color: "#3B6204", size: 12.sp,),
+                          margin: EdgeInsets.only(bottom: 16.h),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 10.w,),
+                              Flora121ImagesView(imagesName: "icon_head",width: 43.w,height: 43.w,),
+                              SizedBox(width: 10.w,),
+                              Expanded(
+                                child: Flora121TextView(text: "Every \$$addNum you earn = \$$addNum donated to eco projects.", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                              ),
+                              SizedBox(width: 10.w,),
+                            ],
+                          ),
                           // child: RichText(
                           //   text: TextSpan(
                           //     children: [

@@ -230,7 +230,20 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
       case Flora121EventCode.showNewUserStep7DiceGuide:
         showNewUserStep7DiceGuide(flora121Map);
         break;
+      case Flora121EventCode.updateMyMoney:
+        _updateMyMoney();
+        break;
     }
+  }
+
+  _updateMyMoney(){
+    if(widget.flora121energyType==Flora121EnergyType.money){
+      addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
+    }
+    if(widget.flora121energyType==Flora121EnergyType.water){
+      addNum=Flora121ValueUtils.instance.getWaterAddNum();
+    }
+    setState(() {});
   }
 
   showNewUerStep1Guide(Map? flora121map){

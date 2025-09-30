@@ -39,40 +39,49 @@ class Flora121NewUserStep3View extends StatelessWidget{
             ),
             Positioned(
               top: offset.dy+80.h,
-              left: 20.w,
+              left: 40.w,
               child: SizedBox(
-                width: 300.w,
-                height: 82.h,
+                width: 260.w,
+                height: 90.h,
                 child: Stack(
                   children: [
                     Flora121ImagesView(imagesName: "step2",width: double.infinity,height: double.infinity,),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 25.h),
-                        // child: Flora121TextView(text: "Tap Here for Your Lucky Cash Reward!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                        child: RichText(
-                          text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Play & test your luck ",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#3B6204".toColor(),
-                                  ),
-                                ),
-                                // TextSpan(
-                                //   text: "every move helps nature!",
-                                //   style: TextStyle(
-                                //     fontSize: 12.sp,
-                                //     fontWeight: FontWeight.bold,
-                                //     color: "#EF5D00".toColor(),
-                                //   ),
-                                // ),
-                              ]
-                          ),
+                        margin: EdgeInsets.only(bottom: 16.h),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w,),
+                            Flora121ImagesView(imagesName: "icon_head",width: 43.w,height: 43.w,),
+                            SizedBox(width: 10.w,),
+                            Expanded(
+                              child: Flora121TextView(text: "Play & test your luck", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                            )
+                          ],
                         ),
+                        // child: RichText(
+                        //   text: TextSpan(
+                        //       children: [
+                        //         TextSpan(
+                        //           text: "Play & test your luck ",
+                        //           style: TextStyle(
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.bold,
+                        //             color: "#3B6204".toColor(),
+                        //           ),
+                        //         ),
+                        //         // TextSpan(
+                        //         //   text: "every move helps nature!",
+                        //         //   style: TextStyle(
+                        //         //     fontSize: 12.sp,
+                        //         //     fontWeight: FontWeight.bold,
+                        //         //     color: "#EF5D00".toColor(),
+                        //         //   ),
+                        //         // ),
+                        //       ]
+                        //   ),
+                        // ),
                       ),
                     ),
                   ],

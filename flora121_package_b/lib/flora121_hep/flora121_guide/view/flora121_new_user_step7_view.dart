@@ -64,8 +64,8 @@ class Flora121NewUserStep7View extends StatelessWidget{
               top: offset.dy-100.h,
               left: 0,
               child: SizedBox(
-                width: 260.w,
-                height: 82.h,
+                width: 300.w,
+                height: 90.h,
                 child: Stack(
                   children: [
                     Flora121ImagesView(imagesName: "step3",width: double.infinity,height: double.infinity,),
@@ -73,11 +73,20 @@ class Flora121NewUserStep7View extends StatelessWidget{
                       alignment: Alignment.topCenter,
                       child: Container(
                         margin: EdgeInsets.only(top: 10.h),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                        child: Row(
                           children: [
-                            Flora121TextView(text: "Quick pick!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                            Flora121TextView(text: "Cash out & keep supporting the Earth.", color: "#3B6204", size: 12.sp,),
+                            SizedBox(width: 10.w,),
+                            Flora121ImagesView(imagesName: "icon_head",width: 43.w,height: 43.w,),
+                            SizedBox(width: 10.w,),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flora121TextView(text: "Quick pick!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                                  Flora121TextView(text: "Cash out & keep supporting the Earth.", color: "#3B6204", size: 12.sp,),
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       ),

@@ -257,7 +257,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
         children: [
           Flora121TextView(text: "Just ", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#2A4A06",),
           Flora121TextView(text: "\$${getLeftCashNum()}", color: "#FFCC00", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#2A4A06",),
-          Flora121TextView(text: " Pagbank withdrawal", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#2A4A06",),
+          Flora121TextView(text: " Paypal withdrawal", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#2A4A06",),
         ],
       ),
       Flora121ImagesView(imagesName: "wheel9",height: 93.h,fit: BoxFit.fitHeight,),

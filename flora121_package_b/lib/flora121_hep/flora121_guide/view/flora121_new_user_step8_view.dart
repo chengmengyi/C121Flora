@@ -33,45 +33,54 @@ class Flora121NewUserStep8View extends StatelessWidget{
               top: offset.dy+100.h,
               left: 30.w,
               child: SizedBox(
-                width: 260.w,
-                height: 82.h,
+                width: 300.w,
+                height: 90.h,
                 child: Stack(
                   children: [
                     Flora121ImagesView(imagesName: "step1",width: double.infinity,height: double.infinity,),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 25.h),
+                        margin: EdgeInsets.only(bottom: 16.h),
                         // child: Flora121TextView(text: "Great start! Now grab your \$50 today!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                        child: RichText(
-                          text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "Great start! Now grab your ",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#3B6204".toColor(),
-                                  ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 10.w,),
+                            Flora121ImagesView(imagesName: "icon_head",width: 43.w,height: 43.w,),
+                            SizedBox(width: 10.w,),
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: "Great start! Now grab your ",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: "#3B6204".toColor(),
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: "\$50",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: "#EF5D00".toColor(),
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: " today!",
+                                        style: TextStyle(
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: "#3B6204".toColor(),
+                                        ),
+                                      ),
+                                    ]
                                 ),
-                                TextSpan(
-                                  text: "\$50",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#EF5D00".toColor(),
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: " today!",
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: "#3B6204".toColor(),
-                                  ),
-                                ),
-                              ]
-                          ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

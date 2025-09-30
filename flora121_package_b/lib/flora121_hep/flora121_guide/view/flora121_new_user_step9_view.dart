@@ -34,20 +34,30 @@ class Flora121NewUserStep9View extends StatelessWidget{
               top: offset.dy+80.h,
               right: 0,
               child: SizedBox(
-                width: 300.w,
-                height: 82.h,
+                width: 320.w,
+                height: 90.h,
                 child: Stack(
                   children: [
                     Flora121ImagesView(imagesName: "step2",width: double.infinity,height: double.infinity,),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
-                        margin: EdgeInsets.only(bottom: 12.h),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                        margin: EdgeInsets.only(bottom: 16.h),
+                        child: Row(
                           children: [
-                            Flora121TextView(text: "Cash Prizes and Props", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                            Flora121TextView(text: "Environmental Protection Knowledge Quiz.", color: "#3B6204", size: 12.sp,),
+                            SizedBox(width: 10.w,),
+                            Flora121ImagesView(imagesName: "icon_head",width: 43.w,height: 43.w,),
+                            SizedBox(width: 10.w,),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Flora121TextView(text: "Cash Prizes and Props", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
+                                  Flora121TextView(text: "Environmental Protection Knowledge Quiz.", color: "#3B6204", size: 12.sp,),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 10.w,),
                           ],
                         ),
                       ),

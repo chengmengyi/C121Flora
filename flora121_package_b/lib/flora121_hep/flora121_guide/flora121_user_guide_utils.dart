@@ -5,6 +5,7 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_app_desc_dialog/flora121_app_desc_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_change_cash_type_dialog/flora121_change_cash_type_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_newuser_get_dialog/flora121_newuser_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
@@ -30,26 +31,32 @@ class Flora121UserGuideUtils{
   Timer? _timer;
 
   checkShowNewUserGuide(){
-    var newTime = bShowNewUserGuideTimer.getData();
-    if(newTime.isNotEmpty){
-      var oldTime = bShowOldUserGuideTimer.getData();
-      var todayTimeStr = getTodayTimeStr();
-      if(newTime!=todayTimeStr&&oldTime!=todayTimeStr){
-        bShowOldUserGuideTimer.saveData(todayTimeStr);
-        Flora121RoutersHep.dialog(
-          child: Flora121OldUserDialog(
-            dismissCall: (){
+    Flora121RoutersHep.dialog(
+      child: Flora121AppDescDialog(
+        clickCallback: (){
+          var newTime = bShowNewUserGuideTimer.getData();
+          if(newTime.isNotEmpty){
+            var oldTime = bShowOldUserGuideTimer.getData();
+            var todayTimeStr = getTodayTimeStr();
+            if(newTime!=todayTimeStr&&oldTime!=todayTimeStr){
+              bShowOldUserGuideTimer.saveData(todayTimeStr);
+              Flora121RoutersHep.dialog(
+                child: Flora121OldUserDialog(
+                  dismissCall: (){
+                    Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+                  },
+                ),
+              );
+            }else{
               Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
-            },
-          ),
-        );
-      }else{
-        Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
-      }
-      return;
-    }
-    bShowNewUserGuideTimer.saveData(getTodayTimeStr());
-    Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep1Guide);
+            }
+            return;
+          }
+          bShowNewUserGuideTimer.saveData(getTodayTimeStr());
+          Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep1Guide);
+        },
+      ),
+    );
   }
 
   test(){

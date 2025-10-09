@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       builder: (c,child)=>GetMaterialApp(
-        title: 'Flora Fortune',
+        title: 'PlantFortune',
         enableLog: true,
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,

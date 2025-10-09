@@ -250,7 +250,7 @@ class Flora121AdHep{
       Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.ad_request,params: {"ad_code_id":data?.adId,"ad_format":data?.adType.name,"ad_platform":data?.adPlat});
     },
     loadAdSuccessCallback: (AdMoneyInfoBean adMoneyInfoBean,AdInfoData? data,int loadTime){
-      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.ad_request,params: {"ad_code_id":data?.adId,"ad_format":data?.adType.name,"ad_platform":data?.adPlat});
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.frfcn_ad_return,params: {"ad_code_id":data?.adId,"ad_format":data?.adType.name,"ad_platform":data?.adPlat});
     },
     loadAdFailCallback: (data){
 

@@ -59,8 +59,8 @@ class Flora121QuizCon extends Flora121BaseCon{
     await Future.delayed(Duration(milliseconds: 1000));
     canClick=true;
     var result = quizBean?.selectedAnswer==quizBean?.answer;
-    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.quiz);
     if(result==true){
+      Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.quiz);
       answerRightNum++;
       if(answerRightNum%3==0){
         Flora121WheelUtils.instance.updateWheelNum(1);

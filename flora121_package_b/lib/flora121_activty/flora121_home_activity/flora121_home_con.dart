@@ -27,11 +27,11 @@ class Flora121HomeCon extends Flora121BaseCon{
   @override
   void onInit() {
     super.onInit();
-    Flora121MusicHep.instance.init();
     Flora121ApplifeHep.instance.init();
     Flora121FengkongHep.instance.initFengkong();
     Flora121Base.instance.flora();
     Flora121NetworkHep.instance.init();
+    Flora121MusicHep.instance.playBgm();
   }
 
   clickBottom(int index){

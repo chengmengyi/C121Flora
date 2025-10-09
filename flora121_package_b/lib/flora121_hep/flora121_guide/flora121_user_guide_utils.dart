@@ -31,27 +31,27 @@ class Flora121UserGuideUtils{
   Timer? _timer;
 
   checkShowNewUserGuide(){
+    var newTime = bShowNewUserGuideTimer.getData();
+    if(newTime.isNotEmpty){
+      var oldTime = bShowOldUserGuideTimer.getData();
+      var todayTimeStr = getTodayTimeStr();
+      if(newTime!=todayTimeStr&&oldTime!=todayTimeStr){
+        bShowOldUserGuideTimer.saveData(todayTimeStr);
+        Flora121RoutersHep.dialog(
+          child: Flora121OldUserDialog(
+            dismissCall: (){
+              Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+            },
+          ),
+        );
+      }else{
+        Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+      }
+      return;
+    }
     Flora121RoutersHep.dialog(
       child: Flora121AppDescDialog(
         clickCallback: (){
-          var newTime = bShowNewUserGuideTimer.getData();
-          if(newTime.isNotEmpty){
-            var oldTime = bShowOldUserGuideTimer.getData();
-            var todayTimeStr = getTodayTimeStr();
-            if(newTime!=todayTimeStr&&oldTime!=todayTimeStr){
-              bShowOldUserGuideTimer.saveData(todayTimeStr);
-              Flora121RoutersHep.dialog(
-                child: Flora121OldUserDialog(
-                  dismissCall: (){
-                    Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
-                  },
-                ),
-              );
-            }else{
-              Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
-            }
-            return;
-          }
           bShowNewUserGuideTimer.saveData(getTodayTimeStr());
           Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUerStep1Guide);
         },

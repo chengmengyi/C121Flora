@@ -55,4 +55,6 @@ enum Flora121PointEnum{
   frfcn_ad_impression_fail,
   ad_request,
   frfcn_ad_return,
+  app_story,
+  app_story_c,
 }

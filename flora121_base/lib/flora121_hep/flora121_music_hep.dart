@@ -48,7 +48,6 @@ class Flora121MusicHep{
     //     }
     //   }
     // });
-    playBgm();
   }
 
   playBgm(){

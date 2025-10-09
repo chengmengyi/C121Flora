@@ -4,6 +4,7 @@ import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_base_router_name.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_a/flora121_hep/flora121_routers.dart';
@@ -42,6 +43,7 @@ _initAll()async{
   );
   await GetStorage.init();
   await initSpineFlutter();
+  Flora121MusicHep.instance.init();
 
   Flora121UserInfoUtils.instance.initUserInfo();
   Flora121TaskUtils.instance.randomTodayTask();

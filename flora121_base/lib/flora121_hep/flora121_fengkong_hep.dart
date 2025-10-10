@@ -135,7 +135,7 @@ class Flora121FengkongHep{
         _ipSuccess=true;
         var result = decrypt(dioResult.msg, 20);
         var bape = jsonDecode(result)["data"]["bape"];
-        if(bape&&_checkHasDevice(FengkongTag.ip)){
+        if(bape&&_flora121fengKongBean?.ui?.device!=0&&_checkHasDevice(FengkongTag.ip)){
           uploadRiskChanceData(FengkongTag.ip);
         }
       }catch(e){}

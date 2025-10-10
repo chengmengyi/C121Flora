@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "195994985515",
-    "project_id": "flora121",
-    "storage_bucket": "flora121.firebasestorage.app"
+    "project_number": "803256225685",
+    "project_id": "flora121-cfbd9",
+    "storage_bucket": "flora121-cfbd9.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:195994985515:android:b1c454f4e482d7be65366e",
+        "mobilesdk_app_id": "1:803256225685:android:98d4c2d8bfd00c1240f09c",
         "android_client_info": {
           "package_name": "com.example.flora121"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCuFK48-paFt2VEx0m9yHhIDSXbdGR9qTg"
+          "current_key": "AIzaSyC0e6pSQk6TEd-lGSs4FuQJzPtxQA-uYQQ"
         }
       ],
       "services": {

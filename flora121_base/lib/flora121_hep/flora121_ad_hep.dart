@@ -275,6 +275,10 @@ class Flora121AdHep{
     );
   }
 
+  updateAdData(){
+    FlutterIosAdHep.instance.updateAdData(_createAdData());
+  }
+
   List<AdInfoData> _getAdList(List? list){
     if(null==list){
       return [];

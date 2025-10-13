@@ -280,11 +280,11 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //   child: Flora121AppDescDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    // Flora121UserInfoUtils.instance.updateMyMoney(20);
+    Flora121UserInfoUtils.instance.updateMyMoney(20);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();
 
-    Flora121AfUtils.instance.initAf();
+    // Flora121AfUtils.instance.test();
   }
 }

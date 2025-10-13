@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:adjust_sdk/adjust.dart';
+import 'package:adjust_sdk/adjust_ad_revenue.dart';
 import 'package:adjust_sdk/adjust_attribution.dart';
 import 'package:adjust_sdk/adjust_config.dart';
 import 'package:adjust_sdk/adjust_event_success.dart';
@@ -9,6 +10,7 @@ import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:flutter_check_af/request_af/request_af_callback.dart';
 import 'package:flutter_check_af/request_cloak/request_cloak_callback.dart';
@@ -35,9 +37,8 @@ class Flora121AfUtils{
   }
 
   _initAdjust(String distinctId)async{
-    FlutterCheckAf.instance.log("adjust====>_initAdjust");
     Adjust.addGlobalCallbackParameter("customer_user_id", distinctId);
-    var adjustConfig = AdjustConfig(Flora121LocalInfo.adjustTokenBase64, kDebugMode?AdjustEnvironment.sandbox:AdjustEnvironment.production);
+    var adjustConfig = AdjustConfig(Flora121LocalInfo.adjustTokenBase64.base64(), AdjustEnvironment.production);
     adjustConfig.attributionCallback=(AdjustAttribution attributionChangedData) {
       var network = attributionChangedData.network??"";
       FlutterCheckAf.instance.log("adjust====>attributionCallback===>$network");
@@ -52,6 +53,35 @@ class Flora121AfUtils{
       // checkListener?.adjustEventCall(eventSuccessData);
     };
     Adjust.initSdk(adjustConfig);
+  }
+
+  test()async{
+    FlutterCheckAf.instance.log("adjust====>attributionC");
+    var distinctId = await FlutterTbaInfo.instance.getDistinctId();
+    Adjust.addGlobalCallbackParameter("customer_user_id", distinctId);
+    var adjustConfig = AdjustConfig(Flora121LocalInfo.adjustTokenBase64.base64(), AdjustEnvironment.production);
+    adjustConfig.attributionCallback=(AdjustAttribution attributionChangedData) {
+      var network = attributionChangedData.network??"";
+      FlutterCheckAf.instance.log("adjust====>attributionCallback===>$network");
+      // if(network.isNotEmpty&&!network.contains("Organic")){
+      //   LocalStorage.write(LocalStorageKey.localAdjustIsBuyUserKey, true);
+      //   checkListener?.adjustChangeToBuyUser();
+      // }
+      // checkListener?.adjustResultCall(network);
+    };
+    adjustConfig.eventSuccessCallback= (AdjustEventSuccess eventSuccessData) {
+      FlutterCheckAf.instance.log("adjust====>eventSuccessCallback");
+      // checkListener?.adjustEventCall(eventSuccessData);
+    };
+    Adjust.initSdk(adjustConfig);
+  }
+
+  uploadReToAdjust(AdMoneyInfoBean? ad){
+    var adjustAdRevenue = AdjustAdRevenue("applovin_max_sdk");
+    adjustAdRevenue.setRevenue(ad?.revenue??0, "USD");
+    adjustAdRevenue.adRevenueNetwork=ad?.networkName;
+    adjustAdRevenue.adRevenueUnit=ad?.adUnitId;
+    Adjust.trackAdRevenue(adjustAdRevenue);
   }
 
   RequestAfCallback _afCall()=>RequestAfCallback(

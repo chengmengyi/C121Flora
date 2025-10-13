@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "803256225685",
-    "project_id": "flora121-cfbd9",
-    "storage_bucket": "flora121-cfbd9.firebasestorage.app"
+    "project_number": "268004360567",
+    "project_id": "plantfortune-b1fa6",
+    "storage_bucket": "plantfortune-b1fa6.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:803256225685:android:98d4c2d8bfd00c1240f09c",
+        "mobilesdk_app_id": "1:268004360567:android:5951559b9bb3134b962172",
         "android_client_info": {
-          "package_name": "com.example.flora121"
+          "package_name": "com.plantrecord.growth"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC0e6pSQk6TEd-lGSs4FuQJzPtxQA-uYQQ"
+          "current_key": "AIzaSyBnCIh1v44R8D4qmaSvs8agA3SclTIgrJE"
         }
       ],
       "services": {

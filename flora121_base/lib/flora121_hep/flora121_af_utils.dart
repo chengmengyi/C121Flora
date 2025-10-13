@@ -1,9 +1,14 @@
 import 'dart:io';
 
+import 'package:adjust_sdk/adjust.dart';
+import 'package:adjust_sdk/adjust_attribution.dart';
+import 'package:adjust_sdk/adjust_config.dart';
+import 'package:adjust_sdk/adjust_event_success.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:flutter_check_af/request_af/request_af_callback.dart';
 import 'package:flutter_check_af/request_cloak/request_cloak_callback.dart';
@@ -15,6 +20,7 @@ class Flora121AfUtils{
 
   initAf()async{
     var distinctId = await FlutterTbaInfo.instance.getDistinctId();
+    _initAdjust(distinctId);
     FlutterCheckAf.instance.init(
       afKey: Flora121LocalInfo.afAppkeyBase64.base64(),
       afAppId: "",
@@ -26,6 +32,26 @@ class Flora121AfUtils{
       requestAfCallback: _afCall(),
       requestCloakCallback: _cloakCall(),
     );
+  }
+
+  _initAdjust(String distinctId)async{
+    FlutterCheckAf.instance.log("adjust====>_initAdjust");
+    Adjust.addGlobalCallbackParameter("customer_user_id", distinctId);
+    var adjustConfig = AdjustConfig(Flora121LocalInfo.adjustTokenBase64, kDebugMode?AdjustEnvironment.sandbox:AdjustEnvironment.production);
+    adjustConfig.attributionCallback=(AdjustAttribution attributionChangedData) {
+      var network = attributionChangedData.network??"";
+      FlutterCheckAf.instance.log("adjust====>attributionCallback===>$network");
+      // if(network.isNotEmpty&&!network.contains("Organic")){
+      //   LocalStorage.write(LocalStorageKey.localAdjustIsBuyUserKey, true);
+      //   checkListener?.adjustChangeToBuyUser();
+      // }
+      // checkListener?.adjustResultCall(network);
+    };
+    adjustConfig.eventSuccessCallback= (AdjustEventSuccess eventSuccessData) {
+      FlutterCheckAf.instance.log("adjust====>eventSuccessCallback");
+      // checkListener?.adjustEventCall(eventSuccessData);
+    };
+    Adjust.initSdk(adjustConfig);
   }
 
   RequestAfCallback _afCall()=>RequestAfCallback(

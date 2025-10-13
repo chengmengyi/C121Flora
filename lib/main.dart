@@ -3,6 +3,7 @@ import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_base_router_name.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_fb_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
@@ -53,6 +54,7 @@ _initAll()async{
   Flora121WheelUtils.instance.initTodayWheelNum();
 
   Flora121AfUtils.instance.initAf();
+  Flora121FbHep.instance.initFb();
   Flora121FirebaseHep.instance.initFlora121Firebase();
   bFlora121UserInfoUtils.Flora121UserInfoUtils.instance.initUserInfo();
   Flora121CashTaskUtils.instance.initCashTaskBean();

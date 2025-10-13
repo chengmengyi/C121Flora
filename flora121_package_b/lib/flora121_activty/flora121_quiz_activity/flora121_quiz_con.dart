@@ -6,6 +6,8 @@ import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
@@ -43,6 +45,7 @@ class Flora121QuizCon extends Flora121BaseCon{
   @override
   void onInit() {
     super.onInit();
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.quiz_page);
     _initQuiz();
   }
 
@@ -50,6 +53,7 @@ class Flora121QuizCon extends Flora121BaseCon{
     if(!canClick){
       return;
     }
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.quiz_page_c);
     offset=null;
     update(["finger"]);
     _stopTimer();
@@ -60,6 +64,7 @@ class Flora121QuizCon extends Flora121BaseCon{
     canClick=true;
     var result = quizBean?.selectedAnswer==quizBean?.answer;
     if(result==true){
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.quiz_page_true);
       Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.quiz);
       answerRightNum++;
       if(answerRightNum%3==0){
@@ -87,6 +92,7 @@ class Flora121QuizCon extends Flora121BaseCon{
         ),
       );
     }else{
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.quiz_page_false);
       Flora121MusicHep.instance.playOtherAudio(AudioName.fail);
       _updateNextQuiz(result);
     }
@@ -112,6 +118,7 @@ class Flora121QuizCon extends Flora121BaseCon{
   }
 
   clickWheelItem(int index){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.quiz_wheel_click);
     var status = rewardStatusList[index];
     if(status==Flora121QuizWheelRewardType.unReceived){
       Flora121RoutersHep.dialog(

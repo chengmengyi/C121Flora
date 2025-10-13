@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flora121_base/flora121_dialog/flora121_ad_limit_dialog/flora121_ad_limit_dialog.dart';
 import 'package:flora121_base/flora121_dialog/flora121_show_ad_fail_dialog/flora121_show_ad_fail_dialog.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_fb_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
@@ -157,6 +158,7 @@ class Flora121AdHep{
         showSuccess: (ad,info){
           _showSuccess(adType);
           // PsnFbUtils.instance.logPurchase(ad?.revenue??0.0,);
+          Flora121FbHep.instance.uploadRe(ad);
           FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adEnum.name);
           Flora121Ttt.instance.uploadAdEvent(ad: ad, adEnum: adEnum, adInfoData: info);
           Flora121MusicHep.instance.pauseBgm();

@@ -7,6 +7,8 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
@@ -160,6 +162,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 1);
         break;
       case Flora121EnergyType.quiz:
+        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.quiz_c);
         Flora121RoutersHep.toNamed(routerName: Flora121RouterNameB.quiz);
         break;
 

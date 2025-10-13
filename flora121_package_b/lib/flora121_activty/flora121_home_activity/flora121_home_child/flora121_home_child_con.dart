@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_dialog/flora121_open_notification_dialog/flora121_open_notification_dialog.dart';
+import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
@@ -240,6 +241,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   }
 
   clickMoreFun(){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.h5_c);
     toWebActivity("More Fun", Flora121LocalInfo.moreFun);
   }
 
@@ -283,5 +285,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
 
     // Flora121UserGuideUtils.instance.test();
 
+    Flora121AfUtils.instance.initAf();
   }
 }

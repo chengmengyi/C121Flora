@@ -2,6 +2,8 @@ import 'package:flora121_base/flora121_base/flora121_base_dialog.dart';
 import 'package:flora121_base/flora121_dialog/flora121_network_dialog/flora121_network_dialog_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
@@ -36,6 +38,7 @@ class Flora121NetworkDialog extends Flora121BaseDialog<Flora121NetworkDialogCon>
             SizedBox(height: 10.h,),
             Flora121Click(
               onTap: (){
+                Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.no_network_c);
                 baseCon.clickClose(dismissCall);
               },
               child: Container(

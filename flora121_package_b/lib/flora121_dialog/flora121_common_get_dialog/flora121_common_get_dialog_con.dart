@@ -104,6 +104,9 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
       case Flora121AdEnum.frfcn_wheel_rv:
         pointEnum=Flora121PointEnum.wheel_page_pop;
         break;
+      case Flora121AdEnum.frfcn_quiz_rv:
+        pointEnum=Flora121PointEnum.quiz_page_pop;
+        break;
       default:
         break;
     }
@@ -126,6 +129,9 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
         break;
       case Flora121AdEnum.frfcn_wheel_rv:
         pointEnum=Flora121PointEnum.wheel_page_pop_c;
+        break;
+      case Flora121AdEnum.frfcn_quiz_rv:
+        pointEnum=Flora121PointEnum.quiz_page_pop_c;
         break;
       default:
         break;
@@ -150,6 +156,9 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
       case Flora121AdEnum.frfcn_wheel_int:
         pointEnum=Flora121PointEnum.wheel_page_pop_close;
         break;
+      case Flora121AdEnum.frfcn_quiz_int:
+        pointEnum=Flora121PointEnum.quiz_page_pop_close;
+        break;
       default:
         break;
     }
@@ -157,6 +166,8 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
       Flora121Ttt.instance.uploadPointEvent(pointEnum: pointEnum);
     }
   }
+
+  bool isFromSign()=>true;
 
   @override
   void onClose() {

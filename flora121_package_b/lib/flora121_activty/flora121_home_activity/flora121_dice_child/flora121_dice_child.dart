@@ -6,6 +6,7 @@ import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_con.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flutter/material.dart';
 
 class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
@@ -117,7 +118,21 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
       children: [
         Opacity(
           opacity: baseCon.currentDiceLargeIndex>=largeIndex&&baseCon.currentDiceSmallIndex>smallIndex?0.5:1,
-          child: Flora121ImagesView(imagesName: icon,width: 70.w,height: 70.w,),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Flora121ImagesView(imagesName: icon,width: 70.w,height: 70.w,),
+              Visibility(
+                visible: icon=="dice_money",
+                child: Flora121TextView(
+                  text: "\$${Flora121ValueUtils.instance.getDiceOtherAddNum()}",
+                  color: "#844F13",
+                  size: 10.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
         ),
         Visibility(
           visible: baseCon.currentDiceLargeIndex==largeIndex&&baseCon.currentDiceSmallIndex==smallIndex,
@@ -130,7 +145,6 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
             height: 84.w,
           ),
         ),
-
       ],
     ),
   );

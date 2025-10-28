@@ -11,8 +11,10 @@ import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_user_info_bean.dart';
-import 'package:flora121_package_b/flora121_dialog/flora121_has_money_tips_dialog/flora121_has_money_tips_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_animator_dialog/flora121_money_15_80_animator_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_tips_dialog/flora121_money_15_80_tips_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_routers.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 
@@ -96,12 +98,28 @@ class Flora121UserInfoUtils{
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
       if(data>=Flora121ValueUtils.instance.getCashList().first&&bLastShowHasMoneyDialogTimer.getData()!=getTodayTimeStr()){
         bLastShowHasMoneyDialogTimer.saveData(getTodayTimeStr());
-        Flora121RoutersHep.dialog(
-          child: Flora121HasMoneyTipsDialog(),
-        );
+        Flora121RoutersHep.toNamed(routerName: Flora121RouterNameB.hasMoneyTips);
+      }
+      if(bShowMoney15Animator.getData()&&data>=15){
+        bShowMoney15Animator.saveData(false);
+        _showMoney15And80Animator();
+      }
+      if(bShowMoney80Animator.getData()&&data>=80){
+        bShowMoney80Animator.saveData(false);
+        _showMoney15And80Animator();
       }
     }else{
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateMyMoney);
     }
+  }
+
+  _showMoney15And80Animator(){
+    Flora121RoutersHep.dialog(
+      child: Flora121Money1580AnimatorDialog(
+        dismissCallback: (){
+          Flora121RoutersHep.dialog(child: Flora121Money1580TipsDialog());
+        },
+      ),
+    );
   }
 }

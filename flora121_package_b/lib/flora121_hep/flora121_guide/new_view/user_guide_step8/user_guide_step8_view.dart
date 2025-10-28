@@ -3,12 +3,13 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_user_guide_head_widget.dart';
 import 'package:flutter/material.dart';
 
-class Flora121NewUserStep4View extends StatelessWidget{
+class UserGuideStep8View extends StatelessWidget{
   Offset offset;
   Function() clickCallback;
-  Flora121NewUserStep4View({
+  UserGuideStep8View({
     required this.offset,
     required this.clickCallback,
 });
@@ -57,39 +58,10 @@ class Flora121NewUserStep4View extends StatelessWidget{
               ),
             ),
             Positioned(
-              top: offset.dy-100.h,
+              top: offset.dy-200.h,
               left: 0,
               right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 260.w,
-                    height: 90.h,
-                    child: Stack(
-                      children: [
-                        Flora121ImagesView(imagesName: "step3",width: double.infinity,height: double.infinity,),
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 12.h),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 10.w,),
-                                Flora121ImagesView(imagesName: "icon_head",width: 43.w,height: 43.w,),
-                                SizedBox(width: 10.w,),
-                                Expanded(
-                                  child: Flora121TextView(text: "Every move helps nature!", color: "#3B6204", size: 12.sp,fontWeight: FontWeight.bold,),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+              child: Flora121UserGuideHeadWidget(content: "Roll the dice — and see what fortune has in store for you."),
             ),
           ],
         ),

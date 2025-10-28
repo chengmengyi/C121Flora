@@ -37,11 +37,13 @@ class Flora121ValueUtils{
 
   double getMoneyEnergyAddNum()=>_getAddReward(_valueBean?.cashBubble?.prize??[]);
 
-  List<int> getCashList()=>[50,80,100,150,200,300];
+  List<int> getCashList()=>[100,150,300];
 
   int getNewUserGuideStep2AddNum()=>_valueBean?.newUsersAward??10;
 
   double getDiceAddNum()=>_getAddReward(_valueBean?.diceAward?.prize??[]);
+
+  double getDiceOtherAddNum()=>_randomFluctuate(bMyMoneyNum.getData());
 
   double getOldUserMoney1()=>_getAddReward(_valueBean?.oldUsersAward?.prize??[]);
 
@@ -54,6 +56,16 @@ class Flora121ValueUtils{
   double getUpLevelAddNum()=>_getAddReward(_valueBean?.giveUp?.prize??[]);
 
   int getUpLevelQuantity()=>_valueBean?.giveUp?.quantity??3;
+
+  int getMoneyGuideAddNum()=>5;
+
+  double getCashLeftMoney(){
+    var d = getCashList().first-bMyMoneyNum.getData();
+    if(d<=0){
+      return 0;
+    }
+    return d;
+  }
 
   List<int> getSignList(){
     var prize = _valueBean?.dayCheckin?.prize??[];
@@ -78,6 +90,13 @@ class Flora121ValueUtils{
       }
     }
     return 0.0;
+  }
+
+  double _randomFluctuate(double value) {
+    final random = Random();
+    double ratio = (random.nextDouble() * 0.4) - 0.2;
+    double result = value * (1 + ratio);
+    return double.parse(result.toStringAsFixed(2));
   }
 
 

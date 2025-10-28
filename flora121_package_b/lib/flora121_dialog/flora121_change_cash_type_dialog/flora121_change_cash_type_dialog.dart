@@ -5,6 +5,7 @@ import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_change_cash_type_dialog/flora121_change_cash_type_dialog_con.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flutter/material.dart';
 
 class Flora121ChangeCashTypeDialog extends Flora121BaseDialog<Flora121ChangeCashTypeDialogCon>{
@@ -51,53 +52,56 @@ class Flora121ChangeCashTypeDialog extends Flora121BaseDialog<Flora121ChangeCash
 
   _cashTypeListWidget()=> GetBuilder<Flora121ChangeCashTypeDialogCon>(
     id: "list",
-    builder: (_)=>MasonryGridView.count(
-      padding: const EdgeInsets.all(0),
-      itemCount: baseCon.cashTypeList.length,
-      shrinkWrap: true,
-      crossAxisCount: 2,
-      mainAxisSpacing: 12.h,
-      crossAxisSpacing: 12.w,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context,index){
-        var type = baseCon.cashTypeList[index];
-        var select = baseCon.cashType==type;
-        return Flora121Click(
-          onTap: (){
-            baseCon.clickItem(type);
-          },
-          child: SizedBox(
-            width: double.infinity,
-            height: 64.h,
-            key: index==0?baseCon.firstTypeGlobalKey:null,
-            child: Stack(
-              children: [
-                Flora121ImagesView(imagesName: baseCon.getImage(type),width: double.infinity,height: double.infinity,),
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Visibility(
-                    visible: select,
-                    child: Flora121ImagesView(imagesName: "icon_gou3",width: 20.w,height: 20.w,),
+    builder: (_){
+      var cashTypeList = Flora121CashTaskUtils.instance.getCashTypeList();
+      return MasonryGridView.count(
+        padding: const EdgeInsets.all(0),
+        itemCount: cashTypeList.length,
+        shrinkWrap: true,
+        crossAxisCount: 2,
+        mainAxisSpacing: 12.h,
+        crossAxisSpacing: 12.w,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context,index){
+          var type = cashTypeList[index];
+          var select = baseCon.cashType==type;
+          return Flora121Click(
+            onTap: (){
+              baseCon.clickItem(type);
+            },
+            child: SizedBox(
+              width: double.infinity,
+              height: 64.h,
+              key: index==0?baseCon.firstTypeGlobalKey:null,
+              child: Stack(
+                children: [
+                  Flora121ImagesView(imagesName: baseCon.getImage(type),width: double.infinity,height: double.infinity,),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Visibility(
+                      visible: select,
+                      child: Flora121ImagesView(imagesName: "icon_gou3",width: 20.w,height: 20.w,),
+                    ),
                   ),
-                ),
-                Visibility(
-                  visible: select,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.w),
-                      border: Border.all(
-                        width: 3.w,
-                        color: "#FFBD09".toColor(),
+                  Visibility(
+                    visible: select,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12.w),
+                        border: Border.all(
+                          width: 3.w,
+                          color: "#FFBD09".toColor(),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
-    ),
+          );
+        },
+      );
+    },
   );
 
   _btnWidget()=>Flora121Click(

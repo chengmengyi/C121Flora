@@ -378,7 +378,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                         color: "#FFFFFF".toColor(),
                       ),
                     ),
-                    child: Flora121TextView(text: "x${bean.addNum??0}", color: "#0D4611", size: 10.sp,fontWeight: FontWeight.bold,),
+                    child: Flora121TextView(text: "\$${bean.addNum??0}", color: "#0D4611", size: 10.sp,fontWeight: FontWeight.bold,),
                   ),
                 ],
               ),

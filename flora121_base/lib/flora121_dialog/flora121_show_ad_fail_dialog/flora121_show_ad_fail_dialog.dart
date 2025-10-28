@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 
 class Flora121ShowAdFailDialog extends Flora121BaseDialog<Flora121ShowAdFailDialogCon>{
   Function() clickTryCall;
-  Flora121ShowAdFailDialog({required this.clickTryCall,});
+  Function()? clickClose;
+  Flora121ShowAdFailDialog({required this.clickTryCall,this.clickClose});
 
   @override
   Flora121ShowAdFailDialogCon initBaseConFlora121() => Flora121ShowAdFailDialogCon();
@@ -55,7 +56,7 @@ class Flora121ShowAdFailDialog extends Flora121BaseDialog<Flora121ShowAdFailDial
       SizedBox(height: 28.h,),
       Flora121Click(
         onTap: (){
-          baseCon.clickClose();
+          baseCon.clickClose(clickClose);
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),

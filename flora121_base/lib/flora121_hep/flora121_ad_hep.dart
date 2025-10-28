@@ -82,6 +82,7 @@ class Flora121AdHep{
     required Flora121AdEnum adEnum,
     required Function(bool giveReward) closeAd,
     bool isOpen=false,
+    bool isMoneyGuide=false,
   }){
     if(!showAd){
       closeAd.call(true);
@@ -90,6 +91,10 @@ class Flora121AdHep{
     if(AdNumHep.instance.notLoad()||Flora121FengkongHep.instance.checkFengkong()){
       if(isOpen){
         closeAd.call(true);
+        return;
+      }
+      if(isMoneyGuide){
+        closeAd.call(false);
         return;
       }
       Flora121RoutersHep.dialog(
@@ -131,11 +136,16 @@ class Flora121AdHep{
             clickTryCall: (){
               var data = FlutterIosAdHep.instance.getCacheResultData(adType);
               if(null==data){
-                if(adType==AdType.interstitial){
+                if(adType==AdType.interstitial||isMoneyGuide){
                   closeAd.call(false);
                 }
               }else{
                 _show(adType: adType, showAd: showAd, adEnum: adEnum, closeAd: closeAd,isOpen: isOpen);
+              }
+            },
+            clickClose: (){
+              if(isMoneyGuide){
+                closeAd.call(false);
               }
             },
           ),

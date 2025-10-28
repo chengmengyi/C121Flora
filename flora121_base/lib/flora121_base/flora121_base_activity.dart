@@ -22,6 +22,7 @@ abstract class Flora121BaseActivity<T extends Flora121BaseCon> extends Stateless
         bottom: true,
         child: initBaseWidgetFlora121(),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 

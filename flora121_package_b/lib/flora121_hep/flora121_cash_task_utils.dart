@@ -4,14 +4,19 @@ import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.d
 import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
+import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_config_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_cash_task_dialog/flora121_cash_task_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_donot_worry_dialog/flora121_donot_worry_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_transfer_funds_dialog/flora121_transfer_funds_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 
 class Flora121CashTaskUtils{
   static final Flora121CashTaskUtils _utils=Flora121CashTaskUtils();
@@ -89,6 +94,7 @@ class Flora121CashTaskUtils{
       return;
     }
     bool completedCurrentTask=false;
+    Flora121CashTaskBean? completeTask1TaskBean;
     for (var value in list) {
       var taskBean = Flora121CashTaskBean.fromJson(value);
       var totalList = getCashTaskTotalList(taskBean);
@@ -111,6 +117,9 @@ class Flora121CashTaskUtils{
           }else{
             completedCurrentTask=true;
             var nextCashTaskIndex = getNextCashTaskIndex(taskBean.cashTaskIndex);
+            if(nextCashTaskIndex==Flora121CashTaskIndex.tasks2){
+              completeTask1TaskBean=taskBean;
+            }
             taskBean.cashTaskIndex=nextCashTaskIndex;
             var taskListByIndex = getTaskListByIndex(nextCashTaskIndex)??[];
             List<Task1> currentProgressList=[];
@@ -127,8 +136,29 @@ class Flora121CashTaskUtils{
       }
     }
     Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateCashTask,);
-    if(completedCurrentTask){
-      Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.setCashPageShowNextCaskTaskDialogTag,);
+    if(null!=completeTask1TaskBean){
+      Flora121RoutersHep.dialog(
+        child: Flora121TransferFundsDialog(
+          bean: completeTask1TaskBean,
+          dismissCallback: (){
+            Flora121RoutersHep.dialog(
+              child: Flora121DonotWorryDialog(
+                dismissCallback: (){
+                  Flora121RoutersHep.dialog(
+                    child: Flora121CashTaskDialog(
+                      taskBean: completeTask1TaskBean,
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
+      );
+    }else{
+      if(completedCurrentTask){
+        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.setCashPageShowNextCaskTaskDialogTag,);
+      }
     }
   }
 
@@ -250,5 +280,25 @@ class Flora121CashTaskUtils{
       return current>=all;
     }
     return false;
+  }
+
+  List<String> getCashTypeList()=>[Flora121CashType.paypal,Flora121CashType.cashApp];
+
+  saveCashAccount(String cashType,String cashAccount)async{
+    var database = await Flora121BaseSqlUtils.instance.initSql();
+    var list = await database.query(Flora121SqlName.bCashAccount,where: '"cashType" = ?',whereArgs: [cashType]);
+    if(list.isNotEmpty){
+      return;
+    }
+    await database.insert(Flora121SqlName.bCashAccount, {"cashType":cashType,"cashAccount":cashAccount});
+  }
+
+  Future<String> getCashAccountByCashType(String cashType)async{
+    var database = await Flora121BaseSqlUtils.instance.initSql();
+    var list = await database.query(Flora121SqlName.bCashAccount,where: '"cashType" = ?',whereArgs: [cashType]);
+    if(list.isEmpty){
+      return "";
+    }
+    return list.first["cashAccount"] as String;
   }
 }

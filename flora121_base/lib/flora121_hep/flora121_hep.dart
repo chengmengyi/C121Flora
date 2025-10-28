@@ -39,6 +39,11 @@ String getTodayTimeStr(){
   return "${dateTime.year}-${dateTime.month}-${dateTime.day}";
 }
 
+String getTime3DaysStr() {
+  var dateTime = DateTime.now().add(const Duration(days: 3));
+  return "${dateTime.year}-${dateTime.month}-${dateTime.day}";
+}
+
 String formatDuration(int seconds) {
   final minutes = seconds ~/ 60;
   final secs = seconds % 60;

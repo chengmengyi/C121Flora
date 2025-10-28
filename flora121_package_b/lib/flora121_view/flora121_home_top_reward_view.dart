@@ -159,8 +159,8 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
   }
 
   showNewUserStep8HomeProgressGuide(){
-    var renderBox = globalKey.currentContext?.findRenderObject() as RenderBox;
-    var offset = renderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep6Guide(context, offset);
+    // var renderBox = globalKey.currentContext?.findRenderObject() as RenderBox;
+    // var offset = renderBox.localToGlobal(Offset.zero);
+    // Flora121UserGuideUtils.instance.showStep6Guide(context, offset);
   }
 }

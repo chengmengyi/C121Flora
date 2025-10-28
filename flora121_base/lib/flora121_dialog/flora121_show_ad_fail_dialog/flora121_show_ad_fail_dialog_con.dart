@@ -17,7 +17,8 @@ class Flora121ShowAdFailDialogCon extends Flora121BaseCon{
     clickTryCall.call();
   }
 
-  clickClose(){
+  clickClose(Function()? clickClose){
     Flora121RoutersHep.back();
+    clickClose?.call();
   }
 }

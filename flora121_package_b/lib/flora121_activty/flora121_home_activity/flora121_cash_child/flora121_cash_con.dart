@@ -51,7 +51,7 @@ class Flora121CashCon extends Flora121BaseCon{
     _queryCashTaskInfo();
   }
 
-  clickCash(){
+  clickCash()async{
     if(null!=taskBean){
       var totalList = Flora121CashTaskUtils.instance.getCashTaskTotalList(taskBean);
       var currentList = Flora121CashTaskUtils.instance.getCashTaskCurrentList(taskBean);
@@ -76,6 +76,12 @@ class Flora121CashCon extends Flora121BaseCon{
       return;
     }
     var cashType = bSelectCashType.getData();
+    var cashAccount = await Flora121CashTaskUtils.instance.getCashAccountByCashType(cashType);
+    if(cashAccount.isNotEmpty){
+      _inputAccountResult(cashAccount,bean.money);
+      return;
+    }
+
     switch(cashType){
       case Flora121CashType.pagBank:
       case Flora121CashType.paypal:
@@ -136,7 +142,7 @@ class Flora121CashCon extends Flora121BaseCon{
 
   _queryCashTaskInfo()async{
     taskBean = await Flora121CashTaskUtils.instance.queryCashTaskByMoneyAndType(cashMoney: amountList[chooseIndex].money, cashType: bSelectCashType.getData());
-    update(["task"]);
+    update(["task","btn"]);
   }
 
   double getCashLeft(int money){
@@ -251,7 +257,7 @@ class Flora121CashCon extends Flora121BaseCon{
 
     var cashBtnRenderBox = cashBtnGlobalKey.currentContext?.findRenderObject() as RenderBox;
     var cashBtnOffset = cashBtnRenderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep4Overlay(context, firstOffset, firstSize,cashBtnOffset);
+    // Flora121UserGuideUtils.instance.showStep4Overlay(context, firstOffset, firstSize,cashBtnOffset);
   }
 
   String getTitleStr(){
@@ -275,4 +281,15 @@ class Flora121CashCon extends Flora121BaseCon{
       default: return "";
     }
   }
+
+  String getMoneyTag(int? money){
+    switch(money){
+      case 100: return "icon_hot";
+      case 150: return "icon_60";
+      case 300: return "icon_high";
+      default: return "icon_hot";
+    }
+  }
+
+  bool currentMoneyHasCashTask(int money)=>money==taskBean?.cashMoney;
 }

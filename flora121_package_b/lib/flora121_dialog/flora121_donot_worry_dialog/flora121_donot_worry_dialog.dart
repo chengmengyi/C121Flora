@@ -4,12 +4,16 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_dialog/flora121_has_money_tips_dialog/flora121_has_money_tips_dialog_controller.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_donot_worry_dialog/flora121_donot_worry_dialog_con.dart';
 import 'package:flutter/material.dart';
 
-class Flora121HasMoneyTipsDialog extends Flora121BaseDialog<Flora121HasMoneyTipsDialogController>{
+class Flora121DonotWorryDialog extends Flora121BaseDialog<Flora121DonotWorryDialogCon>{
+  Function() dismissCallback;
+  Flora121DonotWorryDialog({
+    required this.dismissCallback,
+});
   @override
-  Flora121HasMoneyTipsDialogController initBaseConFlora121() => Flora121HasMoneyTipsDialogController();
+  Flora121DonotWorryDialogCon initBaseConFlora121() => Flora121DonotWorryDialogCon();
 
   @override
   Widget initBaseWidgetFlora121() => Column(
@@ -26,14 +30,18 @@ class Flora121HasMoneyTipsDialog extends Flora121BaseDialog<Flora121HasMoneyTips
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Flora121TextView(text: "Limit met, withdraw now!", color: "#7A5040", size: 16.sp,fontWeight: FontWeight.bold,),
-            SizedBox(height: 20.h,),
-            Flora121ImagesView(imagesName: "has_money1",width: 113.w,height: 113.w,),
-            Flora121TextView(text: "Cash arrives in seconds", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
-            SizedBox(height: 30.h,),
+            Flora121TextView(text: "Don't Worry", color: "#7A5040", size: 16.sp,fontWeight: FontWeight.bold,),
+            Flora121ImagesView(imagesName: "task_tips2",width: 140.w,height: 140.w,),
+            Flora121TextView(
+              text: "tWe will assist you with completing your\nwithdrawal—simply follow the\nsteps below to finalize the process.ext",
+              color: "#4C7D0A",
+               size: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+            SizedBox(height: 12.h,),
             Flora121Click(
               onTap: (){
-                baseCon.clickOk();
+                baseCon.clickClose(dismissCallback);
               },
               child: Container(
                 width: double.infinity,
@@ -41,9 +49,9 @@ class Flora121HasMoneyTipsDialog extends Flora121BaseDialog<Flora121HasMoneyTips
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: "#4C7D0A".toColor(),
-                  borderRadius: BorderRadius.circular(15.w),
+                  borderRadius: BorderRadius.circular(15.w,),
                 ),
-                child: Flora121TextView(text: "Right Now", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
+                child: Flora121TextView(text: "Instantly Credited", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
               ),
             ),
           ],
@@ -52,7 +60,7 @@ class Flora121HasMoneyTipsDialog extends Flora121BaseDialog<Flora121HasMoneyTips
       SizedBox(height: 28.h,),
       Flora121Click(
         onTap: (){
-          baseCon.clickClose();
+          baseCon.clickClose(dismissCallback);
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),

@@ -54,7 +54,8 @@ class Flora121EnergyUtils{
     bCollectEnergyNum.saveData(bCollectEnergyNum.getData()+1);
   }
 
-  int getLevelNum()=>(bCollectEnergyNum.getData()~/Flora121ValueUtils.instance.getUpLevelQuantity())+1;
+  // int getLevelNum()=>(bCollectEnergyNum.getData()~/Flora121ValueUtils.instance.getUpLevelQuantity())+1;
+  int getLevelNum()=>6;
 
   int getCollectSurplusNum()=>Flora121ValueUtils.instance.getUpLevelQuantity()-bCollectEnergyNum.getData()%Flora121ValueUtils.instance.getUpLevelQuantity();
 

@@ -224,12 +224,12 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
   @override
   receivedFlora121EventMsg(int flora121Code, int? flora121IntValue, String? flora121StringValue, Map? flora121Map) {
     switch(flora121Code){
-      case Flora121EventCode.showNewUerStep1Guide:
-        showNewUerStep1Guide(flora121Map);
+      case Flora121EventCode.showNewUerStep4Guide:
+        showNewUerStep4Guide(flora121Map);
         break;
-      case Flora121EventCode.showNewUerStep3Guide:
-        showNewUerStep3Guide(flora121Map);
-        break;
+      // case Flora121EventCode.showNewUerStep3Guide:
+      //   showNewUerStep3Guide(flora121Map);
+      //   break;
       case Flora121EventCode.showNewUserStep7DiceGuide:
         showNewUserStep7DiceGuide(flora121Map);
         break;
@@ -249,7 +249,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     setState(() {});
   }
 
-  showNewUerStep1Guide(Map? flora121map){
+  showNewUerStep4Guide(Map? flora121map){
     if(widget.flora121energyType!=Flora121EnergyType.money){
       return;
     }
@@ -257,25 +257,25 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     var moneyOffset = moneyRenderBox.localToGlobal(Offset.zero);
     var treeRenderBox = widget.treeGlobalKey?.currentContext?.findRenderObject() as RenderBox;
     var treeOffset = treeRenderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep1Overlay(context, moneyOffset, treeOffset);
+    Flora121UserGuideUtils.instance.showStep4Overlay(context, moneyOffset, treeOffset);
   }
 
-  showNewUerStep3Guide(Map? flora121map){
-    if(widget.flora121energyType!=Flora121EnergyType.quiz){
-      return;
-    }
-    var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
-    var offset = renderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep3Overlay(context, offset);
-  }
-
+  // showNewUerStep3Guide(Map? flora121map){
+  //   if(widget.flora121energyType!=Flora121EnergyType.quiz){
+  //     return;
+  //   }
+  //   var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
+  //   var offset = renderBox.localToGlobal(Offset.zero);
+  //   Flora121UserGuideUtils.instance.showStep3Overlay(context, offset);
+  // }
+  //
   showNewUserStep7DiceGuide(Map? flora121map){
     if(widget.flora121energyType!=Flora121EnergyType.dice){
       return;
     }
     var renderBox = globalKey.currentContext!.findRenderObject() as RenderBox;
     var offset = renderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep7Guide(context, offset);
+    Flora121UserGuideUtils.instance.showStep7Overlay(context, offset);
   }
 
   @override

@@ -22,4 +22,8 @@ class Flora121StorageName{
   static const String bBarrageSwitch="bBarrageSwitch";
   static const String bHasReceivedLevelMoney="bHasReceivedLevelMoney";
   static const String bLastShowHasMoneyDialogTimer="bLastShowHasMoneyDialogTimer";
+
+
+  static const String bShowMoney15Animator="bShowMoney15Animator";
+  static const String bShowMoney80Animator="bShowMoney80Animator";
 }

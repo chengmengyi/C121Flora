@@ -59,37 +59,72 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
           itemBuilder: (context,index){
             var isSelect = baseCon.chooseIndex==index;
             var bean = baseCon.amountList[index];
+            var currentMoneyHasCashTask = baseCon.currentMoneyHasCashTask(bean.money);
             return Flora121Click(
               onTap: (){
                 baseCon.clickAmountItem(index);
               },
-              child: Container(
-                width: double.infinity,
-                height: 66.h,
-                key: index==0?baseCon.firstCashAmountGlobalKey:null,
-                decoration: BoxDecoration(
-                  color: baseCon.getAmountItemBgColor().toColor(),
-                  borderRadius: BorderRadius.circular(16.w),
-                  border: isSelect?
-                  Border.all(
-                    width: 2.w,
-                    color: baseCon.getBorderItemBgColor().toColor(),
-                  ):null,
-                ),
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Visibility(
-                        visible: isSelect,
-                        child: Flora121ImagesView(imagesName: baseCon.getGouIcon(),width: 20.w,height: 20.w,),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 102.h,
+                    margin: EdgeInsets.only(top: 4.h),
+                    key: index==0?baseCon.firstCashAmountGlobalKey:null,
+                    decoration: BoxDecoration(
+                      color: baseCon.getAmountItemBgColor().toColor(),
+                      borderRadius: BorderRadius.circular(16.w),
+                      border: currentMoneyHasCashTask?
+                      null:
+                      isSelect?
+                      Border.all(
+                        width: 2.w,
+                        color: baseCon.getBorderItemBgColor().toColor(),
+                      ):null,
+                    ),
+                    child: Stack(
+                      children: [
+                        Visibility(
+                          visible: currentMoneyHasCashTask,
+                          child: Flora121ImagesView(imagesName: "cash1",width: double.infinity,height: double.infinity,),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Visibility(
+                            visible: isSelect&&!currentMoneyHasCashTask,
+                            child: Flora121ImagesView(imagesName: baseCon.getGouIcon(),width: 20.w,height: 20.w,),
+                          ),
+                        ),
+                        Align(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flora121TextView(text: "\$${bean.money}", color: "#313831", size: 24.sp,fontWeight: FontWeight.bold,),
+                              SizedBox(height: 2.h,),
+                              Flora121ImagesView(imagesName: baseCon.getMoneyTag(bean.money),width: 94.w,height: 29.h,),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: currentMoneyHasCashTask,
+                    child: Container(
+                      padding: EdgeInsets.only(left: 12.w,right: 12.w,top: 2.h,bottom: 2.h,),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.w),
+                          bottomRight: Radius.circular(16.w),
+                        ),
+                        gradient: LinearGradient(
+                            colors: ["#04B40A".toColor(),"#087522".toColor()]
+                        ),
                       ),
+                      child: Flora121TextView(text: "processing", color: "#FFFFFF", size: 12.sp,fontWeight: FontWeight.bold,),
                     ),
-                    Align(
-                      child: Flora121TextView(text: "\$${bean.money}", color: "#313831", size: 16.sp,fontWeight: FontWeight.bold,),
-                    ),
-                  ],
-                ),
+                  )
+                ],
               ),
             );
           },
@@ -319,13 +354,13 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     ),
   );
 
-  _cashBtnWidget()=>Flora121Click(
-    onTap: (){
-      baseCon.clickCash();
-    },
-    child: GetBuilder<Flora121CashCon>(
-      id: "btn",
-      builder: (_)=>Container(
+  _cashBtnWidget()=>GetBuilder<Flora121CashCon>(
+    id: "btn",
+    builder: (_)=>Flora121Click(
+      onTap: (){
+        baseCon.clickCash();
+      },
+      child: Container(
         width: double.infinity,
         height: 48.h,
         key: baseCon.cashBtnGlobalKey,

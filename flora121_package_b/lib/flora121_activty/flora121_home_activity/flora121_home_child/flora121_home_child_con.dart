@@ -14,20 +14,25 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_store_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_app_desc_dialog/flora121_app_desc_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_donot_worry_dialog/flora121_donot_worry_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
-import 'package:flora121_package_b/flora121_dialog/flora121_has_money_tips_dialog/flora121_has_money_tips_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_animator_dialog/flora121_money_15_80_animator_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_tips_dialog/flora121_money_15_80_tips_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_set_dialog/flora121_set_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_store_detail_dialog/flora121_store_detail_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_transfer_funds_dialog/flora121_transfer_funds_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_routers.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_sign_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_store_utils.dart';
@@ -35,6 +40,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
+import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -88,23 +94,30 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     if(!canSign){
       return;
     }
-    Flora121RoutersHep.dialog(
-      child: Flora121CommonGetDialog(
-        addNum: bean.addNum?.toDouble()??0.0,
-        rvAdEnum: Flora121AdEnum.frfcn_signin_rv,
-        intAdEnum: Flora121AdEnum.frfcn_signin_int,
-        dismissCallback: (received)async{
-          if(received){
-            var result = await Flora121SignUtils.instance.sign(bean);
-            if(result){
-              Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_signin_c,params: {"days":bean.day});
-              Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.sign);
-              update(["level"]);
-            }
-          }
-        },
-      ),
-    );
+    var result = await Flora121SignUtils.instance.sign(bean);
+    if(result){
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_signin_c,params: {"days":bean.day});
+      Flora121UserInfoUtils.instance.updateMyMoney((bean.addNum??0).toDouble());
+      Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.sign);
+      update(["level"]);
+    }
+    // Flora121RoutersHep.dialog(
+    //   child: Flora121CommonGetDialog(
+    //     addNum: bean.addNum?.toDouble()??0.0,
+    //     rvAdEnum: Flora121AdEnum.frfcn_signin_rv,
+    //     intAdEnum: Flora121AdEnum.frfcn_signin_int,
+    //     dismissCallback: (received)async{
+    //       if(received){
+    //         var result = await Flora121SignUtils.instance.sign(bean);
+    //         if(result){
+    //           Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_signin_c,params: {"days":bean.day});
+    //           Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.sign);
+    //           update(["level"]);
+    //         }
+    //       }
+    //     },
+    //   ),
+    // );
   }
 
   _getEnergyList()async{
@@ -280,11 +293,18 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //   child: Flora121AppDescDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    Flora121UserInfoUtils.instance.updateMyMoney(20);
+    // Flora121UserInfoUtils.instance.updateMyMoney(200);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();
 
     // Flora121AfUtils.instance.test();
+    // Flora121UserGuideUtils.instance.checkShowNewUserGuide();
+
+    // Navigator.push(context, MaterialPageRoute(builder: (_)=>TwoImageMergeAnimation()));
+    // Flora121RoutersHep.dialog(child: Flora121Money1580TipsDialog());
+    // Flora121RoutersHep.toNamed(routerName: Flora121RouterNameB.hasMoneyTips);
+
+    // Flora121RoutersHep.dialog(child: Flora121DonotWorryDialog());
   }
 }

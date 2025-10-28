@@ -12,7 +12,6 @@ class Flora121ChangeCashTypeDialogCon extends Flora121BaseCon{
   var cashType=bSelectCashType.getData();
   GlobalKey firstTypeGlobalKey=GlobalKey();
   // List<String> cashTypeList=[Flora121CashType.paypal,Flora121CashType.cashApp,Flora121CashType.pagBank,Flora121CashType.pix];
-  List<String> cashTypeList=[Flora121CashType.paypal,Flora121CashType.cashApp];
 
   @override
   void onReady() {
@@ -52,13 +51,13 @@ class Flora121ChangeCashTypeDialogCon extends Flora121BaseCon{
     var renderBox = firstTypeGlobalKey.currentContext?.findRenderObject() as RenderBox;
     var size = renderBox.size;
     var offset = renderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep5Guide(
-      context: context,
-      offset: offset,
-      size: size,
-      dismissCallback: (){
-        Flora121RoutersHep.back();
-      },
-    );
+    // Flora121UserGuideUtils.instance.showStep5Guide(
+    //   context: context,
+    //   offset: offset,
+    //   size: size,
+    //   dismissCallback: (){
+    //     Flora121RoutersHep.back();
+    //   },
+    // );
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
@@ -6,6 +5,8 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_step4/flora121_user_guide_step4_view.dart';
@@ -20,7 +21,6 @@ import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_gui
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Flora121UserGuideUtils{
@@ -28,10 +28,12 @@ class Flora121UserGuideUtils{
   static Flora121UserGuideUtils get instance => _utils;
 
   OverlayEntry? _overlayEntry;
+  var isNewUerGuide=true;
 
   checkShowNewUserGuide(){
     var newTime = bShowNewUserGuideTimer.getData();
     if(newTime.isNotEmpty){
+      isNewUerGuide=false;
       var oldTime = bShowOldUserGuideTimer.getData();
       var todayTimeStr = getTodayTimeStr();
       if(newTime!=todayTimeStr&&oldTime!=todayTimeStr){
@@ -59,9 +61,11 @@ class Flora121UserGuideUtils{
   }
 
   _showStep1Dialog(){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step1"});
     Flora121RoutersHep.dialog(
       child: UserGuideStep1Dialog(
         dismissCallback: (){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step1"});
           _showStep2Dialog();
         },
       ),
@@ -69,9 +73,11 @@ class Flora121UserGuideUtils{
   }
 
   _showStep2Dialog(){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step2"});
     Flora121RoutersHep.dialog(
       child: UserGuideStep2Dialog(
         dismissCallback: (){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step2"});
           _showStep3Dialog();
         },
       ),
@@ -89,12 +95,14 @@ class Flora121UserGuideUtils{
   }
 
   showStep4Overlay(BuildContext context,Offset moneyOffset,Offset treeOffset){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step3"});
     showOverlay(
       context: context,
       widget: Flora121UserGuideStep4View(
         moneyOffset: moneyOffset,
         treeOffset: treeOffset,
         clickCallback: (){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step3"});
           hideOverlay();
           Flora121AdHep.instance.showFlora121BBBBBBB(
             adType: AdType.reward,
@@ -102,7 +110,7 @@ class Flora121UserGuideUtils{
             isMoneyGuide: true,
             adEnum: Flora121AdEnum.frfcn_cash_rv,
             closeAd: (give){
-              var guideAddNum = Flora121ValueUtils.instance.getMoneyGuideAddNum();
+              var guideAddNum = Flora121ValueUtils.instance.getNewUserAddNum();
               if(give){
                 Flora121UserInfoUtils.instance.updateMyMoney(guideAddNum.toDouble());
               }
@@ -115,10 +123,12 @@ class Flora121UserGuideUtils{
   }
 
   _showStep5Dialog(int guideAddNum){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step4"});
     Flora121RoutersHep.dialog(
       child: UserGuideStep5Dialog(
         addNum: guideAddNum,
         dismissCallback: (){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step4"});
           _showStep6Dialog();
         },
       ),
@@ -126,9 +136,11 @@ class Flora121UserGuideUtils{
   }
 
   _showStep6Dialog(){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step5"});
     Flora121RoutersHep.dialog(
       child: UserGuideStep6Dialog(
         dismissCallback: (){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step5"});
           Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep7DiceGuide);
         },
       ),
@@ -136,11 +148,13 @@ class Flora121UserGuideUtils{
   }
 
   showStep7Overlay(BuildContext context,Offset offset){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step6"});
     showOverlay(
       context: context,
       widget: UserGuideStep7View(
         offset: offset,
         clickCallback: (){
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step6"});
           hideOverlay();
           Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showHomeTab,flora121IntValue: 1);
           Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showNewUserStep8DiceBtn);
@@ -154,11 +168,14 @@ class Flora121UserGuideUtils{
     required Offset offset,
     required Function() dismissCallback,
   }){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step7"});
     showOverlay(
       context: context,
       widget: UserGuideStep8View(
         offset: offset,
         clickCallback: (){
+          isNewUerGuide=false;
+          Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step7"});
           hideOverlay();
           dismissCallback.call();
           Flora121AndroidLocalNotificationHep.instance.checkHasNotification();

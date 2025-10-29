@@ -39,11 +39,11 @@ class Flora121ValueUtils{
 
   List<int> getCashList()=>[100,150,300];
 
-  int getNewUserGuideStep2AddNum()=>_valueBean?.newUsersAward??10;
+  int getNewUserAddNum()=>_valueBean?.newUsersAward??10;
 
   double getDiceAddNum()=>_getAddReward(_valueBean?.diceAward?.prize??[]);
 
-  double getDiceOtherAddNum()=>_randomFluctuate(bMyMoneyNum.getData());
+  double getDiceOtherAddNum()=>_randomFluctuate(getDiceAddNum());
 
   double getOldUserMoney1()=>_getAddReward(_valueBean?.oldUsersAward?.prize??[]);
 
@@ -56,8 +56,6 @@ class Flora121ValueUtils{
   double getUpLevelAddNum()=>_getAddReward(_valueBean?.giveUp?.prize??[]);
 
   int getUpLevelQuantity()=>_valueBean?.giveUp?.quantity??3;
-
-  int getMoneyGuideAddNum()=>5;
 
   double getCashLeftMoney(){
     var d = getCashList().first-bMyMoneyNum.getData();

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_stateful.dart';
+import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
@@ -13,6 +14,7 @@ import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_ad_probability_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
@@ -20,6 +22,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_gui
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_routers.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
@@ -30,10 +33,12 @@ class Flora121EnergyItemWidget extends Flora121BaseStateful{
   Flora121EnergyType flora121energyType;
   GlobalKey? treeGlobalKey;
   Function() clickItem;
+  bool showVideoIcon;
   Flora121EnergyItemWidget({
     required this.flora121energyType,
     required this.clickItem,
     this.treeGlobalKey,
+    this.showVideoIcon=false,
 });
   @override
   State<StatefulWidget> createState() => _Flora121EnergyItemWidgetState();
@@ -70,13 +75,26 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
       },
       child: ScaleTransition(
         scale: _animation,
-        child: Stack(
-          key: globalKey,
-          alignment: Alignment.bottomCenter,
-          children: [
-            Flora121ImagesView(imagesName: getEnergyIcon(widget.flora121energyType),width: 66.w,height: 66.w,),
-            _getNameWidget(),
-          ],
+        child: SizedBox(
+          width: 66.w,
+          height: 66.w,
+          child: Stack(
+            key: globalKey,
+            children: [
+              Flora121ImagesView(imagesName: getEnergyIcon(widget.flora121energyType),width: 66.w,height: 66.w,),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: _getNameWidget(),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Visibility(
+                  visible: widget.showVideoIcon,
+                  child: Flora121ImagesView(imagesName: "icon_video",width: 26.w,height: 26.w,),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -93,7 +111,15 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         }
         return Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
       case Flora121EnergyType.money:
-        return Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
+        if(widget.showVideoIcon){
+          return Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
+        }else{
+          var data = bHomeMoneyItemCD.getData();
+          if(data>0){
+            return Flora121TextView(text: formatDuration(data), color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
+          }
+          return Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
+        }
       case Flora121EnergyType.wheel:
         return Flora121TextView(text: "Wheel", color: "#FFFFFF", size: 10.sp,outlineColor: "#A14220",fontWeight: FontWeight.bold,);
       case Flora121EnergyType.quiz:
@@ -125,13 +151,18 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.bubbles);
     widget.clickItem.call();
     if(widget.flora121energyType==Flora121EnergyType.money){
-      Flora121RoutersHep.dialog(
-        child: Flora121CommonGetDialog(
-          addNum: addNum,
-          rvAdEnum: Flora121AdEnum.frfcn_cash_rv,
-          intAdEnum: Flora121AdEnum.frfcn_cash_int,
-          dismissCallback: (received)async{
-            if(received){
+      if(!widget.showVideoIcon&&bHomeMoneyItemCD.getData()>0){
+        "Hourly sips, double rewards - health and wealth!".showToast();
+        return;
+      }
+      if(widget.showVideoIcon){
+        Flora121AdHep.instance.showFlora121BBBBBBB(
+          adType: AdType.reward,
+          adEnum: Flora121AdEnum.frfcn_cash_rv,
+          showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.reward),
+          closeAd: (giveReward)async{
+            if(giveReward){
+              Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
               setState(() {
                 showEnergy=false;
               });
@@ -142,8 +173,21 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
               });
             }
           },
-        ),
-      );
+        );
+      }else{
+        Flora121AdHep.instance.showFlora121BBBBBBB(
+          adType: AdType.interstitial,
+          adEnum: Flora121AdEnum.frfcn_cash_int,
+          showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.reward),
+          closeAd: (giveReward)async{
+            if(giveReward){
+              Flora121UserInfoUtils.instance.updateMyMoney(addNum);
+              bHomeMoneyItemCD.saveData(600);
+              _startWaterTimer();
+            }
+          },
+        );
+      }
       return;
     }
     setState(() {
@@ -206,6 +250,19 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         if(bHomeWaterItemCD.getData()<=0){
           setState(() {
             addNum=Flora121ValueUtils.instance.getWaterAddNum();
+          });
+          _stopWaterTimer();
+        }
+      });
+    }
+    if(widget.flora121energyType==Flora121EnergyType.money&&!widget.showVideoIcon&&bHomeMoneyItemCD.getData()>0){
+      _waterTimer=Timer.periodic(Duration(seconds: 1), (t){
+        setState(() {
+          bHomeMoneyItemCD.saveData(bHomeMoneyItemCD.getData()-1);
+        });
+        if(bHomeMoneyItemCD.getData()<=0){
+          setState(() {
+            addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
           });
           _stopWaterTimer();
         }

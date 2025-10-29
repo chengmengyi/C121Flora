@@ -2,6 +2,8 @@ import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_user_guide_question_bean.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
   @override
   void onInit() {
     super.onInit();
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.questionnaire_s);
     _initList();
   }
 
@@ -20,7 +23,8 @@ class UserGuideQuestionController extends Flora121BaseCon{
     update(["question"]);
   }
 
-  clickSkip(Function() dismissCallback){
+  clickSkip(Function() dismissCallback,String type){
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.questionnaire_c,params: {"type":type});
     Flora121RoutersHep.back();
     dismissCallback.call();
   }
@@ -50,7 +54,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: "3.How do you prefer ",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#000000".toColor(),
                 ),
               ),
@@ -58,7 +62,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: "earning rewards",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#EB4700".toColor(),
                 ),
               ),
@@ -66,7 +70,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: " in the app",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#000000".toColor(),
                 ),
               ),
@@ -87,7 +91,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: "4.Did you know you can ",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#000000".toColor(),
                 ),
               ),
@@ -95,7 +99,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: "earn cash",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#EB4700".toColor(),
                 ),
               ),
@@ -103,7 +107,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: " by watching ads",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#000000".toColor(),
                 ),
               ),
@@ -127,7 +131,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: "5.Would you like to ",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#000000".toColor(),
                 ),
               ),
@@ -135,7 +139,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: "Earn Money",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#EB4700".toColor(),
                 ),
               ),
@@ -143,7 +147,7 @@ class UserGuideQuestionController extends Flora121BaseCon{
                 text: " by watching ads?",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 11.sp,
+                  fontSize: 14.sp,
                   color: "#000000".toColor(),
                 ),
               ),

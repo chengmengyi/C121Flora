@@ -23,4 +23,5 @@ class Flora121EventCode{
   static const int cashPageShowNextCaskTaskDialog=121;
 
   static const int showNewUerStep4Guide=122;
+  static const int showBanner=123;
 }

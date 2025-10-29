@@ -49,7 +49,7 @@ class UserGuideQuestionDialog extends Flora121BaseDialog<UserGuideQuestionContro
         SizedBox(height: 20.h,),
         Flora121Click(
           onTap: (){
-            baseCon.clickSkip(dismissCallback);
+            baseCon.clickSkip(dismissCallback,"submit");
           },
           child: Container(
             width: double.infinity,
@@ -65,7 +65,7 @@ class UserGuideQuestionDialog extends Flora121BaseDialog<UserGuideQuestionContro
         SizedBox(height: 12.h,),
         Flora121Click(
           onTap: (){
-            baseCon.clickSkip(dismissCallback);
+            baseCon.clickSkip(dismissCallback,"skip");
           },
           child: Flora121TextView(
             text: "Skip",
@@ -143,7 +143,9 @@ class UserGuideQuestionDialog extends Flora121BaseDialog<UserGuideQuestionContro
           children: [
             Flora121ImagesView(imagesName: bean.chooseIndex==index?"icon_sel3":"icon_uns3",width: 12.w,height: 12.w,),
             SizedBox(width: 4.w,),
-            Flora121TextView(text: bean.answerList[index], color: "#323F2C", size: 12.sp,),
+            Expanded(
+              child: Flora121TextView(text: bean.answerList[index], color: "#323F2C", size: 12.sp,),
+            ),
           ],
         ),
       ),

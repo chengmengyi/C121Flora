@@ -71,14 +71,14 @@ class Flora121UserInfoUtils{
     }
     bMyMoneyNum.saveData((Decimal.fromJson("${bMyMoneyNum.getData()}")+Decimal.fromJson("$addNum")).toDouble());
     if(addNum>0){
-      var moneyLevel = bLastTimeMoneyLevel.getData()+100;
+      var moneyLevel = bLastTimeMoneyLevel.getData()+20;
       var data = bMyMoneyNum.getData();
       if(data>=moneyLevel){
-        var max = ((bMyMoneyNum.getData()-moneyLevel)~/100)+1;
+        var max = ((bMyMoneyNum.getData()-moneyLevel)~/20)+1;
         for(var index=0; index<max; index++){
           Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_dall,params: {"money":moneyLevel});
           bLastTimeMoneyLevel.saveData(moneyLevel);
-          moneyLevel+=100;
+          moneyLevel+=20;
         }
       }
 

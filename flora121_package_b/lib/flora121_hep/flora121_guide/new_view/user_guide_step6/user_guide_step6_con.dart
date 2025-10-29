@@ -1,6 +1,8 @@
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,12 @@ import 'package:flutter/material.dart';
 class UserGuideStep6Con extends Flora121BaseCon{
   var selectCashType=Flora121CashType.paypal;
   TextEditingController textEditingController=TextEditingController();
+
+  @override
+  void onInit() {
+    super.onInit();
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.withdrawal_confirmation);
+  }
 
   clickCashType(String type){
     selectCashType=type;

@@ -119,6 +119,16 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                     child: _energyItemWidget(Flora121EnergyType.quiz),
                   ),
                   Positioned(
+                    left: 20.w,
+                    bottom: 30.h,
+                    child: _energyItemWidget(Flora121EnergyType.money,showVideoIcon: true),
+                  ),
+                  Positioned(
+                    right: 40.w,
+                    bottom: 30.h,
+                    child: _energyItemWidget(Flora121EnergyType.money,showVideoIcon: true),
+                  ),
+                  Positioned(
                     top: 0,
                     right: 16.w,
                     child: Flora121Click(
@@ -138,9 +148,10 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     ],
   );
 
-  _energyItemWidget(Flora121EnergyType type,{GlobalKey? key})=>Flora121EnergyItemWidget(
+  _energyItemWidget(Flora121EnergyType type,{GlobalKey? key,bool showVideoIcon=false})=>Flora121EnergyItemWidget(
     flora121energyType: type,
     treeGlobalKey: key,
+    showVideoIcon: showVideoIcon,
     clickItem: (){
       baseCon.clickEnergy(type);
     },

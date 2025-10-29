@@ -72,4 +72,11 @@ enum Flora121PointEnum{
   ad_fail_c,
   meet_withdraw,
   h5_c,
+  questionnaire_s,
+  questionnaire_c,
+  remind_pop,
+  remind_pop_c,
+  withdrawal_confirmation,
+  task_transition,
+  task_transition_c,
 }

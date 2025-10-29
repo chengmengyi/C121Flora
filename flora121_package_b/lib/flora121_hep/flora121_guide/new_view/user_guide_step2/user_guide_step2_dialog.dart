@@ -21,7 +21,7 @@ class UserGuideStep2Dialog extends Flora121BaseDialog<UserGuideStep2Con>{
   Widget initBaseWidgetFlora121() => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Flora121UserGuideHeadWidget(content: "We are a small environmental organization, devoted to protecting flowers and nature. In our app, every flower you grow contributes to green plant protection on Earth and the restoration of vegetation after wildfires."),
+      Flora121UserGuideHeadWidget(content: "We partner with sponsors who care about the environment.You can earn sponsorship rewards directly from their ads.The funds are used to reward users like you who make a difference for the planet."),
       SizedBox(height: 20.h,),
       Container(
         width: 300.w,

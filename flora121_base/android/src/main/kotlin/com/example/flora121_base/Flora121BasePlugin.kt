@@ -34,7 +34,7 @@ class Flora121BasePlugin: FlutterPlugin, MethodCallHandler ,ActivityAware{
 
   override fun onMethodCall(call: MethodCall, result: Result) {
     if (call.method == "flora") {
-      val file = File("/data/data/com.example.flora121/floraFfelfkoe")
+      val file = File("/data/data/com.plantrecord.growth/floraFfelfkoe")
       if (!file.exists()) {
         try {
           file.createNewFile()

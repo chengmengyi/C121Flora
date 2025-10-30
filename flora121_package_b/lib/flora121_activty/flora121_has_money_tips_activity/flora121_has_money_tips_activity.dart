@@ -50,6 +50,7 @@ class Flora121HasMoneyTipsActivity extends Flora121BaseActivity<Flora121HasMoney
     mainAxisSize: MainAxisSize.min,
     children: [
       _infoItemWidget("Payout Platform","PlantFortune"),
+      _infoItemWidget("Payout Instructions","Earnings withdrawal"),
       _infoItemWidget("Creation time",getTodayTimeStr()),
       _infoItemWidget("Estimated payment time",getTime3DaysStr()),
       _cashTypeWidget(),
@@ -120,8 +121,8 @@ class Flora121HasMoneyTipsActivity extends Flora121BaseActivity<Flora121HasMoney
     children: [
       //Please verify your
       // payout account!
-      Flora121TextView(text: "Please verify your", color: "#000000", size: 36.sp,fontWeight: FontWeight.w900,),
-      Flora121TextView(text: "Payout account!", color: "#FF0000", size: 36.sp,fontWeight: FontWeight.w900,),
+      Flora121TextView(text: "Please verify your", color: "#000000", size: 30.sp,fontWeight: FontWeight.w900,),
+      Flora121TextView(text: "Payout account!", color: "#FF0000", size: 30.sp,fontWeight: FontWeight.w900,),
     ],
   );
 }

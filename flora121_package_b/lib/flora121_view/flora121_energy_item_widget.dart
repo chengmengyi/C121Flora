@@ -314,7 +314,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     var moneyOffset = moneyRenderBox.localToGlobal(Offset.zero);
     var treeRenderBox = widget.treeGlobalKey?.currentContext?.findRenderObject() as RenderBox;
     var treeOffset = treeRenderBox.localToGlobal(Offset.zero);
-    Flora121UserGuideUtils.instance.showStep4Overlay(context, moneyOffset, treeOffset);
+    Flora121UserGuideUtils.instance.showStep4Overlay(context, moneyOffset, treeOffset,addNum);
   }
 
   // showNewUerStep3Guide(Map? flora121map){

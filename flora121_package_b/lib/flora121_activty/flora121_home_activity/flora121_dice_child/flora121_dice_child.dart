@@ -125,7 +125,7 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
               Visibility(
                 visible: icon=="dice_money",
                 child: Flora121TextView(
-                  text: "\$${Flora121ValueUtils.instance.getDiceOtherAddNum()}",
+                  text: "\$${baseCon.getOtherAddNum(largeIndex, smallIndex)}",
                   color: "#844F13",
                   size: 10.sp,
                   fontWeight: FontWeight.bold,

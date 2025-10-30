@@ -1,5 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
 
 StorageData<bool> musicSwitch=StorageData<bool>(key: "musicSwitch", defaultValue: true);
 

@@ -32,3 +32,4 @@ StorageData<bool> bShowMoney80Animator=StorageData<bool>(key: Flora121StorageNam
 
 
 StorageData<double> bMyMoneyNum=StorageData<double>(key: Flora121StorageName.bMyMoneyNum, defaultValue: 0.0);
+StorageData<double> bTotalMoneyToAdProbability=StorageData<double>(key: Flora121StorageName.bTotalMoneyToAdProbability, defaultValue: 0.0);

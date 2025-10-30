@@ -18,32 +18,32 @@ class UserGuideStep2Dialog extends Flora121BaseDialog<UserGuideStep2Con>{
   UserGuideStep2Con initBaseConFlora121() => UserGuideStep2Con();
 
   @override
-  Widget initBaseWidgetFlora121() => Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Flora121UserGuideHeadWidget(content: "We partner with sponsors who care about the environment.You can earn sponsorship rewards directly from their ads.The funds are used to reward users like you who make a difference for the planet."),
-      SizedBox(height: 20.h,),
-      Container(
-        width: 300.w,
-        height: 350.h,
-        alignment: Alignment.topCenter,
-        child: GetBuilder<UserGuideStep2Con>(
-          id: "pro",
-          builder: (_)=>ClipRRect(
-            child: Align(
-              alignment: Alignment.topCenter,
-              heightFactor: baseCon.animationController.value,
-              child: Flora121ImagesView(imagesName: "guide1",width: 300.w,height: 350.h,),
+  Widget initBaseWidgetFlora121() => Flora121Click(
+    onTap: (){
+      baseCon.clickNext(dismissCallback);
+    },
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flora121UserGuideHeadWidget(content: "We partner with sponsors who care about the environment.You can earn sponsorship rewards directly from their ads.The funds are used to reward users like you who make a difference for the planet."),
+        SizedBox(height: 20.h,),
+        Container(
+          width: 300.w,
+          height: 350.h,
+          alignment: Alignment.topCenter,
+          child: GetBuilder<UserGuideStep2Con>(
+            id: "pro",
+            builder: (_)=>ClipRRect(
+              child: Align(
+                alignment: Alignment.topCenter,
+                heightFactor: baseCon.animationController.value,
+                child: Flora121ImagesView(imagesName: "guide1",width: 300.w,height: 350.h,),
+              ),
             ),
           ),
         ),
-      ),
-      SizedBox(height: 40.h,),
-      Flora121Click(
-        onTap: (){
-          baseCon.clickNext(dismissCallback);
-        },
-        child: Flora121TextView(
+        SizedBox(height: 40.h,),
+        Flora121TextView(
           text: "Next",
           color: "#919191",
           size: 20.sp,
@@ -51,7 +51,7 @@ class UserGuideStep2Dialog extends Flora121BaseDialog<UserGuideStep2Con>{
           decoration: TextDecoration.underline,
           decorationColor: "#919191".toColor(),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }

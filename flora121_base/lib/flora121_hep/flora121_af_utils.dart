@@ -10,7 +10,7 @@ import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
+import 'package:flutter_android_ad_plugins/data/ad_money_info_bean.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 import 'package:flutter_check_af/request_af/request_af_callback.dart';
 import 'package:flutter_check_af/request_cloak/request_cloak_callback.dart';

@@ -1,6 +1,6 @@
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
-import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
+import 'package:flutter_android_ad_plugins/data/ad_money_info_bean.dart';
 import 'package:flutter_custom_facebook/flutter_custom_facebook.dart';
 
 class Flora121FbHep{

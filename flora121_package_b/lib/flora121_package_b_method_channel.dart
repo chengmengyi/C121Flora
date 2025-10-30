@@ -10,8 +10,7 @@ class MethodChannelFlora121Package_b extends Flora121Package_bPlatform {
   final methodChannel = const MethodChannel('flora121_package_b');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
+  Future<void> intentAc(String url) async {
+    await methodChannel.invokeMethod<String>('intentAc',{"url":url});
   }
 }

@@ -11,6 +11,7 @@ import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flora121_package_b/flora121_view/flora121_health_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_shake_view.dart';
@@ -323,7 +324,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
                 ),
               ),
               TextSpan(
-                text: "\$50",
+                text: "\$${Flora121ValueUtils.instance.getCashList().first}",
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: "#FF0000".toColor(),
@@ -355,13 +356,13 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(width: 200.w,),
-              _marqueeItemWidget("You Must Withdraw ","\$50"," This Time!"),
+              _marqueeItemWidget("You Must Withdraw ","\$${Flora121ValueUtils.instance.getCashList().first}"," This Time!"),
               SizedBox(width: 200.w,),
-              _marqueeItemWidget("Time to Grab Your ","\$50"," - Don't Miss Out!"),
+              _marqueeItemWidget("Time to Grab Your ","\$${Flora121ValueUtils.instance.getCashList().first}"," - Don't Miss Out!"),
               SizedBox(width: 200.w,),
-              _marqueeItemWidget("Spin & Win Your ","\$50"," - Fortune Awaits!"),
+              _marqueeItemWidget("Spin & Win Your ","\$${Flora121ValueUtils.instance.getCashList().first}"," - Fortune Awaits!"),
               SizedBox(width: 200.w,),
-              _marqueeItemWidget("Your ","\$50", "Prize - One Spin Away!"),
+              _marqueeItemWidget("Your ","\$${Flora121ValueUtils.instance.getCashList().first}", "Prize - One Spin Away!"),
               SizedBox(width: 200.w,),
             ],
           ),

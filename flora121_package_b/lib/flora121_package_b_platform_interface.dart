@@ -23,7 +23,7 @@ abstract class Flora121Package_bPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
+  Future<void> intentAc(String url) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

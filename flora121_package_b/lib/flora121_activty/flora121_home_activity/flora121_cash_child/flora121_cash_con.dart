@@ -142,7 +142,7 @@ class Flora121CashCon extends Flora121BaseCon{
 
   _queryCashTaskInfo()async{
     taskBean = await Flora121CashTaskUtils.instance.queryCashTaskByMoneyAndType(cashMoney: amountList[chooseIndex].money, cashType: bSelectCashType.getData());
-    update(["task","btn"]);
+    update(["task","btn","amount"]);
   }
 
   double getCashLeft(int money){

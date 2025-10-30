@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 StorageData<bool> launchShowLoading=StorageData<bool>(key: "launchShowLoading", defaultValue: false);
 
 class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStateMixin{
-  var selected=false;
+  var selected=true;
   late AnimationController animationController;
 
   @override

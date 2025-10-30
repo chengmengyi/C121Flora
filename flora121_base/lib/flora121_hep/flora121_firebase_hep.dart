@@ -47,6 +47,7 @@ class Flora121FirebaseHep{
       Flora121FengkongHep.instance.initFengkong();
     }
     var frfcn_ad_config = _remoteConfig?.getString("frfcn_ad_config")??"";
+    print('kk=frfcn_ad_config====${frfcn_ad_config}');
     if(frfcn_ad_config.isNotEmpty){
       flora121AdConfigStr.saveData(frfcn_ad_config);
       Flora121AdHep.instance.updateAdData();

@@ -28,7 +28,7 @@ class Flora121Money1580TipsDialogCon extends Flora121BaseCon{
   }
 
   double getPro(){
-    var d = bMyMoneyNum.getData()/1000;
+    var d = bMyMoneyNum.getData()/100;
     if(d<=0){
       return 0.0;
     }else if(d>=1){

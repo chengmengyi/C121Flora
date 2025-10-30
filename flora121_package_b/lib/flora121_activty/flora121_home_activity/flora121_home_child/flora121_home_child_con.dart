@@ -34,6 +34,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_question_dialog/user_guide_question_dialog.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_step1/user_guide_step1_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_step2/user_guide_step2_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_step3/user_guide_step3_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_step5/user_guide_step5_dialog.dart';
@@ -44,6 +45,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_store_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
+import 'package:flora121_package_b/flora121_package_b.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
@@ -263,6 +265,13 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     toWebActivity("More Fun", Flora121LocalInfo.moreFun);
   }
 
+  clickGame()async{
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.game_c);
+    var gaid = await FlutterTbaInfo.instance.getGaid();
+    var url="https://s.gamifyspace.com/tml?pid=19163&appk=ERz5CBTX1ftLMSrgwmYEzR2SgsI4vn2t&did=$gaid";
+    toWebActivity("Game", url,isGame: true);
+  }
+
   @override
   bool initFlora121Event() => true;
 
@@ -298,7 +307,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //   child: Flora121AppDescDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    // Flora121UserInfoUtils.instance.updateMyMoney(50);
+    Flora121UserInfoUtils.instance.updateMyMoney(50);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();
@@ -311,6 +320,8 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121RoutersHep.toNamed(routerName: Flora121RouterNameB.hasMoneyTips);
 
     // Flora121RoutersHep.dialog(child: UserGuideStep5Dialog(addNum: 10,dismissCallback: (){},));
-    Flora121RoutersHep.dialog(child: UserGuideStep2Dialog(dismissCallback: (){},));
+    // Flora121RoutersHep.dialog(child: Flora121TransferFundsDialog(bean: null,dismissCallback: (){},));
+    // Flora121RoutersHep.toNamed(routerName: Flora121RouterNameB.hasMoneyTips);
+    Flora121Package_b.instance.intentAc("djiwjdiwjdw");
   }
 }

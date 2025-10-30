@@ -4,6 +4,7 @@ import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 
 class UserGuideStep3Con extends Flora121BaseCon with GetSingleTickerProviderStateMixin{
+  var showGift=false;
   late AnimationController animationController;
   Function() dismissCallback;
   UserGuideStep3Con(this.dismissCallback);
@@ -23,6 +24,8 @@ class UserGuideStep3Con extends Flora121BaseCon with GetSingleTickerProviderStat
   }
 
   _animatorEnd()async{
+    showGift=true;
+    update(["gift"]);
     await Future.delayed(Duration(milliseconds: 1000));
     Flora121RoutersHep.back();
     dismissCallback.call();

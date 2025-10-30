@@ -3,6 +3,7 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_con.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_home_tab_bean.dart';
 import 'package:flora121_package_b/flora121_view/flora121_banner_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_finger_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
@@ -53,26 +54,29 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
         alignment: Alignment.bottomCenter,
         children: [
           Flora121ImagesView(imagesName: "home2",width: double.infinity,height: 47.h,),
-          Row(
-            children: [
-              _bottomItemWidget("tab_home",0),
-              _bottomItemWidget("tab_dice",1),
-              _bottomItemWidget("tab_wheel",2),
-              _bottomItemWidget("tab_cash",3),
-            ],
+          GetBuilder<Flora121HomeCon>(
+            id: "bottom_tab",
+            builder: (_)=>Row(
+              children: [
+                _bottomItemWidget(baseCon.tabList[0],0),
+                _bottomItemWidget(baseCon.tabList[1],1),
+                _bottomItemWidget(baseCon.tabList[2],2),
+                _bottomItemWidget(baseCon.tabList[3],3),
+              ],
+            ),
           ),
         ],
       ),
     ),
   );
   
-  _bottomItemWidget(String icon,int index)=>Expanded(
+  _bottomItemWidget(Flora121HomeTabBean tabBean,int index)=>Expanded(
     child: Center(
       child: Flora121Click(
         onTap: (){
           baseCon.clickBottom(index);
         },
-        child: Flora121ImagesView(imagesName: icon,width: 75.w,height: 70.h,),
+        child: Flora121ImagesView(imagesName: baseCon.tabIndex==index?tabBean.selIcon:tabBean.unsIcon,width: 75.w,height: 70.h,),
       ),
     ),
   );

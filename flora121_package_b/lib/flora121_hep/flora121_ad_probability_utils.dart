@@ -47,7 +47,7 @@ class Flora121AdProbabilityUtils{
       return false;
     }
     var last = list.last;
-    var myMoney = bMyMoneyNum.getData();
+    var myMoney = bTotalMoneyToAdProbability.getData();
     if(myMoney>=(last.endNumber??1000)){
       return Random().nextInt(100)<(last.point??60);
     }

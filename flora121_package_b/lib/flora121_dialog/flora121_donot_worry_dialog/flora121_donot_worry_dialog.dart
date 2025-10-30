@@ -33,9 +33,9 @@ class Flora121DonotWorryDialog extends Flora121BaseDialog<Flora121DonotWorryDial
             Flora121TextView(text: "Don't Worry", color: "#7A5040", size: 16.sp,fontWeight: FontWeight.bold,),
             Flora121ImagesView(imagesName: "task_tips2",width: 140.w,height: 140.w,),
             Flora121TextView(
-              text: "tWe will assist you with completing your\nwithdrawal—simply follow the\nsteps below to finalize the process.ext",
+              text: "We will assist you with completing your\nwithdrawal—simply follow the\nsteps below to finalize the process.ext",
               color: "#4C7D0A",
-               size: 14.sp,
+               size: 12.sp,
               fontWeight: FontWeight.bold,
             ),
             SizedBox(height: 12.h,),

@@ -27,4 +27,7 @@ class Flora121StorageName{
 
   static const String bShowMoney15Animator="bShowMoney15Animator";
   static const String bShowMoney80Animator="bShowMoney80Animator";
+
+  //总共的钱，用于广告概率判断
+  static const String bTotalMoneyToAdProbability="bTotalMoneyToAdProbability";
 }

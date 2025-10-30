@@ -28,6 +28,7 @@ class Flora121RoutersHep{
 }){
     Get.dialog(
       child,
+      barrierColor: Colors.black.withOpacity(0.8),
       barrierDismissible: false,
     );
   }

@@ -12,6 +12,7 @@ import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_child.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_wheel_child/flora121_wheel_child.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_home_tab_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,12 @@ class Flora121HomeCon extends Flora121BaseCon{
     Flora121DiceChild(),
     Flora121WheelChild(),
     Flora121CashChild(),
+  ];
+  List<Flora121HomeTabBean> tabList=[
+    Flora121HomeTabBean(selIcon: "tab_home", unsIcon: "tab_home_uns"),
+    Flora121HomeTabBean(selIcon: "tab_dice", unsIcon: "tab_dice_uns"),
+    Flora121HomeTabBean(selIcon: "tab_wheel", unsIcon: "tab_wheel_uns"),
+    Flora121HomeTabBean(selIcon: "tab_cash", unsIcon: "tab_cash_uns"),
   ];
 
   @override
@@ -58,7 +65,7 @@ class Flora121HomeCon extends Flora121BaseCon{
         Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.cashPageShowNextCaskTaskDialog);
         break;
     }
-    update(["page","top_view"]);
+    update(["page","top_view","bottom_tab"]);
   }
 
   @override

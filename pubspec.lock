@@ -25,15 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
-  anythink_sdk:
-    dependency: transitive
-    description:
-      path: "plugins/anythink_sdk"
-      ref: ae011e7c685dc5df9bd1eab5a1926c97d5afd876
-      resolved-ref: ae011e7c685dc5df9bd1eab5a1926c97d5afd876
-      url: "https://github.com/Li-Xiang-Lan/flutter_ad_ios_plugins.git"
-    source: git
-    version: "1.0.5"
   app_settings:
     dependency: transitive
     description:
@@ -46,10 +37,10 @@ packages:
     dependency: transitive
     description:
       name: applovin_max
-      sha256: d7dab2d2f3dbecf61e70bd0519db355a9402dff598c011febc85195ac2ac01f0
+      sha256: a34f0c51781cb0ccd3246446060d7bf94d50ef74b6a83cd5611a8232bd0ebd42
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.1"
+    version: "4.6.0"
   appsflyer_sdk_plus:
     dependency: transitive
     description:
@@ -386,15 +377,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_ad_ios_plugins:
+  flutter_android_ad_plugins:
     dependency: transitive
     description:
-      path: "."
-      ref: "0.1.7"
-      resolved-ref: ae011e7c685dc5df9bd1eab5a1926c97d5afd876
-      url: "https://github.com/Li-Xiang-Lan/flutter_ad_ios_plugins.git"
-    source: git
-    version: "0.1.7"
+      path: "/Users/chengmengyi/testbird/flutter_android_ad_plugins"
+      relative: false
+    source: path
+    version: "0.0.1"
   flutter_app_lifecycle:
     dependency: transitive
     description:
@@ -850,6 +839,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.6"
+  thinkup_sdk:
+    dependency: transitive
+    description:
+      name: thinkup_sdk
+      sha256: ccc967d22330ffc401b4c9c9c1163768671310774c801f83506ee336ffa7eabb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   typed_data:
     dependency: transitive
     description:
@@ -858,6 +855,70 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  url_launcher:
+    dependency: transitive
+    description:
+      name: url_launcher
+      sha256: f6a7e5c4835bb4e3026a04793a4199ca2d14c739ec378fdfe23fc8075d0439f8
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.2"
+  url_launcher_android:
+    dependency: transitive
+    description:
+      name: url_launcher_android
+      sha256: "5c8b6c2d89a78f5a1cca70a73d9d5f86c701b36b42f9c9dac7bad592113c28e9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.24"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      sha256: "6b63f1441e4f653ae799166a72b50b1767321ecc263a57aadf825a7a2a5477d9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.3.5"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      sha256: "4e9ba368772369e3e08f231d2301b4ef72b9ff87c31192ef471b380ef29a4935"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      sha256: "8262208506252a3ed4ff5c0dc1e973d2c0e0ef337d0a074d35634da5d44397c9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.4"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      sha256: "552f8a1e663569be95a8190206a38187b531910283c3e982193e4f2733f01029"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
+      sha256: "4bd2b7b4dc4d4d0b94e5babfffbca8eac1a126c7f3d6ecbc1a11013faa3abba2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
+  url_launcher_windows:
+    dependency: transitive
+    description:
+      name: url_launcher_windows
+      sha256: "3284b6d2ac454cf34f114e1d3319866fdd1e19cdc329999057e44ffe936cfa77"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.4"
   uuid:
     dependency: transitive
     description:
@@ -947,5 +1008,5 @@ packages:
     source: hosted
     version: "6.6.1"
 sdks:
-  dart: ">=3.8.1 <4.0.0"
-  flutter: ">=3.27.0"
+  dart: ">=3.9.2 <4.0.0"
+  flutter: ">=3.35.0"

@@ -50,6 +50,7 @@ class Flora121Money1580TipsDialog extends Flora121BaseDialog<Flora121Money1580Ti
         children: [
           Flora121TextView(text: "Almost there! ", color: "#FF0000", size: 24.sp,fontWeight: FontWeight.bold,),
           RichText(
+            textAlign: TextAlign.center,
             text: TextSpan(
               children: [
                 //Your withdrawal progress is
@@ -218,7 +219,7 @@ class Flora121Money1580TipsDialog extends Flora121BaseDialog<Flora121Money1580Ti
                           ),
                         ),
                         TextSpan(
-                          text: "\$1000",
+                          text: "\$100",
                           style: TextStyle(
                             fontSize: 14.sp,
                             color: "#2B821E".toColor(),

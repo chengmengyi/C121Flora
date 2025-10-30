@@ -94,13 +94,14 @@ class Flora121UserGuideUtils{
     );
   }
 
-  showStep4Overlay(BuildContext context,Offset moneyOffset,Offset treeOffset){
+  showStep4Overlay(BuildContext context,Offset moneyOffset,Offset treeOffset,double addNum){
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide,params: {"pop_step":"step3"});
     showOverlay(
       context: context,
       widget: Flora121UserGuideStep4View(
         moneyOffset: moneyOffset,
         treeOffset: treeOffset,
+        addNum: addNum,
         clickCallback: (){
           Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.new_guide_c,params: {"pop_step":"step3"});
           hideOverlay();

@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
-import 'package:flutter_ad_ios_plugins/flutter_ios_ad_hep.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_type.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_type.dart';
 import 'package:flutter_app_lifecycle/app_state_observer.dart';
 import 'package:flutter_app_lifecycle/flutter_app_lifecycle.dart';
 
+import 'flora121_export.dart';
 import 'flora121_ttt/flora121_ad_enum.dart';
 
 class Flora121ApplifeHep{
@@ -43,7 +43,7 @@ class Flora121ApplifeHep{
         toOpenNotification=false;
       }
       await Future.delayed(Duration(milliseconds: 200));
-      if(_back&&!FlutterIosAdHep.instance.adShowing()){
+      if(_back&&!FlutterAndroidAdPlugins.instance.adShowing()){
         Flora121AdHep.instance.showFlora121BBBBBBB(
           adType: AdType.interstitial,
           showAd: true,

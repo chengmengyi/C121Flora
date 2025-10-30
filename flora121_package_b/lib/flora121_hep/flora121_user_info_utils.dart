@@ -71,6 +71,8 @@ class Flora121UserInfoUtils{
     }
     bMyMoneyNum.saveData((Decimal.fromJson("${bMyMoneyNum.getData()}")+Decimal.fromJson("$addNum")).toDouble());
     if(addNum>0){
+      bTotalMoneyToAdProbability.saveData((Decimal.fromJson("${bTotalMoneyToAdProbability.getData()}")+Decimal.fromJson("$addNum")).toDouble());
+
       var moneyLevel = bLastTimeMoneyLevel.getData()+20;
       var data = bMyMoneyNum.getData();
       if(data>=moneyLevel){

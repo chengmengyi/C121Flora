@@ -7,7 +7,7 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_ad_ios_plugins/hep/ad_num_hep.dart';
+import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 StorageData<String> bLastTimeShowNotificationTimer=StorageData<String>(key: "bLastTimeShowNotificationTimer", defaultValue: "");

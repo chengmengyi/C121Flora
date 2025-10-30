@@ -64,7 +64,8 @@ class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121Cas
   }
 
   _initMarqueeList()async{
-    var iconList = ["icon_cashapp_circle","icon_pagbank_circle","icon_paypal_circle","icon_pix_circle"];
+    // var iconList = ["icon_cashapp_circle","icon_pagbank_circle","icon_paypal_circle","icon_pix_circle"];
+    var iconList = ["icon_cashapp_circle","icon_paypal_circle"];
     while(marqueeList.length<2){
       List<Widget> childList=[];
       while(childList.length<20){

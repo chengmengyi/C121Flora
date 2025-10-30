@@ -32,6 +32,7 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
   ScrollController scrollController=ScrollController();
 
   GlobalKey diceGlobalKey = GlobalKey();
+  Map<String,double> otherAddNumMap={};
 
   @override
   void onInit() {
@@ -228,6 +229,14 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
         clickStart(fromNewUserGuide: true);
       },
     );
+  }
+
+  double getOtherAddNum(int largeIndex,int smallIndex){
+    var value = otherAddNumMap["${largeIndex}_$smallIndex"];
+    if(null==value){
+      otherAddNumMap["${largeIndex}_$smallIndex"]=Flora121ValueUtils.instance.getDiceOtherAddNum();
+    }
+    return otherAddNumMap["${largeIndex}_$smallIndex"]??0.0;
   }
 
   @override

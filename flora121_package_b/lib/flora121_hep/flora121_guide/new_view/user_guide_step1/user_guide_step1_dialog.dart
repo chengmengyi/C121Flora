@@ -20,7 +20,7 @@ class UserGuideStep1Dialog extends Flora121BaseDialog<UserGuideStep1Controller>{
   Widget initBaseWidgetFlora121() => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Flora121UserGuideHeadWidget(content: "Hello, I’m Jessica, the promoter of this app. I’ll show you how to earn money and contribute to environmental protection through it."),
+      Flora121UserGuideHeadWidget(content: "Hello, I’m Jessica, the promoter of this app. \nI’ll show you how to earn money and contribute to environmental protection through it."),
       SizedBox(height: 260.h,),
       Flora121Click(
         onTap: (){

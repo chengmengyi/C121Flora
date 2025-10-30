@@ -9,10 +9,12 @@ import 'package:flutter/material.dart';
 class Flora121UserGuideStep4View extends StatelessWidget{
   Offset moneyOffset;
   Offset treeOffset;
+  double addNum;
   Function() clickCallback;
   Flora121UserGuideStep4View({
     required this.moneyOffset,
     required this.treeOffset,
+    required this.addNum,
     required this.clickCallback,
   });
 
@@ -32,12 +34,22 @@ class Flora121UserGuideStep4View extends StatelessWidget{
             Positioned(
               top: moneyOffset.dy,
               left: moneyOffset.dx,
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Flora121ImagesView(imagesName: "energy_money",width: 66.w,height: 66.w,),
-                  Flora121ImagesView(imagesName: "icon_video",width: 28.w,height: 28.h,),
-                ],
+              child: SizedBox(
+                width: 66.w,
+                height: 66.w,
+                child: Stack(
+                  children: [
+                    Flora121ImagesView(imagesName: "energy_money",width: 66.w,height: 66.w,),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Flora121ImagesView(imagesName: "icon_video",width: 28.w,height: 28.h,),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,),
+                    ),
+                  ],
+                ),
               ),
             ),
             Positioned(

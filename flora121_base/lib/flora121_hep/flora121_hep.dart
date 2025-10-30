@@ -61,8 +61,8 @@ extension StringBase64 on String{
   }
 }
 
-toWebActivity(String title,String url){
-  Flora121RoutersHep.toNamed(routerName: Flora121BaseRouterName.web,params: {"title":title,"url":url});
+toWebActivity(String title,String url,{bool isGame=false}){
+  Flora121RoutersHep.toNamed(routerName: Flora121BaseRouterName.web,params: {"title":title,"url":url,"isGame":isGame});
 }
 
 //加密：“data”：原始字符串；“code”：需求文档标题前的项目编号

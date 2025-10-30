@@ -108,7 +108,7 @@ class UserGuideQuestionDialog extends Flora121BaseDialog<UserGuideQuestionContro
 
   _answerWidget1(Flora121UserGuideQuestionBean bean)=>SizedBox(
     width: double.infinity,
-    height: 35.h,
+    height: 25.h,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: bean.answerList.length,
@@ -137,7 +137,7 @@ class UserGuideQuestionDialog extends Flora121BaseDialog<UserGuideQuestionContro
         baseCon.clickAnswer(bean,index);
       },
       child: Container(
-        margin: EdgeInsets.only(top: 3.h,bottom: 3.h),
+        margin: EdgeInsets.only(top: 1.h,bottom: 1.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

@@ -11,37 +11,68 @@ class Flora121BannerView extends Flora121BaseStateful{
   State<StatefulWidget> createState() => _Flora121BannerViewState();
 }
 
-class _Flora121BannerViewState extends Flora121BaseStatefulState<Flora121BannerView>{
+class _Flora121BannerViewState extends Flora121BaseStatefulState<Flora121BannerView> with SingleTickerProviderStateMixin{
   var title="",content="";
 
+  late AnimationController _controller;
+  late Animation<double> _positionAnim;
   @override
-  Widget initBaseWidgetFlora121() => Visibility(
-    visible: title.isNotEmpty&&content.isNotEmpty,
-    child: Container(
-      width: double.infinity,
-      height: 102.h,
-      margin: EdgeInsets.only(left: 16.w,right: 16.w,top: 40.h),
-      child: Stack(
-        children: [
-          Flora121ImagesView(imagesName: "banner",width: double.infinity,height: double.infinity,),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              margin: EdgeInsets.only(top: 20.h),
-              child: Flora121TextView(text: title, color: "#915C00", size: 28.sp,fontWeight: FontWeight.bold,),
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _positionAnim = Tween<double>(begin: -(102.h), end: 40.h).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+  }
+
+  @override
+  Widget initBaseWidgetFlora121(){
+    if(title.isEmpty||content.isEmpty){
+      return Container();
+    }
+    return AnimatedBuilder(
+      animation: _positionAnim,
+      builder: (context, child) {
+        return Stack(
+          children: [
+            Positioned(
+              top: _positionAnim.value,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: child!,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 10.h),
-              child: Flora121TextView(text: content, color: "#000000", size: 20.sp,fontWeight: FontWeight.bold,),
+          ],
+        );
+      },
+      child: Container(
+        width: double.infinity,
+        height: 102.h,
+        margin: EdgeInsets.only(left: 16.w,right: 16.w),
+        child: Stack(
+          children: [
+            Flora121ImagesView(imagesName: "banner",width: double.infinity,height: double.infinity,),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                margin: EdgeInsets.only(top: 20.h),
+                child: Flora121TextView(text: title, color: "#915C00", size: 20.sp,fontWeight: FontWeight.bold,),
+              ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 20.h),
+                child: Flora121TextView(text: content, color: "#000000", size: 16.sp,fontWeight: FontWeight.bold,),
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 
   @override
   bool initFlora121Event() => true;
@@ -63,10 +94,24 @@ class _Flora121BannerViewState extends Flora121BaseStatefulState<Flora121BannerV
       title=flora121map?["title"]??"";
       content=flora121map?["content"]??"";
     });
-    await Future.delayed(Duration(milliseconds: 2000));
+    _startAnimation();
+    // await Future.delayed(Duration(milliseconds: 2000));
+  }
+
+
+  Future<void> _startAnimation() async {
+    await _controller.forward();
+    await Future.delayed(const Duration(seconds: 2));
+    await _controller.reverse();
     setState(() {
       title="";
       content="";
     });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

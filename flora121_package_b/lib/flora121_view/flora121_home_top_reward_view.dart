@@ -10,6 +10,7 @@ import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flutter/material.dart';
 
 class  Flora121HomeTopRewardView extends Flora121BaseStateful{
@@ -120,13 +121,14 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
 
   String getTitleStr(){
     var data = bMyMoneyNum.getData();
-    if(data<25){
-      return "Your First \$50 Today! I'll Guide You!";
-    }else if (data<49){
-      return "Great Progress! Chase That \$50!";
-    }else if(data<50){
-      var d = (Decimal.fromInt(50)-Decimal.fromJson("$data")).toDouble();
-      return "Final Step：+\$$d=To withdraw \$50 today!";
+    var first = Flora121ValueUtils.instance.getCashList().first;
+    if(data<(first/2)){
+      return "Your First \$$first Today! I'll Guide You!";
+    }else if (data<(first-1)){
+      return "Great Progress! Chase That \$$first!";
+    }else if(data<first){
+      var d = (Decimal.fromInt(first)-Decimal.fromJson("$data")).toDouble();
+      return "Final Step：+\$$d=To withdraw \$first today!";
     }else{
       return "Earnings ready! Withdraw now.";
     }

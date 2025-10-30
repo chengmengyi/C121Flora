@@ -13,11 +13,12 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
-import 'package:flutter_ad_ios_plugins/data/ad_info_data.dart';
-import 'package:flutter_ad_ios_plugins/data/ad_money_info_bean.dart';
-import 'package:flutter_ad_ios_plugins/data/config_ad_data.dart';
-import 'package:flutter_ad_ios_plugins/hep/ios_ad_callback.dart';
-import 'package:flutter_ad_ios_plugins/hep/ios_load_ad_result_callback.dart';
+import 'package:flutter_android_ad_plugins/data/ad_info_data.dart';
+import 'package:flutter_android_ad_plugins/data/ad_money_info_bean.dart';
+import 'package:flutter_android_ad_plugins/data/config_ad_data.dart';
+import 'package:flutter_android_ad_plugins/flutter_android_ad_plugins.dart';
+import 'package:flutter_android_ad_plugins/hep/ios_ad_callback.dart';
+import 'package:flutter_android_ad_plugins/hep/ios_load_ad_result_callback.dart';
 import 'package:flutter_check_af/flutter_check_af.dart';
 
 StorageData<String> flora121AdConfigStr=StorageData<String>(key: "flora121AdConfigStr", defaultValue: "");
@@ -49,7 +50,7 @@ class Flora121AdHep{
   static Flora121AdHep get instance => _flora121adHep;
 
   initFlora121Ad(){
-    FlutterIosAdHep.instance.initMax(
+    FlutterAndroidAdPlugins.instance.initMax(
       maxKey: Flora121LocalInfo.maxKeyBase64.base64(),
       data: _createAdData(),
       topOnAppId: Flora121LocalInfo.toponIdBase64.base64(),
@@ -65,12 +66,12 @@ class Flora121AdHep{
     required AdType adType,
     required Function() closeAd,
   }){
-    var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
+    var resultData = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
     if(null==resultData){
       "Display advertisement failed, please try again later".showToast();
       return;
     }
-    FlutterIosAdHep.instance.showAd(
+    FlutterAndroidAdPlugins.instance.showAd(
       adType: adType,
       iosAdCallback: _getIosAdCallback(adType: adType, closeAd: closeAd),
     );
@@ -118,9 +119,9 @@ class Flora121AdHep{
     //   return;
     // }
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.frfcn_ad_chance,params: {"ad_pos_id":adEnum.name});
-    var resultData = FlutterIosAdHep.instance.getCacheResultData(adType);
+    var resultData = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
     if(null==resultData){
-      FlutterIosAdHep.instance.loadAdWhenNoCache(adType);
+      FlutterAndroidAdPlugins.instance.loadAdWhenNoCache(adType);
       Flora121Ttt.instance.uploadPointEvent(
         pointEnum: Flora121PointEnum.frfcn_ad_impression_fail,
         params: {
@@ -134,7 +135,7 @@ class Flora121AdHep{
         Flora121RoutersHep.dialog(
           child: Flora121ShowAdFailDialog(
             clickTryCall: (){
-              var data = FlutterIosAdHep.instance.getCacheResultData(adType);
+              var data = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
               if(null==data){
                 if(adType==AdType.interstitial||isMoneyGuide){
                   closeAd.call(false);
@@ -163,7 +164,7 @@ class Flora121AdHep{
     required Function(bool giveReward) closeAd,
     bool isOpen=false,
   }){
-    FlutterIosAdHep.instance.showAd(
+    FlutterAndroidAdPlugins.instance.showAd(
       adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
@@ -290,7 +291,7 @@ class Flora121AdHep{
   }
 
   updateAdData(){
-    FlutterIosAdHep.instance.updateAdData(_createAdData());
+    FlutterAndroidAdPlugins.instance.updateAdData(_createAdData());
   }
 
   List<AdInfoData> _getAdList(List? list){

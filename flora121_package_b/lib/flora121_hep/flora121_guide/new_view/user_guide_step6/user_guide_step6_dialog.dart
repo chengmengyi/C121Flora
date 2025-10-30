@@ -22,8 +22,6 @@ class UserGuideStep6Dialog extends Flora121BaseDialog<UserGuideStep6Con>{
   Widget initBaseWidgetFlora121() => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Flora121UserGuideHeadWidget(content: "Quick pick: Cash out & keep supporting the Earth"),
-      SizedBox(height: 40.h,),
       Container(
         width: double.infinity,
         padding: EdgeInsets.all(16.w),
@@ -62,6 +60,8 @@ class UserGuideStep6Dialog extends Flora121BaseDialog<UserGuideStep6Con>{
           ],
         ),
       ),
+      SizedBox(height: 40.h,),
+      Flora121UserGuideHeadWidget(content: "Quick pick: Cash out & keep supporting the Earth"),
     ],
   );
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
@@ -58,7 +59,7 @@ class Flora121ValueUtils{
   int getUpLevelQuantity()=>_valueBean?.giveUp?.quantity??3;
 
   double getCashLeftMoney(){
-    var d = getCashList().first-bMyMoneyNum.getData();
+    var d = (Decimal.fromInt(getCashList().first)-Decimal.parse("${bMyMoneyNum.getData()}")).toDouble();
     if(d<=0){
       return 0;
     }

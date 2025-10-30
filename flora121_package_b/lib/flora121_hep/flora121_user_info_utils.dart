@@ -106,7 +106,7 @@ class Flora121UserInfoUtils{
         bShowMoney15Animator.saveData(false);
         _showMoney15And80Animator();
       }
-      if(bShowMoney80Animator.getData()&&data>=80){
+      if(bShowMoney80Animator.getData()&&data>=70){
         bShowMoney80Animator.saveData(false);
         _showMoney15And80Animator();
       }

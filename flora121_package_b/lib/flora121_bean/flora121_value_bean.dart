@@ -136,7 +136,6 @@ class Prize {
     map['end_number'] = endNumber;
     return map;
   }
-
 }
 
 class DiceAward {

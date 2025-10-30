@@ -5,6 +5,7 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_marquee_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
@@ -18,12 +19,13 @@ class Flora121CashRecordView extends Flora121BaseStateful{
 
 }
 
-class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121CashRecordView>{
-  List<List<Widget>> marqueeList=[];
+class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121CashRecordView> with WidgetsBindingObserver {
+  List<Flora121MarqueeBean> marqueeList=[];
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     _initMarqueeList();
   }
 
@@ -40,7 +42,7 @@ class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121Cas
           child: Marqueer(
             pps: 100,
             interaction: false,
-            controller: MarqueerController(),
+            controller: value.controller,
             direction: MarqueerDirection.rtl,
             restartAfterInteractionDuration: const Duration(seconds: 6),
             restartAfterInteraction: false,
@@ -54,7 +56,7 @@ class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121Cas
             },
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: value,
+              children: value.widgetList,
             ),
           ),
         );
@@ -97,7 +99,7 @@ class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121Cas
         childList.add(Container(width: (Random().nextInt(100)+100).toDouble()));
       }
       await Future.delayed(Duration(milliseconds: Random().nextInt(1000)+1000));
-      marqueeList.add(childList);
+      marqueeList.add(Flora121MarqueeBean(widgetList: childList, controller: MarqueerController()));
       setState(() {});
     }
   }
@@ -112,5 +114,25 @@ class _Flora121CashRecordViewState extends Flora121BaseStatefulState<Flora121Cas
         setState(() {});
         break;
     }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      for (var c in marqueeList) {
+        c.controller.start();
+      }
+    } else if (state == AppLifecycleState.paused) {
+      for (var c in marqueeList) {
+        c.controller.stop();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 }

@@ -307,7 +307,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //   child: Flora121AppDescDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    Flora121UserInfoUtils.instance.updateMyMoney(50);
+    // Flora121UserInfoUtils.instance.updateMyMoney(350);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();
@@ -322,6 +322,6 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121RoutersHep.dialog(child: UserGuideStep5Dialog(addNum: 10,dismissCallback: (){},));
     // Flora121RoutersHep.dialog(child: Flora121TransferFundsDialog(bean: null,dismissCallback: (){},));
     // Flora121RoutersHep.toNamed(routerName: Flora121RouterNameB.hasMoneyTips);
-    Flora121Package_b.instance.intentAc("djiwjdiwjdw");
+    // Flora121Package_b.instance.intentAc("djiwjdiwjdw");
   }
 }

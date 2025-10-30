@@ -178,13 +178,11 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         Flora121AdHep.instance.showFlora121BBBBBBB(
           adType: AdType.interstitial,
           adEnum: Flora121AdEnum.frfcn_cash_int,
-          showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.reward),
+          showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.interstitial),
           closeAd: (giveReward)async{
-            if(giveReward){
-              Flora121UserInfoUtils.instance.updateMyMoney(addNum);
-              bHomeMoneyItemCD.saveData(600);
-              _startWaterTimer();
-            }
+            Flora121UserInfoUtils.instance.updateMyMoney(addNum);
+            bHomeMoneyItemCD.saveData(600);
+            _startWaterTimer();
           },
         );
       }

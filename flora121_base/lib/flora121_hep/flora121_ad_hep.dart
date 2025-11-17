@@ -53,6 +53,8 @@ class Flora121AdHep{
     FlutterAndroidAdPlugins.instance.initMax(
       maxKey: Flora121LocalInfo.maxKeyBase64.base64(),
       data: _createAdData(),
+      userConsent: true,
+      doNotSell: false,
       topOnAppId: Flora121LocalInfo.toponIdBase64.base64(),
       topOnAppKey: Flora121LocalInfo.toponAppkeyBase64.base64(),
       fengKongLogic: (){

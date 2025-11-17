@@ -10,6 +10,9 @@ class Flora121ValueBean {
       this.wheelAward,
       this.quizAward,
       this.newUsersAward,
+      this.goldPrize,
+      this.diamondPrize,
+      this.queue,
   });
 
   Flora121ValueBean.fromJson(dynamic json) {
@@ -21,6 +24,9 @@ class Flora121ValueBean {
     diceAward = json['dice_award'] != null ? DiceAward.fromJson(json['dice_award']) : null;
     wheelAward = json['wheel_award'] != null ? WheelAward.fromJson(json['wheel_award']) : null;
     quizAward = json['quiz_award'] != null ? QuizAward.fromJson(json['quiz_award']) : null;
+    goldPrize = json['gold_prize'] != null ? GoldPrize.fromJson(json['gold_prize']) : null;
+    diamondPrize = json['diamond_prize'] != null ? DiamondPrize.fromJson(json['diamond_prize']) : null;
+    queue = json['queue'] != null ? Queue.fromJson(json['queue']) : null;
   }
   int? newUsersAward;
   OldUsersAward? oldUsersAward;
@@ -30,6 +36,9 @@ class Flora121ValueBean {
   DiceAward? diceAward;
   WheelAward? wheelAward;
   QuizAward? quizAward;
+  GoldPrize? goldPrize;
+  DiamondPrize? diamondPrize;
+  Queue? queue;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -54,6 +63,15 @@ class Flora121ValueBean {
     }
     if (quizAward != null) {
       map['quiz_award'] = quizAward?.toJson();
+    }
+    if (goldPrize != null) {
+      map['gold_prize'] = goldPrize?.toJson();
+    }
+    if (diamondPrize != null) {
+      map['diamond_prize'] = diamondPrize?.toJson();
+    }
+    if (queue != null) {
+      map['queue'] = queue?.toJson();
     }
     return map;
   }
@@ -250,6 +268,75 @@ class OldUsersAward {
     if (prize != null) {
       map['prize'] = prize?.map((v) => v.toJson()).toList();
     }
+    return map;
+  }
+
+}
+
+class GoldPrize {
+  GoldPrize({
+    this.prize,});
+
+  GoldPrize.fromJson(dynamic json) {
+    if (json['prize'] != null) {
+      prize = [];
+      json['prize'].forEach((v) {
+        prize?.add(Prize.fromJson(v));
+      });
+    }
+  }
+  List<Prize>? prize;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (prize != null) {
+      map['prize'] = prize?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+class DiamondPrize {
+  DiamondPrize({
+    this.prize,});
+
+  DiamondPrize.fromJson(dynamic json) {
+    if (json['prize'] != null) {
+      prize = [];
+      json['prize'].forEach((v) {
+        prize?.add(Prize.fromJson(v));
+      });
+    }
+  }
+  List<Prize>? prize;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    if (prize != null) {
+      map['prize'] = prize?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+}
+
+class Queue {
+  Queue({
+    this.mM,
+    this.sS,});
+
+  Queue.fromJson(dynamic json) {
+    mM = json['m_m'] != null ? json['m_m'].cast<int>() : [];
+    sS = json['s_s'] != null ? json['s_s'].cast<int>() : [];
+  }
+  List<int>? mM;
+  List<int>? sS;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['m_m'] = mM;
+    map['s_s'] = sS;
     return map;
   }
 

@@ -5,6 +5,7 @@ import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_no_money_dialog/flora121_no_money_dialog_con.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flutter/material.dart';
 
 class Flora121NoMoneyDialog extends Flora121BaseDialog<Flora121NoMoneyDialogCon>{
@@ -34,7 +35,7 @@ class Flora121NoMoneyDialog extends Flora121BaseDialog<Flora121NoMoneyDialogCon>
               mainAxisSize: MainAxisSize.min,
               children: [
                 Flora121TextView(text: "you might just win ", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
-                Flora121TextView(text: "\$50!", color: "#FF8800", size: 12.sp,fontWeight: FontWeight.bold,),
+                Flora121TextView(text: "\$${Flora121ValueUtils.instance.getCashList().first}!", color: "#FF8800", size: 12.sp,fontWeight: FontWeight.bold,),
               ],
             ),
             Flora121TextView(text: "Top up easily and withdraw instantly!", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),

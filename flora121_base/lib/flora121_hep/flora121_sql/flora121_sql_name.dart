@@ -9,4 +9,6 @@ class Flora121SqlName{
   static const String bSign="bSign";
   static const String bQuizRecord="bQuizRecord";
   static const String bCashAccount="bCashAccount";
+  static const String bGoldInfo="bGoldInfo";
+  static const String bCashRankInfo="bCashRankInfo";
 }

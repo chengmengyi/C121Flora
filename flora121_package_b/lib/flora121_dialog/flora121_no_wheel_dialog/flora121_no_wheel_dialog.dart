@@ -18,35 +18,55 @@ class Flora121NoWheelDialog extends Flora121BaseDialog<Flora121NoWheelDialogCon>
     children: [
       Container(
         width: double.infinity,
-        height: 282.h,
+        padding: EdgeInsets.all(16.w),
         margin: EdgeInsets.only(left: 34.w,right: 34.w),
-        child: Stack(
-          alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: "#F9FFF2".toColor(),
+          borderRadius: BorderRadius.circular(20.w),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Flora121ImagesView(imagesName: "no_wheel1",width: double.infinity,height: double.infinity,),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flora121TextView(text: "No more spins available", color: "#7A5040", size: 16.sp,fontWeight: FontWeight.bold,),
-                Flora121ImagesView(imagesName: "no_wheel2",width: 113.w,height: 113.w,),
-                Flora121TextView(text: "Quiz Now - Earn Spins!", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
-                Flora121Click(
-                  onTap: (){
-                    baseCon.clickEarn();
-                  },
-                  child: Container(
+            Flora121TextView(text: "No more spins available", color: "#7A5040", size: 16.sp,fontWeight: FontWeight.bold,),
+            Flora121ImagesView(imagesName: "no_wheel2",width: 113.w,height: 113.w,),
+            Flora121TextView(text: "Quiz Now - Earn Spins!", color: "#4C7D0A", size: 12.sp,fontWeight: FontWeight.bold,),
+            Flora121Click(
+              onTap: (){
+                baseCon.clickAd();
+              },
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  Container(
                     width: double.infinity,
                     height: 50.h,
                     alignment: Alignment.center,
-                    margin: EdgeInsets.only(left: 17.w,right: 17.w,top: 12.h),
+                    margin: EdgeInsets.only(top: 20.h),
                     decoration: BoxDecoration(
+                      color: "#FBAC00".toColor(),
                       borderRadius: BorderRadius.circular(15.w),
-                      color: "#4C7D0A".toColor(),
                     ),
-                    child: Flora121TextView(text: "Earn Spins", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold),
+                    child: Flora121TextView(text: "Directly obtain", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
                   ),
+                  Flora121ImagesView(imagesName: "icon_video",width: 42.w,height: 42.w,),
+                ],
+              ),
+            ),
+            SizedBox(height: 12.h,),
+            Flora121Click(
+              onTap: (){
+                baseCon.clickEarn();
+              },
+              child: Container(
+                width: double.infinity,
+                height: 50.h,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.w),
+                  color: "#4C7D0A".toColor(),
                 ),
-              ],
+                child: Flora121TextView(text: "Earn Spins", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),

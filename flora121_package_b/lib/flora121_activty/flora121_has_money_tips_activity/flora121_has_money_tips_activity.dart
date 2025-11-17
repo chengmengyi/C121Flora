@@ -109,7 +109,7 @@ class Flora121HasMoneyTipsActivity extends Flora121BaseActivity<Flora121HasMoney
           ),
           child: Flora121TextView(text: "Withdrawal amount", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.w900,),
         ),
-        Flora121TextView(text: "\$${Flora121ValueUtils.instance.getCashList().first}", color: "#000000", size: 40.sp,fontWeight: FontWeight.w900,),
+        Flora121TextView(text: "\$${baseCon.cashMoney}", color: "#000000", size: 40.sp,fontWeight: FontWeight.w900,),
         Flora121ImagesView(imagesName: "icon_hot",height: 26.h,fit: BoxFit.fitHeight,),
         SizedBox(height: 10.h,),
       ],

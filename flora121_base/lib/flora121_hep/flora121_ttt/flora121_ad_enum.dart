@@ -17,4 +17,6 @@ enum Flora121AdEnum{
   frfcn_level_int,
   frfcn_gift_rv,
   frfcn_gift_int,
+  frfcn_queue_rv,
+  frfcn_wheel_num_rv,
 }

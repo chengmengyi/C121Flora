@@ -9,16 +9,20 @@ import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_ad_probability_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 
 class Flora121CommonGetDialogCon extends Flora121BaseCon{
   var progressIndex=0;
   Timer? _timer;
+  var goldMode="";
 
   @override
   void onInit() {
     super.onInit();
+    goldMode=bGoldMode.getData();
     _startTimer();
     Flora121MusicHep.instance.playOtherAudio(AudioName.win);
   }
@@ -164,6 +168,14 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
     }
     if(null!=pointEnum){
       Flora121Ttt.instance.uploadPointEvent(pointEnum: pointEnum);
+    }
+  }
+
+  String getIconLarge(){
+    switch(goldMode){
+      case Flora121GoldMode.gold: return "icon_gold_large";
+      case Flora121GoldMode.diamond: return "icon_diamond_large";
+      default: return "icon_money";
     }
   }
 

@@ -32,9 +32,9 @@ class Flora121CashTaskDialogCon extends Flora121BaseCon{
     switch(taskBean?.cashTaskIndex){
       case Flora121CashTaskIndex.tasks1: return "Security Verification";
       case Flora121CashTaskIndex.tasks2: return "Earnings Review";
-      case Flora121CashTaskIndex.tasks3: return "Transaction Processing";
-      case Flora121CashTaskIndex.tasks4: return "Identity Confirmation";
-      case Flora121CashTaskIndex.tasks5: return "Compliance Check";
+      // case Flora121CashTaskIndex.tasks3: return "Transaction Processing";
+      // case Flora121CashTaskIndex.tasks4: return "Identity Confirmation";
+      // case Flora121CashTaskIndex.tasks5: return "Compliance Check";
       default: return "";
     }
   }
@@ -43,9 +43,9 @@ class Flora121CashTaskDialogCon extends Flora121BaseCon{
     switch(taskBean?.cashTaskIndex){
       case Flora121CashTaskIndex.tasks1: return "Your withdrawal is under security verification. Please complete the required task to confirm account authenticity.";
       case Flora121CashTaskIndex.tasks2: return "Your Eco earnings are being reviewed. Verification is needed to ensure all contributions are valid.";
-      case Flora121CashTaskIndex.tasks3: return "Withdrawal request is being processed. We are confirming account and transaction details for your security.";
-      case Flora121CashTaskIndex.tasks4: return "Suspicious activity detected. Please complete verification tasks to confirm your identity and proceed with withdrawal.";
-      case Flora121CashTaskIndex.tasks5: return "Your withdrawal is pending compliance review. Complete the required steps to validate your account and release funds.";
+      // case Flora121CashTaskIndex.tasks3: return "Withdrawal request is being processed. We are confirming account and transaction details for your security.";
+      // case Flora121CashTaskIndex.tasks4: return "Suspicious activity detected. Please complete verification tasks to confirm your identity and proceed with withdrawal.";
+      // case Flora121CashTaskIndex.tasks5: return "Your withdrawal is pending compliance review. Complete the required steps to validate your account and release funds.";
       default: return "";
     }
   }

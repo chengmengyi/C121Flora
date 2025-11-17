@@ -20,8 +20,12 @@ import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_store_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_app_desc_dialog/flora121_app_desc_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_completed_cash_task_dialog/flora121_completed_cash_task_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_donot_worry_dialog/flora121_donot_worry_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flora121_get_water_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_completed_gold_and_diamond_task_dialog/flora121_completed_gold_and_diamond_task_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_completed_gold_task_dialog/flora121_completed_gold_task_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_gold_step1_dialog/flora121_gold_step1_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_animator_dialog/flora121_money_15_80_animator_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_tips_dialog/flora121_money_15_80_tips_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
@@ -247,6 +251,12 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   }
 
   String getFlowerImage(){
+    var data = bGoldMode.getData();
+    if(data==Flora121GoldMode.gold){
+      return "images_gold";
+    }else if(data==Flora121GoldMode.diamond){
+      return "images_diamond";
+    }
     switch(Flora121EnergyUtils.instance.getLevelNum()){
       case 1: return "flower1";
       case 2: return "flower2";
@@ -281,6 +291,9 @@ class Flora121HomeChildCon extends Flora121BaseCon{
       case Flora121EventCode.repeatAnimatorStop:
         canClick=true;
         break;
+      case Flora121EventCode.changeToGoldMode:
+        update(["bottom_widget","top_reward_view"]);
+        break;
     }
   }
 
@@ -307,7 +320,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //   child: Flora121AppDescDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    // Flora121UserInfoUtils.instance.updateMyMoney(350);
+    Flora121UserInfoUtils.instance.updateMyMoney(5000);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();
@@ -323,5 +336,20 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     // Flora121RoutersHep.dialog(child: Flora121TransferFundsDialog(bean: null,dismissCallback: (){},));
     // Flora121RoutersHep.toNamed(routerName: Flora121RouterNameB.hasMoneyTips);
     // Flora121Package_b.instance.intentAc("djiwjdiwjdw");
+
+    // Flora121CashTaskUtils.instance.showGoldStepDialog(300);
+
+    // Flora121RoutersHep.dialog(child: Flora121CompletedGoldAndDiamondTaskDialog(dismissCallback: (){},));
+
+    // Flora121RoutersHep.toNamed(
+    //   routerName: Flora121RouterNameB.hasMoneyTips,
+    //   params: {
+    //     "cashMoney":1000,
+    //     "cashType":Flora121CashType.cashApp,
+    //   },
+    // );
+    // Flora121CashTaskUtils.instance.updateGoldProgress(5, Flora121GoldMode.diamond);
+    // Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
+    // Flora121RoutersHep.dialog(child: Flora121CompletedCashTaskDialog(dismissCallback: (){}));
   }
 }

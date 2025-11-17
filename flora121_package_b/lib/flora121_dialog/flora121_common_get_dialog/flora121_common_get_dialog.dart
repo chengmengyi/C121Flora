@@ -64,12 +64,18 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
                 _monetWidget(),
                 // _progressListWidget(),
                 SizedBox(height: 12.h,),
-                Flora121TextView(
-                  text: fromDice?"Nice! Your play=🌱 for the planet=Cash Prizes":"Double win: \nCash for you, care for the planet!",
-                  color: "#324631",
-                  size: 16.sp,
-                  fontWeight: FontWeight.bold,
-                  textAlign: TextAlign.center,
+                Visibility(
+                  visible: baseCon.goldMode.isEmpty,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  maintainSize: true,
+                  child: Flora121TextView(
+                    text: fromDice?"Nice! Your play=🌱 for the planet=Cash Prizes":"Double win: \nCash for you, care for the planet!",
+                    color: "#324631",
+                    size: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 SizedBox(height: 12.h,),
                 _btnWidget(),
@@ -98,7 +104,11 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
       children: [
         Flora121ImagesView(imagesName: "get6",width: 200.w,height: 200.h,),
         Align(
-          child: Flora121ImagesView(imagesName: "icon_money",width: 200.w,fit: BoxFit.fitWidth,),
+          child: Flora121ImagesView(
+            imagesName: baseCon.getIconLarge(),
+            width: 200.w,
+            fit: BoxFit.fitWidth,
+          ),
         ),
         Align(
           alignment: Alignment.bottomCenter,
@@ -146,36 +156,45 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     },
   );
 
-  _myCashWidget()=>Container(
-    width: double.infinity,
-    height: 28.h,
-    margin: EdgeInsets.only(left: 16.w,right: 16.w),
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(20.w),
-      color: "#000000".toColor().withOpacity(0.1),
-    ),
-    child: Row(
-      children: [
-        // Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
-        // Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
-        SizedBox(width: 8.w,),
-        Flora121ImagesView(imagesName: "get9",height: 14.h,fit: BoxFit.fitHeight,),
-        SizedBox(width: 8.w,),
-        Flora121ImagesView(imagesName: "get10",height: 14.h,fit: BoxFit.fitHeight,),
-        Spacer(),
-        Flora121TextView(text: "My Cash: ", color: "#324631", size: 10.sp,fontWeight: FontWeight.bold,),
-        Flora121TextView(text: "\$${bMyMoneyNum.getData()}", color: "#239E04", size: 12.sp,fontWeight: FontWeight.bold,),
-        SizedBox(width: 8.w,),
-      ],
+  _myCashWidget()=>Visibility(
+    visible: baseCon.goldMode.isEmpty,
+    maintainAnimation: true,
+    maintainState: true,
+    maintainSize: true,
+    child: Container(
+      width: double.infinity,
+      height: 28.h,
+      margin: EdgeInsets.only(left: 16.w,right: 16.w),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20.w),
+        color: "#000000".toColor().withOpacity(0.1),
+      ),
+      child: Row(
+        children: [
+          // Flora121ImagesView(imagesName: "get7",height: 26.h,fit: BoxFit.fitHeight,),
+          // Flora121ImagesView(imagesName: "get8",height: 26.h,fit: BoxFit.fitHeight,),
+          SizedBox(width: 8.w,),
+          Flora121ImagesView(imagesName: "get9",height: 14.h,fit: BoxFit.fitHeight,),
+          SizedBox(width: 8.w,),
+          Flora121ImagesView(imagesName: "get10",height: 14.h,fit: BoxFit.fitHeight,),
+          Spacer(),
+          Flora121TextView(text: "My Cash: ", color: "#324631", size: 10.sp,fontWeight: FontWeight.bold,),
+          Flora121TextView(text: "\$${bMyMoneyNum.getData()}", color: "#239E04", size: 12.sp,fontWeight: FontWeight.bold,),
+          SizedBox(width: 8.w,),
+        ],
+      ),
     ),
   );
 
-  _titleWidget()=>Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Flora121TextView(text: "Only ", color: "#113313", size: 16.sp,fontWeight: FontWeight.bold,),
-      Flora121TextView(text: "\$${getLeftCashNum()}", color: "#3EA508", size: 16.sp,fontWeight: FontWeight.bold,),
-      Flora121TextView(text: " left to cash out", color: "#113313", size: 16.sp,fontWeight: FontWeight.bold,),
-    ],
+  _titleWidget()=>Visibility(
+    visible: baseCon.goldMode.isEmpty,
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flora121TextView(text: "Only ", color: "#113313", size: 16.sp,fontWeight: FontWeight.bold,),
+        Flora121TextView(text: "\$${getLeftCashNum()}", color: "#3EA508", size: 16.sp,fontWeight: FontWeight.bold,),
+        Flora121TextView(text: " left to cash out", color: "#113313", size: 16.sp,fontWeight: FontWeight.bold,),
+      ],
+    ),
   );
 }

@@ -22,6 +22,7 @@ StorageData<String> bValueConfigStr=StorageData<String>(key: Flora121StorageName
 StorageData<String> bAdProbabilityConfigStr=StorageData<String>(key: Flora121StorageName.bAdProbabilityConfigStr, defaultValue: "");
 StorageData<String> bHasReceivedLevelMoney=StorageData<String>(key: Flora121StorageName.bHasReceivedLevelMoney, defaultValue: "");
 StorageData<String> bLastShowHasMoneyDialogTimer=StorageData<String>(key: Flora121StorageName.bLastShowHasMoneyDialogTimer, defaultValue: "");
+StorageData<String> bGoldMode=StorageData<String>(key: Flora121StorageName.bGoldMode, defaultValue: "");
 
 
 StorageData<bool> bMoneyStatusOpen=StorageData<bool>(key: Flora121StorageName.bMoneyStatusOpen, defaultValue: true);

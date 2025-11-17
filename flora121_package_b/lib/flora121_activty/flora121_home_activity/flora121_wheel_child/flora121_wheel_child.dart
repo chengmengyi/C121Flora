@@ -8,6 +8,7 @@ import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_wheel_child/flora121_wheel_child_con.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
@@ -150,6 +151,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
                         if(null==baseCon.wheelAnimation){
                           return Container();
                         }
+                        var goldMode = bGoldMode.getData();
                         return LayoutBuilder(
                           builder: (context,bc){
                             var size = bc.maxWidth;
@@ -170,6 +172,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
                                             money: baseCon.wheelList[i],
                                             angleDeg: i * 45.0 - 90,
                                             radius: radius,
+                                            goldMode: goldMode,
                                           ),
                                       )
                                     ],
@@ -212,6 +215,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
     required double money,
     required double angleDeg,
     required double radius,
+    required String goldMode,
   }) {
     final angleRad = angleDeg * pi / 180;
     final offset = Offset(
@@ -220,6 +224,12 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
     );
 
     final textRotation = angleRad + pi / 2;
+    var icon=money>0?"icon_money":"wheel6";
+    if(goldMode==Flora121GoldMode.gold){
+      icon="icon_gold";
+    }else if(goldMode==Flora121GoldMode.diamond){
+      icon="icon_diamond";
+    }
 
     return Transform.translate(
       offset: offset,
@@ -228,7 +238,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Flora121ImagesView(imagesName: money>0?"icon_money":"wheel6",width: 40.w,height: 40.w,),
+            Flora121ImagesView(imagesName: icon,width: 40.w,height: 40.w,),
             Flora121TextView(text: money>0?"+\$$money":"Try Again", color: money>0?"#844F13":"#2E619A", size: 12.sp,fontWeight: FontWeight.bold,),
           ],
         ),

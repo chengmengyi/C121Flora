@@ -20,23 +20,31 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     width: double.infinity,
     height: double.infinity,
     color: "#FFFFFF".toColor(),
-    child: SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.only(left: 18.w,right: 18.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: 160.h,),
-            _cashAmountWidget(),
-            SizedBox(height: 12.h,),
-            Flora121CashRecordView(),
-            SizedBox(height: 12.h,),
-            _cashTaskOrInstructionsWidget(),
-            SizedBox(height: 20.h,),
-            _cashBtnWidget(),
-          ],
-        ),
-      ),
+    child: GetBuilder<Flora121CashCon>(
+      id: "page",
+      builder: (_){
+        if(null==baseCon.flora121cashRankBean){
+          return SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(left: 18.w,right: 18.w),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(height: 160.h,),
+                  _cashAmountWidget(),
+                  SizedBox(height: 12.h,),
+                  Flora121CashRecordView(),
+                  SizedBox(height: 12.h,),
+                  _cashTaskOrInstructionsWidget(),
+                  SizedBox(height: 20.h,),
+                  _cashBtnWidget(),
+                ],
+              ),
+            ),
+          );
+        }
+        return _rankWidget();
+      },
     ),
   );
 
@@ -148,7 +156,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
 
   _cashTaskWidget()=>Flora121Click(
     onTap: (){
-      baseCon.showCashTaskDialog();
+      Flora121CashTaskUtils.instance.showCashTaskDialog(baseCon.taskBean);
     },
     child: Container(
       width: double.infinity,
@@ -372,5 +380,244 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
         child: Flora121TextView(text: "Withdraw", color: "#FFFFFF", size: 16.sp,fontWeight: FontWeight.bold,),
       ),
     ),
+  );
+
+  _rankWidget()=>Container(
+    width: double.infinity,
+    margin: EdgeInsets.only(left: 18.w,right: 18.w,top: 160.h),
+    child: Column(
+      children: [
+        _rankCashNumWidget(),
+        SizedBox(height: 12.h,),
+        _rankListWidget(),
+        SizedBox(height: 4.h,),
+        _skipWaitBtnWidget(),
+        SizedBox(height: 80.h,),
+      ],
+    ),
+  );
+
+  _rankListWidget()=>Expanded(
+    child: Column(
+      children: [
+        GetBuilder<Flora121CashCon>(
+          id: "rank_text",
+          builder: (_)=>RichText(
+            text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "${baseCon.flora121cashRankBean?.totalProgress??0}",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: "#1A9A3C".toColor(),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: " in queue，Your Current rank ",
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: "#57698C".toColor(),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "${baseCon.flora121cashRankBean?.currentProgress??0}",
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      color: "#E67A0D".toColor(),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ]
+            ),
+          ),
+        ),
+        SizedBox(height: 8.h,),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10.w),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: "#D9E7F2".toColor(),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 35.h,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Flora121TextView(text: "Queue", color: "#244768", size: 12.sp,fontWeight: FontWeight.bold,),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Flora121TextView(text: "Account", color: "#244768", size: 12.sp,fontWeight: FontWeight.bold,),
+                          ),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Flora121TextView(text: "Amount", color: "#244768", size: 12.sp,fontWeight: FontWeight.bold,),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      removeBottom: true,
+                      child: GetBuilder<Flora121CashCon>(
+                        id: "rank_list",
+                        builder: (_)=>ListView.builder(
+                          itemCount: baseCon.rankList.length,
+                          controller: baseCon.scrollController,
+                          itemBuilder: (context,index){
+                            var bean = baseCon.rankList[index];
+                            var textColor = bean.isMe?"#CD0707":"#24292D";
+                            return Container(
+                              width: double.infinity,
+                              height: 36.h,
+                              color: index%2==0?"#F0F9FF".toColor():null,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                      child: Flora121TextView(text: baseCon.getQueueID(index), color: textColor, size: 14.sp,fontWeight: FontWeight.bold,),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Flora121TextView(text: bean.account, color: textColor, size: 14.sp,fontWeight: FontWeight.bold,),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Flora121TextView(text: "\$${bean.amount}", color: textColor, size: 14.sp,fontWeight: FontWeight.bold,),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  _skipWaitBtnWidget()=>Flora121Click(
+    onTap: (){
+      baseCon.clickSkipWait();
+    },
+    child: SizedBox(
+      width: double.infinity,
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          Container(
+            width: double.infinity,
+            height: 48.h,
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 16.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(25.w),
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: ["#FF0000".toColor(),"#FF8104".toColor(),]
+              ),
+            ),
+            child: Flora121TextView(text: "Skip Wait", color: "#FFFFFF", size: 20.sp,outlineColor: "#000000",fontWeight: FontWeight.bold,),
+          ),
+          Flora121ImagesView(imagesName: "icon_video",width: 42.w,height: 42.h,),
+        ],
+      ),
+    ),
+  );
+
+  _rankCashNumWidget()=>Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Flora121TextView(text: "Withdrawal amount", color: "#243824", size: 14.sp,fontWeight: FontWeight.bold,),
+      SizedBox(height: 12.h,),
+      Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: "#E1E1E1".toColor(),
+          borderRadius: BorderRadius.circular(14.w),
+        ),
+        child: Row(
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 6.w,top: 6.h,bottom: 10.h,),
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Flora121ImagesView(imagesName: "cash2",width: 105.w,height: 107.h,),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 14.h,),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flora121TextView(text: "\$${baseCon.flora121cashRankBean?.cashMoney??0}", color: "#313831", size: 24.sp,fontWeight: FontWeight.bold,),
+                        Flora121ImagesView(imagesName: "icon_hot",width: 95.w,height: 29.h,),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: 14.w,),
+            Expanded(
+              child: RichText(
+                text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Congratulations! You’ve entered the withdrawal review queue. You can tap ",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: "#000000".toColor(),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "“Skip Wait”",
+                        style: TextStyle(
+                          fontSize: 20.sp,
+                          color: "#CD0707".toColor(),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      TextSpan(
+                        text: " to speed up the review process.",
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: "#000000".toColor(),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ]
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
   );
 }

@@ -58,7 +58,7 @@ class Flora121CashSuccessDialog extends Flora121BaseDialog<Flora121CashSuccessDi
       SizedBox(height: 28.h,),
       Flora121Click(
         onTap: (){
-          baseCon.clickClose();
+          baseCon.clickOk(taskBean);
         },
         child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),

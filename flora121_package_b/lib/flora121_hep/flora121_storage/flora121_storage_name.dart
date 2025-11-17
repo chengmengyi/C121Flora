@@ -30,4 +30,6 @@ class Flora121StorageName{
 
   //总共的钱，用于广告概率判断
   static const String bTotalMoneyToAdProbability="bTotalMoneyToAdProbability";
+
+  static const String bGoldMode="bGoldMode";
 }

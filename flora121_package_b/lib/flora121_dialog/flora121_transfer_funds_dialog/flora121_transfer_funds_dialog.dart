@@ -6,6 +6,7 @@ import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_transfer_funds_dialog/flora121_transfer_funds_dialog_con.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flutter/material.dart';
 
 class Flora121TransferFundsDialog extends Flora121BaseDialog<Flora121TransferFundsDialogCon>{
@@ -27,7 +28,7 @@ class Flora121TransferFundsDialog extends Flora121BaseDialog<Flora121TransferFun
       Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Flora121ImagesView(imagesName: baseCon.getImage(bean?.cashType),width: 164.w,height: 74.h,),
+          Flora121ImagesView(imagesName: getCashTypeMoneyBg(bean?.cashType),width: 164.w,height: 74.h,),
           Flora121TextView(text: "\$${bean?.cashMoney??0}", color: "#000000", size: 32.sp,fontWeight: FontWeight.bold,),
         ],
       ),

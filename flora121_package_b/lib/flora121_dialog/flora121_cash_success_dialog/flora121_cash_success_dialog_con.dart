@@ -19,7 +19,7 @@ class Flora121CashSuccessDialogCon extends Flora121BaseCon{
     Flora121RoutersHep.back();
   }
 
-  clickClose(){
-    Flora121RoutersHep.back();
-  }
+  // clickClose(){
+  //   Flora121RoutersHep.back();
+  // }
 }

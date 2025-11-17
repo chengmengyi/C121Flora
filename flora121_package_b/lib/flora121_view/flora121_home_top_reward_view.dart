@@ -135,7 +135,7 @@ class _Flora121HomeTopRewardViewState extends Flora121BaseStatefulState<Flora121
   }
 
   double getProgress(){
-    var d = bMyMoneyNum.getData()/50;
+    var d = bMyMoneyNum.getData()/Flora121ValueUtils.instance.getCashList().first;
     if(d<0){
       return 0.0;
     }else if(d>1){

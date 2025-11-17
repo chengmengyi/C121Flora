@@ -29,16 +29,20 @@ import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+enum FloraMoneyEnergyType{
+  normal,video1,video2,
+}
+
 class Flora121EnergyItemWidget extends Flora121BaseStateful{
   Flora121EnergyType flora121energyType;
   GlobalKey? treeGlobalKey;
   Function() clickItem;
-  bool showVideoIcon;
+  FloraMoneyEnergyType floraMoneyEnergyType;
   Flora121EnergyItemWidget({
     required this.flora121energyType,
     required this.clickItem,
     this.treeGlobalKey,
-    this.showVideoIcon=false,
+    this.floraMoneyEnergyType=FloraMoneyEnergyType.normal,
 });
   @override
   State<StatefulWidget> createState() => _Flora121EnergyItemWidgetState();
@@ -55,10 +59,10 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
   void initState() {
     super.initState();
     if(widget.flora121energyType==Flora121EnergyType.money){
-      addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
+      _getMoneyAddNum();
     }
     if(widget.flora121energyType==Flora121EnergyType.water){
-      addNum=Flora121ValueUtils.instance.getWaterAddNum();
+      _getWaterAddNum();
     }
     _initAnimator();
     _startWaterTimer();
@@ -89,7 +93,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
               Align(
                 alignment: Alignment.topRight,
                 child: Visibility(
-                  visible: widget.showVideoIcon,
+                  visible: widget.floraMoneyEnergyType!=FloraMoneyEnergyType.normal,
                   child: Flora121ImagesView(imagesName: "icon_video",width: 26.w,height: 26.w,),
                 ),
               ),
@@ -111,14 +115,18 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         }
         return Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
       case Flora121EnergyType.money:
-        if(widget.showVideoIcon){
-          return Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
+        var noGold = bGoldMode.getData().isEmpty;
+        if(widget.floraMoneyEnergyType!=FloraMoneyEnergyType.normal){
+          if(widget.floraMoneyEnergyType==FloraMoneyEnergyType.video1){
+            return Flora121TextView(text: noGold?"+\$$addNum":"+$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
+          }
+          return Flora121TextView(text: noGold?"+\$??":"+??", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
         }else{
           var data = bHomeMoneyItemCD.getData();
           if(data>0){
             return Flora121TextView(text: formatDuration(data), color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
           }
-          return Flora121TextView(text: "+\$$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
+          return Flora121TextView(text: noGold?"+\$$addNum":"+$addNum", color: "#095E05", size: 10.sp,fontWeight: FontWeight.bold,);
         }
       case Flora121EnergyType.wheel:
         return Flora121TextView(text: "Wheel", color: "#FFFFFF", size: 10.sp,outlineColor: "#A14220",fontWeight: FontWeight.bold,);
@@ -151,11 +159,11 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.bubbles);
     widget.clickItem.call();
     if(widget.flora121energyType==Flora121EnergyType.money){
-      if(!widget.showVideoIcon&&bHomeMoneyItemCD.getData()>0){
+      if(widget.floraMoneyEnergyType==FloraMoneyEnergyType.normal&&bHomeMoneyItemCD.getData()>0){
         "Hourly sips, double rewards - health and wealth!".showToast();
         return;
       }
-      if(widget.showVideoIcon){
+      if(widget.floraMoneyEnergyType!=FloraMoneyEnergyType.normal){
         Flora121AdHep.instance.showFlora121BBBBBBB(
           adType: AdType.reward,
           adEnum: Flora121AdEnum.frfcn_cash_rv,
@@ -167,7 +175,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
                 showEnergy=false;
               });
               await Future.delayed(Duration(milliseconds: 3000));
-              addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
+              _getMoneyAddNum();
               setState(() {
                 showEnergy=true;
               });
@@ -247,20 +255,20 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         });
         if(bHomeWaterItemCD.getData()<=0){
           setState(() {
-            addNum=Flora121ValueUtils.instance.getWaterAddNum();
+            _getWaterAddNum();
           });
           _stopWaterTimer();
         }
       });
     }
-    if(widget.flora121energyType==Flora121EnergyType.money&&!widget.showVideoIcon&&bHomeMoneyItemCD.getData()>0){
+    if(widget.flora121energyType==Flora121EnergyType.money&&widget.floraMoneyEnergyType==FloraMoneyEnergyType.normal&&bHomeMoneyItemCD.getData()>0){
       _waterTimer=Timer.periodic(Duration(seconds: 1), (t){
         setState(() {
           bHomeMoneyItemCD.saveData(bHomeMoneyItemCD.getData()-1);
         });
         if(bHomeMoneyItemCD.getData()<=0){
           setState(() {
-            addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
+            _getMoneyAddNum();
           });
           _stopWaterTimer();
         }
@@ -291,14 +299,42 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
       case Flora121EventCode.updateMyMoney:
         _updateMyMoney();
         break;
+      case Flora121EventCode.changeToGoldMode:
+        _updateMyMoney();
+        setState(() {});
+        break;
     }
   }
 
   _updateMyMoney(){
     if(widget.flora121energyType==Flora121EnergyType.money){
-      addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
+      _getMoneyAddNum();
     }
     if(widget.flora121energyType==Flora121EnergyType.water){
+      _getWaterAddNum();
+    }
+    setState(() {});
+  }
+
+  _getMoneyAddNum()async{
+    var data = bGoldMode.getData();
+    if(data==Flora121GoldMode.gold){
+      addNum=await Flora121ValueUtils.instance.getGoldAddReward();
+    }else if(data==Flora121GoldMode.diamond){
+      addNum=await  Flora121ValueUtils.instance.getDiamondAddReward();
+    }else{
+      addNum=Flora121ValueUtils.instance.getMoneyEnergyAddNum();
+    }
+    setState(() {});
+  }
+
+  _getWaterAddNum()async{
+    var data = bGoldMode.getData();
+    if(data==Flora121GoldMode.gold){
+      addNum=await Flora121ValueUtils.instance.getGoldAddReward();
+    }else if(data==Flora121GoldMode.diamond){
+      addNum=await Flora121ValueUtils.instance.getDiamondAddReward();
+    }else{
       addNum=Flora121ValueUtils.instance.getWaterAddNum();
     }
     setState(() {});

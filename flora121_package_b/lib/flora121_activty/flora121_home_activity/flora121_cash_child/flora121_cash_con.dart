@@ -2,12 +2,16 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
+import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_amount_bean.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_cash_rank_bean.dart';
+import 'package:flora121_package_b/flora121_bean/flora121_cash_rank_list_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_config_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_cash_success_dialog/flora121_cash_success_dialog.dart';
@@ -35,11 +39,15 @@ class Flora121CashCon extends Flora121BaseCon{
   GlobalKey cashBtnGlobalKey=GlobalKey();
   List<Flora121AmountBean> amountList=[];
   Flora121CashTaskBean? taskBean;
+  Flora121CashRankBean? flora121cashRankBean;
+  List<Flora121CashRankListBean> rankList=[];
+  ScrollController scrollController=ScrollController();
 
   @override
   void onReady() {
     super.onReady();
     _initAmountList();
+    _queryCashRankInfo();
   }
 
   clickAmountItem(index){
@@ -52,19 +60,18 @@ class Flora121CashCon extends Flora121BaseCon{
   }
 
   clickCash()async{
-    if(null!=taskBean){
-      var totalList = Flora121CashTaskUtils.instance.getCashTaskTotalList(taskBean);
-      var currentList = Flora121CashTaskUtils.instance.getCashTaskCurrentList(taskBean);
-      var completedCurrentTask = Flora121CashTaskUtils.instance.checkCompletedCurrentTask(currentList, totalList);
-      if(completedCurrentTask){
-        Flora121RoutersHep.dialog(
-          child: Flora121CashSuccessDialog(
-            taskBean: taskBean,
-          ),
-        );
-        return;
+    var data = bGoldMode.getData();
+    if(data.isNotEmpty){
+      if(data==Flora121GoldMode.gold){
+        "Cash ready，get gold nuggets".showToast();
       }
-      showCashTaskDialog();
+      if(data==Flora121GoldMode.diamond){
+        "Cash ready，get diamonds".showToast();
+      }
+      return;
+    }
+    if(null!=taskBean){
+      Flora121CashTaskUtils.instance.showCashTaskDialog(taskBean);
       return;
     }
     var myMoney= bMyMoneyNum.getData();
@@ -75,58 +82,14 @@ class Flora121CashCon extends Flora121BaseCon{
       );
       return;
     }
-    var cashType = bSelectCashType.getData();
-    var cashAccount = await Flora121CashTaskUtils.instance.getCashAccountByCashType(cashType);
-    if(cashAccount.isNotEmpty){
-      _inputAccountResult(cashAccount,bean.money);
-      return;
-    }
-
-    switch(cashType){
-      case Flora121CashType.pagBank:
-      case Flora121CashType.paypal:
-        Flora121RoutersHep.dialog(
-          child: Flora121InputEmailDialog(
-            cashType: cashType,
-            sureCallback: (account){
-              _inputAccountResult(account,bean.money);
-            },
-          ),
-        );
-        break;
-      case Flora121CashType.cashApp:
-        Flora121RoutersHep.dialog(
-          child: Flora121InputPhoneDialog(
-            cashType: cashType,
-            sureCallback: (account){
-              _inputAccountResult(account,bean.money);
-            },
-          ),
-        );
-        break;
-      case Flora121CashType.pix:
-        Flora121RoutersHep.dialog(
-          child: Flora121InputPixDialog(
-            sureCallback: (account){
-              _inputAccountResult(account,bean.money);
-            },
-          ),
-        );
-        break;
-    }
-  }
-
-  _inputAccountResult(String account, int money)async{
-    await Flora121CashTaskUtils.instance.createCashTask(cashMoney: money, cashType: bSelectCashType.getData(), account: account,);
-    _initAmountList();
-  }
-
-  showCashTaskDialog(){
-    Flora121RoutersHep.dialog(
-      child: Flora121CashTaskDialog(
-        taskBean: taskBean,
-      ),
-    );
+    Flora121CashTaskUtils.instance.showGoldStepDialog(bean.money);
+    // Flora121CashTaskUtils.instance.showAccountInputDialog(
+    //   cashMoney: bean.money,
+    //   cashType: bSelectCashType.getData(),
+    //   createCashTaskSuccessCallback: (bean){
+    //     _initAmountList();
+    //   },
+    // );
   }
 
   _initAmountList()async{
@@ -180,6 +143,7 @@ class Flora121CashCon extends Flora121BaseCon{
         break;
       case Flora121EventCode.updateCashTask:
         _queryCashTaskInfo();
+        _queryCashRankInfo();
         break;
       case Flora121EventCode.updateCashType:
         update(["btn","amount"]);
@@ -197,6 +161,95 @@ class Flora121CashCon extends Flora121BaseCon{
           clickCash();
         }
         break;
+      case Flora121EventCode.createCashRankSuccess:
+        _queryCashRankInfo();
+        break;
+    }
+  }
+
+  _queryCashRankInfo({bool fromRefresh=false})async{
+    flora121cashRankBean = await Flora121CashTaskUtils.instance.queryRankInfo();
+    update(["page"]);
+    if(null!=flora121cashRankBean){
+      if(fromRefresh){
+        "Your current rank：${flora121cashRankBean?.currentProgress??0}".showToast();
+      }
+      _initRankList();
+    }
+  }
+
+  _initRankList()async{
+    rankList.clear();
+    var totalRank = flora121cashRankBean?.totalProgress??0;
+    if(totalRank<=0){
+      update(["rank_list"]);
+      return;
+    }
+    while(rankList.length<totalRank-1){
+      var bean = Flora121CashRankListBean(
+        account: "${randomTwoLetters()}****.com",
+        amount: Flora121ValueUtils.instance.getCashList().random(),
+        isMe: false,
+      );
+      rankList.add(bean);
+    }
+    var currentRank = flora121cashRankBean?.currentProgress??0;
+    var account = await Flora121CashTaskUtils.instance.getCashAccountByCashType(flora121cashRankBean?.cashType??"");
+    if(account.isEmpty){
+      account="${randomTwoLetters()}****.com";
+    }
+    if(currentRank==0){
+      rankList.insert(0, Flora121CashRankListBean(account: account, amount: flora121cashRankBean?.cashMoney??0,isMe: true,));
+    }else{
+      rankList.insert(currentRank-1, Flora121CashRankListBean(account: account, amount: flora121cashRankBean?.cashMoney??0,isMe: true));
+    }
+    update(["rank_list","rank_text"]);
+    var indexWhere = rankList.indexWhere((value)=>value.isMe);
+    if(indexWhere<=0){
+      Flora121RoutersHep.dialog(
+        child: Flora121CashSuccessDialog(
+          taskBean: taskBean,
+        ),
+      );
+    } else if(indexWhere>6){
+      scrollController.animateTo(
+        (36.h)*indexWhere,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }else if(indexWhere<=6){
+      scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  clickSkipWait()async{
+    if(null==flora121cashRankBean){
+      return;
+    }
+    Flora121AdHep.instance.showFlora121BBBBBBB(
+      adType: AdType.reward,
+      showAd: true,
+      adEnum: Flora121AdEnum.frfcn_queue_rv,
+      closeAd: (give)async{
+        if(give){
+          await Flora121CashTaskUtils.instance.updateRankInfo(flora121cashRankBean?.cashMoney??0, flora121cashRankBean?.cashType??"",);
+          _queryCashRankInfo(fromRefresh: true);
+        }
+      },
+    );
+  }
+
+  String getQueueID(int index){
+    if(index<10){
+      return "00$index";
+    }else if(index<100){
+      return "0$index";
+    }else{
+      return "$index";
     }
   }
 
@@ -264,9 +317,9 @@ class Flora121CashCon extends Flora121BaseCon{
     switch(taskBean?.cashTaskIndex){
       case Flora121CashTaskIndex.tasks1: return "Security Verification";
       case Flora121CashTaskIndex.tasks2: return "Earnings Review";
-      case Flora121CashTaskIndex.tasks3: return "Transaction Processing";
-      case Flora121CashTaskIndex.tasks4: return "Identity Confirmation";
-      case Flora121CashTaskIndex.tasks5: return "Compliance Check";
+      // case Flora121CashTaskIndex.tasks3: return "Transaction Processing";
+      // case Flora121CashTaskIndex.tasks4: return "Identity Confirmation";
+      // case Flora121CashTaskIndex.tasks5: return "Compliance Check";
       default: return "";
     }
   }
@@ -275,9 +328,9 @@ class Flora121CashCon extends Flora121BaseCon{
     switch(taskBean?.cashTaskIndex){
       case Flora121CashTaskIndex.tasks1: return "Your withdrawal is under security verification. Please complete the required task to confirm account authenticity.";
       case Flora121CashTaskIndex.tasks2: return "Your Eco earnings are being reviewed. Verification is needed to ensure all contributions are valid.";
-      case Flora121CashTaskIndex.tasks3: return "Withdrawal request is being processed. We are confirming account and transaction details for your security.";
-      case Flora121CashTaskIndex.tasks4: return "Suspicious activity detected. Please complete verification tasks to confirm your identity and proceed with withdrawal.";
-      case Flora121CashTaskIndex.tasks5: return "Your withdrawal is pending compliance review. Complete the required steps to validate your account and release funds.";
+      // case Flora121CashTaskIndex.tasks3: return "Withdrawal request is being processed. We are confirming account and transaction details for your security.";
+      // case Flora121CashTaskIndex.tasks4: return "Suspicious activity detected. Please complete verification tasks to confirm your identity and proceed with withdrawal.";
+      // case Flora121CashTaskIndex.tasks5: return "Your withdrawal is pending compliance review. Complete the required steps to validate your account and release funds.";
       default: return "";
     }
   }

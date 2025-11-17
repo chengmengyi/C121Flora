@@ -13,16 +13,6 @@ class Flora121TransferFundsDialogCon extends Flora121BaseCon{
     _delay();
   }
 
-  String getImage(String? type){
-    switch(type){
-      case Flora121CashType.paypal: return "icon_paypal_tips";
-      case Flora121CashType.cashApp: return "icon_cashapp_tips";
-      case Flora121CashType.pagBank: return "icon_pagbank_tips";
-      case Flora121CashType.pix: return "icon_pix_tips";
-      default: return "icon_paypal_tips";
-    }
-  }
-
   _delay()async{
     await Future.delayed(Duration(milliseconds: 1500));
     showFail=true;

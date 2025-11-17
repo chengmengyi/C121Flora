@@ -24,4 +24,6 @@ class Flora121EventCode{
 
   static const int showNewUerStep4Guide=122;
   static const int showBanner=123;
+  static const int changeToGoldMode=124;
+  static const int createCashRankSuccess=125;
 }

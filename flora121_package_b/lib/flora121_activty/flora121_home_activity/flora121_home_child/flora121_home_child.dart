@@ -7,9 +7,11 @@ import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_con.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_view/flora121_cash_record_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_energy_item_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_health_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_home_top_gold_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_home_top_reward_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_shake_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
@@ -28,7 +30,16 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 140.h,),
-          Flora121HomeTopRewardView(),
+          GetBuilder<Flora121HomeChildCon>(
+            id: "top_reward_view",
+            builder: (_){
+              var hasGold = bGoldMode.getData().isNotEmpty;
+              if(hasGold){
+                return Flora121HomeTopGoldView();
+              }
+              return Flora121HomeTopRewardView();
+            },
+          ),
         ],
       ),
       Align(
@@ -44,27 +55,36 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 90.h),
-              child: _flowerWidget(),
-            ),
-            Container(
-              width: double.infinity,
-              height: 120.h,
-              alignment: Alignment.center,
-              child: _flowerLevelWidget(),
-            ),
-          ],
+        GetBuilder<Flora121HomeChildCon>(
+          id: "bottom_widget",
+          builder: (_){
+            var hasGold = bGoldMode.getData().isNotEmpty;
+            return Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: hasGold?20.h:90.h),
+                  child: _flowerWidget(hasGold),
+                ),
+                Visibility(
+                  visible: !hasGold,
+                  child: Container(
+                    width: double.infinity,
+                    height: 120.h,
+                    alignment: Alignment.center,
+                    child: _flowerLevelWidget(),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         _bottomCardWidget(),
       ],
     ),
   );
 
-  _flowerWidget()=>Stack(
+  _flowerWidget(bool hasGold)=>Stack(
     alignment: Alignment.bottomCenter,
     children: [
       Flora121ImagesView(imagesName: "home15",width: 200.w,height: 65.h,),
@@ -86,7 +106,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                         onTap: (){
                           baseCon.test();
                         },
-                        child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: 100.w,),
+                        child: Flora121ImagesView(imagesName: baseCon.getFlowerImage(),width: hasGold?150.w:100.w,),
                       ),
                     ),
                   ),
@@ -121,12 +141,12 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                   Positioned(
                     left: 20.w,
                     bottom: 30.h,
-                    child: _energyItemWidget(Flora121EnergyType.money,showVideoIcon: true),
+                    child: _energyItemWidget(Flora121EnergyType.money,floraMoneyEnergyType: FloraMoneyEnergyType.video1),
                   ),
                   Positioned(
                     right: 40.w,
                     bottom: 30.h,
-                    child: _energyItemWidget(Flora121EnergyType.money,showVideoIcon: true),
+                    child: _energyItemWidget(Flora121EnergyType.money,floraMoneyEnergyType: FloraMoneyEnergyType.video2),
                   ),
                   Positioned(
                     top: 0,
@@ -158,10 +178,10 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     ],
   );
 
-  _energyItemWidget(Flora121EnergyType type,{GlobalKey? key,bool showVideoIcon=false})=>Flora121EnergyItemWidget(
+  _energyItemWidget(Flora121EnergyType type,{GlobalKey? key,FloraMoneyEnergyType floraMoneyEnergyType=FloraMoneyEnergyType.normal})=>Flora121EnergyItemWidget(
     flora121energyType: type,
     treeGlobalKey: key,
-    showVideoIcon: showVideoIcon,
+    floraMoneyEnergyType: floraMoneyEnergyType,
     clickItem: (){
       baseCon.clickEnergy(type);
     },

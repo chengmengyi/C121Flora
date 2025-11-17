@@ -162,6 +162,9 @@ class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProvider
       case Flora121EventCode.updateWheelNum:
         update(["wheel_num"]);
         break;
+      case Flora121EventCode.changeToGoldMode:
+        update(["wheel"]);
+        break;
     }
   }
 }

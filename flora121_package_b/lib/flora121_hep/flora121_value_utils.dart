@@ -6,6 +6,7 @@ import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_value_bean.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 
 class Flora121ValueUtils{
@@ -40,6 +41,26 @@ class Flora121ValueUtils{
 
   List<int> getCashList()=>[100,150,300];
 
+  int getGoldTotal()=>20;
+
+  int getDiamondTotal()=>10;
+
+  Future<double> getGoldAddReward()async{
+    var progressBean = await Flora121CashTaskUtils.instance.queryGoldProgress();
+    if(null==progressBean){
+      return 0.0;
+    }
+    return _getGoldDiamondAddReward(_valueBean?.goldPrize?.prize??[], progressBean.currentProgress??0.0);
+  }
+
+  Future<double> getDiamondAddReward()async{
+    var progressBean = await Flora121CashTaskUtils.instance.queryGoldProgress();
+    if(null==progressBean){
+      return 0.0;
+    }
+    return _getGoldDiamondAddReward(_valueBean?.diamondPrize?.prize??[], progressBean.currentProgress??0.0);
+  }
+
   int getNewUserAddNum()=>_valueBean?.newUsersAward??10;
 
   double getDiceAddNum()=>_getAddReward(_valueBean?.diceAward?.prize??[]);
@@ -57,6 +78,20 @@ class Flora121ValueUtils{
   double getUpLevelAddNum()=>_getAddReward(_valueBean?.giveUp?.prize??[]);
 
   int getUpLevelQuantity()=>_valueBean?.giveUp?.quantity??3;
+
+  int getRandomRankReduceNum(){
+    var ss = _valueBean?.queue?.sS??[];
+    if(ss.isEmpty){
+      return 0;
+    }
+    if(ss.length==1){
+      return ss.first;
+    }
+    var min = ss.first;
+    var max = ss.last;
+    final random = Random();
+    return min + random.nextInt(max - min + 1);
+  }
 
   double getCashLeftMoney(){
     var d = (Decimal.fromInt(getCashList().first)-Decimal.parse("${bMyMoneyNum.getData()}")).toDouble();
@@ -85,6 +120,22 @@ class Flora121ValueUtils{
     }
     for(var value in list){
       if(myMoney>=(value.firstNumber??0)&&myMoney<(value.endNumber??0)){
+        return _randomInRange(value.prize??[]);
+      }
+    }
+    return 0.0;
+  }
+
+  double _getGoldDiamondAddReward(List<Prize> list,double currentNum){
+    if(list.isEmpty){
+      return 0.0;
+    }
+    var last = list.last;
+    if(currentNum>=(last.endNumber??0)){
+      return _randomInRange(last.prize??[]);
+    }
+    for(var value in list){
+      if(currentNum>=(value.firstNumber??0)&&currentNum<(value.endNumber??0)){
         return _randomInRange(value.prize??[]);
       }
     }

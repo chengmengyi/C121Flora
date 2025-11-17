@@ -7,6 +7,8 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_amount_bean.dart';
@@ -230,6 +232,7 @@ class Flora121CashCon extends Flora121BaseCon{
     if(null==flora121cashRankBean){
       return;
     }
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.skip_wait);
     Flora121AdHep.instance.showFlora121BBBBBBB(
       adType: AdType.reward,
       showAd: true,

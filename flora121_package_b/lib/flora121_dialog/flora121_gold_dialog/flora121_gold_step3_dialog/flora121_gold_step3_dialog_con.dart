@@ -1,3 +1,5 @@
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flutter/material.dart';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
@@ -11,6 +13,7 @@ class Flora121GoldStep3DialogCon extends Flora121BaseCon with GetSingleTickerPro
   @override
   void onInit() {
     super.onInit();
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.ad_review);
     animationController=AnimationController(duration: const Duration(seconds: 3),vsync: this);
     animationController.addListener(() {
       update(["pro_view"]);

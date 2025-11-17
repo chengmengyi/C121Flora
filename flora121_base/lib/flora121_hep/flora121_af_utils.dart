@@ -42,37 +42,15 @@ class Flora121AfUtils{
     adjustConfig.attributionCallback=(AdjustAttribution attributionChangedData) {
       var network = attributionChangedData.network??"";
       FlutterCheckAf.instance.log("adjust====>attributionCallback===>$network");
-      // if(network.isNotEmpty&&!network.contains("Organic")){
-      //   LocalStorage.write(LocalStorageKey.localAdjustIsBuyUserKey, true);
-      //   checkListener?.adjustChangeToBuyUser();
-      // }
+      var isB=network.isNotEmpty&&!network.contains("Organic");
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.adjust_suc,params: {"adjust_user":isB?1:0});
       // checkListener?.adjustResultCall(network);
     };
     adjustConfig.eventSuccessCallback= (AdjustEventSuccess eventSuccessData) {
       FlutterCheckAf.instance.log("adjust====>eventSuccessCallback");
       // checkListener?.adjustEventCall(eventSuccessData);
     };
-    Adjust.initSdk(adjustConfig);
-  }
-
-  test()async{
-    FlutterCheckAf.instance.log("adjust====>attributionC");
-    var distinctId = await FlutterTbaInfo.instance.getDistinctId();
-    Adjust.addGlobalCallbackParameter("customer_user_id", distinctId);
-    var adjustConfig = AdjustConfig(Flora121LocalInfo.adjustTokenBase64.base64(), AdjustEnvironment.production);
-    adjustConfig.attributionCallback=(AdjustAttribution attributionChangedData) {
-      var network = attributionChangedData.network??"";
-      FlutterCheckAf.instance.log("adjust====>attributionCallback===>$network");
-      // if(network.isNotEmpty&&!network.contains("Organic")){
-      //   LocalStorage.write(LocalStorageKey.localAdjustIsBuyUserKey, true);
-      //   checkListener?.adjustChangeToBuyUser();
-      // }
-      // checkListener?.adjustResultCall(network);
-    };
-    adjustConfig.eventSuccessCallback= (AdjustEventSuccess eventSuccessData) {
-      FlutterCheckAf.instance.log("adjust====>eventSuccessCallback");
-      // checkListener?.adjustEventCall(eventSuccessData);
-    };
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.adjust_req);
     Adjust.initSdk(adjustConfig);
   }
 

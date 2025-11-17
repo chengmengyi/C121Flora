@@ -9,6 +9,8 @@ import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_base_sql_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_sql/flora121_sql_name.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
+import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_rank_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_config_bean.dart';
@@ -192,6 +194,7 @@ class Flora121CashTaskUtils{
   }
 
   createRankInfo(int cashMoney,String cashType)async{
+    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_queue);
     var database = await Flora121BaseSqlUtils.instance.initSql();
     var list = await database.query(Flora121SqlName.bCashRankInfo,where: '"cashMoney" = ? AND "cashType" = ?',whereArgs: [cashMoney,cashType]);
     if(list.isNotEmpty){
@@ -574,6 +577,7 @@ class Flora121CashTaskUtils{
       );
     }else{
       if(completedGoldTask){
+        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.diamond_progress);
         Flora121RoutersHep.dialog(
           child: Flora121CompletedGoldTaskDialog(
             cashMoney: bean.cashMoney??0,

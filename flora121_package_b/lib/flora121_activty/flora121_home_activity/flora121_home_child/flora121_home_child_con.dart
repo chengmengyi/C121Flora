@@ -50,6 +50,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_package_b.dart';
+import 'package:flora121_package_b/flora121_view/flora121_energy_item_widget.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
@@ -89,7 +90,16 @@ class Flora121HomeChildCon extends Flora121BaseCon{
   }
 
   clickEnergy(Flora121EnergyType type)async{
-    Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_bubble_c,params: {"type":type.name});
+    var goldMode = bGoldMode.getData();
+    if(goldMode.isNotEmpty){
+      if(goldMode==Flora121GoldMode.gold){
+        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_bubble_c,params: {"type":"gold"});
+      }else if(goldMode==Flora121GoldMode.diamond){
+        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_bubble_c,params: {"type":"diamond"});
+      }
+    }else{
+      Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.home_bubble_c,params: {"type":type.name});
+    }
     Flora121EnergyUtils.instance.updateCollectEnergyNum();
     update(["level","flower"]);
     _checkShowReward();

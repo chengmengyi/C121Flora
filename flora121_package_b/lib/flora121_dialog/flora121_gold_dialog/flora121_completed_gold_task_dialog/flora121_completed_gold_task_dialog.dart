@@ -50,10 +50,28 @@ class Flora121CompletedGoldTaskDialog extends Flora121BaseDialog<Flora121Complet
           textAlign: TextAlign.center,
         ),
         Stack(
-          alignment: Alignment.center,
+          alignment: Alignment.bottomCenter,
           children: [
-            Flora121ImagesView(imagesName: "gold1",width: 300.w,height: 300.w,),
-            Flora121ImagesView(imagesName: "images_diamond",height: 245.w,fit: BoxFit.fitHeight,),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Flora121ImagesView(imagesName: "gold1",width: 300.w,height: 300.w,),
+                Flora121ImagesView(imagesName: "images_diamond",height: 245.w,fit: BoxFit.fitHeight,),
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 60.h),
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Flora121ImagesView(imagesName: "gold6",width: 314.w,height: 58.h,),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 6.h),
+                    child: Flora121TextView(text: "\$$cashMoney", color: "#442202", size: 20.sp,fontWeight: FontWeight.w900,),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         Flora121TextView(

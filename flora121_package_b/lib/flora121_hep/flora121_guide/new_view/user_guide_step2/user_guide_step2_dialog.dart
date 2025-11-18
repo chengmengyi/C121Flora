@@ -3,6 +3,7 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
+import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_step2/user_guide_step2_con.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_guide_head_widget.dart';
@@ -27,20 +28,13 @@ class UserGuideStep2Dialog extends Flora121BaseDialog<UserGuideStep2Con>{
       children: [
         Flora121UserGuideHeadWidget(content: "We partner with sponsors who care about the environment.You can earn sponsorship rewards directly from their ads.The funds are used to reward users like you who make a difference for the planet."),
         SizedBox(height: 20.h,),
-        Container(
+        Flora121SpineAnimatorView(
+          atlasFile: "11",
+          skeletonFile: "skeleton",
+          animatorName: "animation",
+          folder: "guide2",
           width: 300.w,
           height: 350.h,
-          alignment: Alignment.topCenter,
-          child: GetBuilder<UserGuideStep2Con>(
-            id: "pro",
-            builder: (_)=>ClipRRect(
-              child: Align(
-                alignment: Alignment.topCenter,
-                heightFactor: baseCon.animationController.value,
-                child: Flora121ImagesView(imagesName: "guide1",width: 300.w,height: 350.h,),
-              ),
-            ),
-          ),
         ),
         SizedBox(height: 40.h,),
         Flora121TextView(

@@ -46,7 +46,16 @@ class Flora121GoldStep2Dialog extends Flora121BaseDialog<Flora121GoldStep2Dialog
           alignment: Alignment.center,
           children: [
             Flora121ImagesView(imagesName: "gold1",width: 300.w,height: 300.w,),
-            Flora121ImagesView(imagesName: "gold2",width: 300.w,height: 190.w,),
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Flora121ImagesView(imagesName: "gold2",width: 300.w,height: 190.w,),
+                Container(
+                  margin: EdgeInsets.only(bottom: 10.h),
+                  child: Flora121TextView(text: "\$$cashMoney", color: "#442202", size: 20.sp,fontWeight: FontWeight.w900,),
+                ),
+              ],
+            ),
           ],
         ),
         Flora121TextView(text: "Funds are ready — payout will be sent anytime.", color: "#FFFFFF", size: 14.sp,),

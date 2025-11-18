@@ -71,7 +71,7 @@ class _Flora121HomeTopGoldViewState extends Flora121BaseStatefulState<Flora121Ho
                 Flora121ImagesView(imagesName: flora121goldProgressBean?.goldType==Flora121GoldMode.gold?"home26":"home29",width: 36.w,height: 36.h,),
                 Expanded(
                   child: Center(
-                    child: Flora121TextView(text: "${flora121goldProgressBean?.currentProgress??0} Received", color: "#2D5208", size: 16.sp,fontWeight: FontWeight.w900,),
+                    child: Flora121TextView(text: "${flora121goldProgressBean?.currentProgress??0} Received", color: "#2D5208", size: 14.sp,fontWeight: FontWeight.w900,),
                   ),
                 ),
               ],
@@ -96,7 +96,7 @@ class _Flora121HomeTopGoldViewState extends Flora121BaseStatefulState<Flora121Ho
                 Flora121ImagesView(imagesName: flora121goldProgressBean?.goldType==Flora121GoldMode.gold?"home26":"home29",width: 36.w,height: 36.h,),
                 Expanded(
                   child: Center(
-                    child: Flora121TextView(text: "${_getLeft()} Left", color: "#2D5208", size: 16.sp,fontWeight: FontWeight.w900,),
+                    child: Flora121TextView(text: "${_getLeft()} Left", color: "#2D5208", size: 14.sp,fontWeight: FontWeight.w900,),
                   ),
                 ),
               ],

@@ -26,6 +26,7 @@ import 'package:flora121_package_b/flora121_dialog/flora121_get_water_dialog/flo
 import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_completed_gold_and_diamond_task_dialog/flora121_completed_gold_and_diamond_task_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_completed_gold_task_dialog/flora121_completed_gold_task_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_gold_step1_dialog/flora121_gold_step1_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_gold_step2_dialog/flora121_gold_step2_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_animator_dialog/flora121_money_15_80_animator_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_tips_dialog/flora121_money_15_80_tips_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
@@ -330,7 +331,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //   child: Flora121AppDescDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    Flora121UserInfoUtils.instance.updateMyMoney(5000);
+    // Flora121UserInfoUtils.instance.updateMyMoney(5000);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();
@@ -358,8 +359,9 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //     "cashType":Flora121CashType.cashApp,
     //   },
     // );
-    // Flora121CashTaskUtils.instance.updateGoldProgress(5, Flora121GoldMode.diamond);
+    // Flora121CashTaskUtils.instance.updateGoldProgress(1, Flora121GoldMode.diamond);
     // Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
-    // Flora121RoutersHep.dialog(child: Flora121CompletedCashTaskDialog(dismissCallback: (){}));
+    // Flora121RoutersHep.dialog(child: UserGuideStep2Dialog(dismissCallback: (){}));
+
   }
 }

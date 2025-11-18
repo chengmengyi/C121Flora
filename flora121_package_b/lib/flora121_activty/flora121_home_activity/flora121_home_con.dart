@@ -59,6 +59,7 @@ class Flora121HomeCon extends Flora121BaseCon{
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page);
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page_c);
         Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showBanner,flora121Map: {"title":"Easy cash today","content":"200 more people just cashed out."});
+        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.autoPlayWheel);
         break;
       case 3:
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_page);
@@ -96,6 +97,7 @@ class Flora121HomeCon extends Flora121BaseCon{
       case 2:
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page);
         Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showBanner,flora121Map: {"title":"Easy cash today","content":"200 more people just cashed out."});
+        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.autoPlayWheel);
         break;
       case 3:
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.cash_page);

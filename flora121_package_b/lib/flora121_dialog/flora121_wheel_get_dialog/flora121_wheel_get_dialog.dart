@@ -7,6 +7,7 @@ import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_wheel_get_dialog/flora121_wheel_get_dialog_con.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flora121_package_b/flora121_view/flora121_gold_reward_dialog_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_watch_video_btn_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -24,40 +25,54 @@ class Flora121WheelGetDialog extends Flora121BaseDialog<Flora121WheelGetDialogCo
   @override
   Widget initBaseWidgetFlora121() => _contentWidget();
 
-  _contentWidget()=>Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(
-        width: double.infinity,
-        height: 448.h,
-        margin: EdgeInsets.only(left: 34.w,right: 34.w),
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Flora121ImagesView(imagesName: "wheel12",width: double.infinity,height: double.infinity,),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _monetWidget(),
-                _progressListWidget(),
-                _btnWidget(),
-                SizedBox(height: 12.h,),
-                _myCashWidget(),
-                SizedBox(height: 12.h,),
-              ],
-            ),
-          ],
-        ),
-      ),
-      SizedBox(height: 32.h,),
-      Flora121Click(
-        onTap: (){
+  _contentWidget(){
+    var goldMode = bGoldMode.getData();
+    if(goldMode.isNotEmpty){
+      return Flora121GoldRewardDialogView(
+        goldMode: goldMode,
+        clickGet: (){
+          baseCon.clickDouble(addNum,dismissCallback);
+        },
+        clickClose: (){
           baseCon.clickClose(addNum,dismissCallback);
         },
-        child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
-      )
-    ],
-  );
+      );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: double.infinity,
+          height: 448.h,
+          margin: EdgeInsets.only(left: 34.w,right: 34.w),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Flora121ImagesView(imagesName: "wheel12",width: double.infinity,height: double.infinity,),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _monetWidget(),
+                  _progressListWidget(),
+                  _btnWidget(),
+                  SizedBox(height: 12.h,),
+                  _myCashWidget(),
+                  SizedBox(height: 12.h,),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 32.h,),
+        Flora121Click(
+          onTap: (){
+            baseCon.clickClose(addNum,dismissCallback);
+          },
+          child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
+        )
+      ],
+    );
+  }
 
   _monetWidget()=>SizedBox(
     width: 200.w,

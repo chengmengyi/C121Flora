@@ -225,10 +225,13 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
 
     final textRotation = angleRad + pi / 2;
     var icon=money>0?"icon_money":"wheel6";
+    var rewardStr=money>0?"+\$$money":"Try Again";
     if(goldMode==Flora121GoldMode.gold){
       icon="icon_gold";
+      rewardStr="+$money";
     }else if(goldMode==Flora121GoldMode.diamond){
       icon="icon_diamond";
+      rewardStr="+$money";
     }
 
     return Transform.translate(
@@ -239,7 +242,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
           mainAxisSize: MainAxisSize.min,
           children: [
             Flora121ImagesView(imagesName: icon,width: 40.w,height: 40.w,),
-            Flora121TextView(text: money>0?"+\$$money":"Try Again", color: money>0?"#844F13":"#2E619A", size: 12.sp,fontWeight: FontWeight.bold,),
+            Flora121TextView(text: rewardStr, color: money>0?"#844F13":"#2E619A", size: 12.sp,fontWeight: FontWeight.bold,),
           ],
         ),
       ),

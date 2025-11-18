@@ -18,7 +18,11 @@ class Flora121Money1580TipsDialog extends Flora121BaseDialog<Flora121Money1580Ti
   Widget initBaseWidgetFlora121() => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Flora121CashRecordView(),
+      Container(
+        width: double.infinity,
+        height: 80.h,
+        child: Flora121CashRecordView(),
+      ),
       SizedBox(height: 50.h,),
       _centerContentWidget(),
       SizedBox(height: 40.h,),

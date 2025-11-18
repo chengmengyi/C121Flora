@@ -216,6 +216,9 @@ class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
       case Flora121EventCode.showNewUserStep8DiceBtn:
         showNewUserStep8DiceBtn();
         break;
+      case Flora121EventCode.changeToGoldMode:
+        update(["gold_view"]);
+        break;
     }
   }
 

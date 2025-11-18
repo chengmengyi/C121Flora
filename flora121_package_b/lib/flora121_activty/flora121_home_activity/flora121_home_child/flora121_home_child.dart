@@ -3,6 +3,7 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
+import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_con.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';

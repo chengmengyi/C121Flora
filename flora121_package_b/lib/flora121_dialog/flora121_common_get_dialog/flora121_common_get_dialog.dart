@@ -44,6 +44,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     if(goldMode.isNotEmpty){
       return Flora121GoldRewardDialogView(
         goldMode: goldMode,
+        addNum: addNum,
         clickGet: (){
           baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromQuiz,dismissCallback);
         },

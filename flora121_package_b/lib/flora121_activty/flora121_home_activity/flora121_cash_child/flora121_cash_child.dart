@@ -489,7 +489,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
                                 children: [
                                   Expanded(
                                     child: Center(
-                                      child: Flora121TextView(text: baseCon.getQueueID(index), color: textColor, size: 14.sp,fontWeight: FontWeight.bold,),
+                                      child: Flora121TextView(text: baseCon.getQueueID(index+1), color: textColor, size: 14.sp,fontWeight: FontWeight.bold,),
                                     ),
                                   ),
                                   Expanded(

@@ -6,6 +6,7 @@ import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora
 import 'package:flora121_package_b/flora121_bean/flora121_home_tab_bean.dart';
 import 'package:flora121_package_b/flora121_view/flora121_banner_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_finger_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_gold_diamond_get_animator_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,10 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
       Align(
         alignment: Alignment.topCenter,
         child: Flora121BannerView(),
+      ),
+      Align(
+        alignment: Alignment.center,
+        child: Flora121GoldDiamondGetAnimatorView(),
       ),
     ],
   );

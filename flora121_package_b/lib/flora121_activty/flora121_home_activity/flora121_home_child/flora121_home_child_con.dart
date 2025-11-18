@@ -331,7 +331,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //   child: Flora121AppDescDialog(),
     // );
     // Flora121AndroidLocalNotificationHep.instance.init(false);
-    // Flora121UserInfoUtils.instance.updateMyMoney(5000);
+    // Flora121UserInfoUtils.instance.updateMyMoney(50);
     // Flora121AndroidLocalNotificationHep.instance.init(true);
 
     // Flora121UserGuideUtils.instance.test();
@@ -359,9 +359,9 @@ class Flora121HomeChildCon extends Flora121BaseCon{
     //     "cashType":Flora121CashType.cashApp,
     //   },
     // );
-    // Flora121CashTaskUtils.instance.updateGoldProgress(1, Flora121GoldMode.diamond);
+    // Flora121UserInfoUtils.instance.updateMyMoney(1);
     // Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
-    // Flora121RoutersHep.dialog(child: UserGuideStep2Dialog(dismissCallback: (){}));
+    Flora121RoutersHep.dialog(child: Flora121CommonGetDialog(addNum: 100, rvAdEnum: Flora121AdEnum.frfcn_queue_rv, intAdEnum: Flora121AdEnum.frfcn_queue_rv, dismissCallback: (giv){}));
 
   }
 }

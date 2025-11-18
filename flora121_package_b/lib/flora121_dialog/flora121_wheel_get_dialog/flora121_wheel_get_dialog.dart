@@ -30,6 +30,7 @@ class Flora121WheelGetDialog extends Flora121BaseDialog<Flora121WheelGetDialogCo
     if(goldMode.isNotEmpty){
       return Flora121GoldRewardDialogView(
         goldMode: goldMode,
+        addNum: addNum,
         clickGet: (){
           baseCon.clickDouble(addNum,dismissCallback);
         },

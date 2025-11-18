@@ -27,4 +27,5 @@ class Flora121EventCode{
   static const int changeToGoldMode=124;
   static const int createCashRankSuccess=125;
   static const int autoPlayWheel=126;
+  static const int showGoldDiamondAnimator=127;
 }

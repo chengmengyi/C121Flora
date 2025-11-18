@@ -6,6 +6,7 @@ import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_con.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_view/flora121_home_top_gold_view.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,13 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
       Column(
         children: [
           SizedBox(height: 140.h,),
-          Flora121HomeTopGoldView(),
+          GetBuilder<Flora121DiceCon>(
+            id: "gold_view",
+            builder: (_)=>Visibility(
+              visible: bGoldMode.getData().isNotEmpty,
+              child: Flora121HomeTopGoldView(),
+            ),
+          ),
           SizedBox(height: 6.h,),
           _listWidget(),
           SizedBox(height: 12.h,),

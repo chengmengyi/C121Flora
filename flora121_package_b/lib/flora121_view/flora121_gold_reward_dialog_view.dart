@@ -9,10 +9,12 @@ import 'package:flutter/material.dart';
 
 class Flora121GoldRewardDialogView extends StatelessWidget{
   String goldMode;
+  double addNum;
   Function() clickGet;
   Function() clickClose;
   Flora121GoldRewardDialogView({
     required this.goldMode,
+    required this.addNum,
     required this.clickGet,
     required this.clickClose,
 });
@@ -44,6 +46,13 @@ class Flora121GoldRewardDialogView extends StatelessWidget{
                           fit: BoxFit.fitWidth,
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: EdgeInsets.only(bottom: 10.h),
+                          child: Flora121TextView(text: "+$addNum", color: "#239E04", size: 16.sp,fontWeight: FontWeight.bold,),
+                        ),
+                      )
                     ],
                   ),
                 ),

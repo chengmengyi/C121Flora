@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
@@ -7,6 +9,9 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
+import 'package:flora121_base/flora121_view/flora121_click.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_con_b.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_5s_no_operation_dialog/flora121_5s_no_operation_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_good_comment_dialog/flora121_good_comment_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
@@ -29,9 +34,13 @@ class Flora121UserGuideUtils{
   static Flora121UserGuideUtils get instance => _utils;
 
   OverlayEntry? _overlayEntry;
-  var isNewUerGuide=true;
+  var isNewUerGuide=true,_showed5sNoOperationDialog=false;
+  Timer? _5sNoOperationTimer;
 
   checkShowNewUserGuide(){
+    flora121ClickCallback=(){
+      cancel5sNoOperationTimer();
+    };
     var newTime = bShowNewUserGuideTimer.getData();
     if(newTime.isNotEmpty){
       isNewUerGuide=false;
@@ -43,11 +52,15 @@ class Flora121UserGuideUtils{
           child: Flora121OldUserDialog(
             dismissCall: (){
               Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+              showGoodComment();
+              checkShow5sNoOperationDialog();
             },
           ),
         );
       }else{
         Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+        showGoodComment();
+        checkShow5sNoOperationDialog();
       }
       return;
     }
@@ -181,6 +194,8 @@ class Flora121UserGuideUtils{
           hideOverlay();
           dismissCallback.call();
           Flora121AndroidLocalNotificationHep.instance.checkHasNotification();
+          showGoodComment();
+          checkShow5sNoOperationDialog();
         },
       ),
     );
@@ -197,6 +212,29 @@ class Flora121UserGuideUtils{
     }
     bLastShowGoodCommentTime.saveData("111");
     Flora121RoutersHep.dialog(child: Flora121GoodCommentDialog());
+  }
+
+  checkShow5sNoOperationDialog(){
+    try{
+      if(_showed5sNoOperationDialog){
+        return;
+      }
+      var flora121HomeConB = Get.find<Flora121HomeConB>();
+      if(flora121HomeConB.tabIndex!=0){
+        return;
+      }
+      _5sNoOperationTimer=Timer(Duration(milliseconds: 5000), (){
+        _showed5sNoOperationDialog=true;
+        Flora121RoutersHep.dialog(child: Flora1215sNoOperationDialog());
+      });
+    }catch(e){
+
+    }
+  }
+
+  cancel5sNoOperationTimer(){
+    _5sNoOperationTimer?.cancel();
+    _5sNoOperationTimer=null;
   }
 
   showOverlay({

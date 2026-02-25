@@ -238,6 +238,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
         addNum: addNum,
+        fromWater: true,
         rvAdEnum: Flora121AdEnum.frfcn_drink_rv,
         intAdEnum: Flora121AdEnum.frfcn_drink_int,
         dismissCallback: (received){

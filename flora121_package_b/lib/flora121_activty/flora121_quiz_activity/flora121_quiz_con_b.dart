@@ -12,7 +12,10 @@ import 'package:flora121_package_b/flora121_bean/flora121_quiz_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_quiz_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
@@ -80,17 +83,24 @@ class Flora121QuizConB extends Flora121BaseCon{
 
         }
       }
-      Flora121RoutersHep.dialog(
-        child: Flora121CommonGetDialog(
-          addNum: Flora121ValueUtils.instance.getQuizAddNum(),
-          rvAdEnum: Flora121AdEnum.frfcn_quiz_rv,
-          intAdEnum: Flora121AdEnum.frfcn_quiz_int,
-          fromQuiz: true,
-          dismissCallback: (received){
-            _updateNextQuiz(result);
-          },
-        ),
-      );
+      bAnswerQuizNum.saveData(bAnswerQuizNum.getData()+1);
+      var quizAddNum = Flora121ValueUtils.instance.getQuizAddNum();
+      if(bAnswerQuizNum.getData()%2==0){
+        Flora121RoutersHep.dialog(
+          child: Flora121CommonGetDialog(
+            addNum: quizAddNum,
+            rvAdEnum: Flora121AdEnum.frfcn_quiz_rv,
+            intAdEnum: Flora121AdEnum.frfcn_quiz_int,
+            fromQuiz: true,
+            dismissCallback: (received){
+              _updateNextQuiz(result);
+            },
+          ),
+        );
+      }else{
+        Flora121UserInfoUtils.instance.updateMyMoney(quizAddNum.numX2(),fromQuiz: true);
+        _updateNextQuiz(result);
+      }
     }else{
       Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.quiz_page_false);
       Flora121MusicHep.instance.playOtherAudio(AudioName.fail);

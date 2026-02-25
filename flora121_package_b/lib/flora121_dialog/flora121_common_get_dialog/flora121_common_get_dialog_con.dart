@@ -15,8 +15,10 @@ import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storag
 import 'package:flora121_package_b/flora121_hep/flora121_user_info_utils.dart';
 
 class Flora121CommonGetDialogCon extends Flora121BaseCon{
-  var progressIndex=0;
+  var progressIndex=0,fromWater=false;
   Timer? _timer;
+
+  Flora121CommonGetDialogCon(this.fromWater);
 
   @override
   void onInit() {
@@ -26,7 +28,7 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
   }
 
   clickDouble(double addNum,bool fromNewUser, Flora121AdEnum adEnum,bool fromQuiz,Function(bool received) dismissCallback){
-    if(fromNewUser){
+    if(fromNewUser||fromWater){
       Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2(),fromQuiz: fromQuiz);
       Flora121RoutersHep.back();
       dismissCallback.call(true);

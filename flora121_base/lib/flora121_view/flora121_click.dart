@@ -1,6 +1,8 @@
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flutter/material.dart';
 
+Function()? flora121ClickCallback;
+
 class Flora121Click extends StatelessWidget{
   Widget? child;
   Function()? onTap;
@@ -16,6 +18,7 @@ class Flora121Click extends StatelessWidget{
       highlightColor: Colors.transparent,
       onTap: (){
         Flora121MusicHep.instance.playOtherAudio(AudioName.click);
+        flora121ClickCallback?.call();
         onTap?.call();
       },
       child: child??Container(),

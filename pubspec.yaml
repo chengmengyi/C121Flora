@@ -80,6 +80,7 @@ flutter:
     - assets/flora121_spine/guide2/
     - assets/flora121_spine/gold/
     - assets/flora121_spine/diamond/
+    - assets/flora121_spine/naozhong/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

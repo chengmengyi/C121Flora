@@ -19,6 +19,7 @@ class Flora121MusicHep{
 
 
   final AudioPlayer _bgm=AudioPlayer();
+  final AudioPlayer _naozhong=AudioPlayer();
   // final AudioPlayer _audio=AudioPlayer();
 
   init()async{
@@ -58,9 +59,7 @@ class Flora121MusicHep{
   }
 
   pauseBgm(){
-    if(_bgm.state==PlayerState.playing){
-      _bgm.pause();
-    }
+    _bgm.pause();
   }
 
   onOrOffMusic(){
@@ -83,5 +82,14 @@ class Flora121MusicHep{
       });
       audio.play(AssetSource("$audioName.MP3"));
     }
+  }
+
+  playNaozhong(){
+    _naozhong.setReleaseMode(ReleaseMode.loop);
+    _naozhong.play(AssetSource("naozhong.MP3"));
+  }
+
+  stopNaozhong(){
+    _naozhong.stop();
   }
 }

@@ -11,6 +11,7 @@ StorageData<int> bDiceStepIndex=StorageData<int>(key: Flora121StorageName.bDiceS
 StorageData<int> bHomeWaterItemCD=StorageData<int>(key: Flora121StorageName.bHomeWaterItemCD, defaultValue: 0);
 StorageData<int> bHomeMoneyItemCD=StorageData<int>(key: Flora121StorageName.bHomeMoneyItemCD, defaultValue: 0);
 StorageData<int> bLastTimeMoneyLevel=StorageData<int>(key: Flora121StorageName.bLastTimeMoneyLevel, defaultValue: 0);
+StorageData<int> bAnswerQuizNum=StorageData<int>(key: Flora121StorageName.bAnswerQuizNum, defaultValue: 0);
 
 
 StorageData<String> bWheelNum=StorageData<String>(key: Flora121StorageName.bWheelNum, defaultValue: "");

@@ -49,7 +49,7 @@ class UserGuideStep5Dialog extends Flora121BaseDialog<UserGuideStep5Con>{
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Flora121ImagesView(imagesName: "guide4",width: 60.w,height: 52.h,),
-                          Flora121TextView(text: "\$$addNum", color: "#000000", size: 14.sp,),
+                          Flora121TextView(text: "\$$addNum", color: "#000000", size: 18.sp,fontWeight: FontWeight.bold,),
                         ],
                       ),
                       SizedBox(width: 8.w,),

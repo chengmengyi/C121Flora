@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialogCon>{
   double addNum;
   bool fromNewUser;
+  bool fromWater;
   Flora121AdEnum rvAdEnum;
   Flora121AdEnum intAdEnum;
   Function(bool received) dismissCallback;
@@ -27,11 +28,12 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     this.fromNewUser=false,
     this.fromQuiz=false,
     this.fromDice=false,
+    this.fromWater=false,
     required this.dismissCallback,
 });
 
   @override
-  Flora121CommonGetDialogCon initBaseConFlora121() => Flora121CommonGetDialogCon();
+  Flora121CommonGetDialogCon initBaseConFlora121() => Flora121CommonGetDialogCon(fromWater);
 
   @override
   onFlora121Init() {
@@ -79,7 +81,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
                 _titleWidget(),
                 _monetWidget(),
                 // _progressListWidget(),
-                SizedBox(height: 12.h,),
+                SizedBox(height: 6.h,),
                 Flora121TextView(
                   text: fromDice?"Nice! Your play=🌱 for the planet=Cash Prizes":"Double win: \nCash for you, care for the planet!",
                   color: "#324631",
@@ -87,7 +89,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
                   fontWeight: FontWeight.bold,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 12.h,),
+                SizedBox(height: 6.h,),
                 _btnWidget(),
                 SizedBox(height: 12.h,),
                 _myCashWidget(),
@@ -108,11 +110,11 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
   );
 
   _monetWidget()=>SizedBox(
-    width: 200.w,
-    height: 200.h,
+    width: 180.w,
+    height: 180.h,
     child: Stack(
       children: [
-        Flora121ImagesView(imagesName: "get6",width: 200.w,height: 200.h,),
+        Flora121ImagesView(imagesName: "get6",width: 180.w,height: 180.h,),
         Align(
           child: Flora121ImagesView(
             imagesName: "icon_money",
@@ -153,17 +155,41 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
     ],
   );
 
-  _btnWidget()=>Flora121WatchVideoBtnWidget(
-    text: "Claim",
-    btnColor: "#FBAC00",
-    showVideoIcon: !fromNewUser,
-    onTap: (){
-      if(rvAdEnum==Flora121AdEnum.frfcn_level_rv||rvAdEnum==Flora121AdEnum.frfcn_signin_rv){
-        baseCon.fromLevelClickDouble(addNum, rvAdEnum,intAdEnum, dismissCallback);
-        return;
-      }
-      baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromQuiz,dismissCallback);
-    },
+  _btnWidget()=>Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Flora121WatchVideoBtnWidget(
+        text: fromWater?"Free Claim":"Double Claim",
+        btnColor: "#FBAC00",
+        showVideoIcon: !fromNewUser&&!fromWater,
+        onTap: (){
+          if(rvAdEnum==Flora121AdEnum.frfcn_level_rv||rvAdEnum==Flora121AdEnum.frfcn_signin_rv){
+            baseCon.fromLevelClickDouble(addNum, rvAdEnum,intAdEnum, dismissCallback);
+            return;
+          }
+          baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromQuiz,dismissCallback);
+        },
+      ),
+      Visibility(
+        visible: fromQuiz,
+        child: Container(
+          margin: EdgeInsets.only(top: 10.h),
+          child: Flora121Click(
+            onTap: (){
+
+            },
+            child: Flora121TextView(
+              text: "Only\$$addNum",
+              color: "#324631",
+              size: 16.sp,
+              fontWeight: FontWeight.bold,
+              decoration: TextDecoration.underline,
+              decorationColor: "#324631".toColor(),
+            ),
+          ),
+        ),
+      ),
+    ],
   );
 
   _myCashWidget()=>Container(

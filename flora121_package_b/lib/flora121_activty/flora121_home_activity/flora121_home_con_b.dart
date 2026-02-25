@@ -40,7 +40,6 @@ class Flora121HomeConB extends Flora121BaseCon{
     Flora121AndroidLocalNotificationHep.instance.initNotification();
     Flora121Base.instance.installMidnight();
     Flora121Base.instance.pulseHouse();
-    Flora121UserGuideUtils.instance.showGoodComment();
   }
 
   clickBottom(int index){
@@ -50,7 +49,7 @@ class Flora121HomeConB extends Flora121BaseCon{
     tabIndex=index;
     switch(index){
       case 0:
-
+        Flora121UserGuideUtils.instance.checkShow5sNoOperationDialog();
         break;
       case 1:
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.dice_page);
@@ -90,7 +89,7 @@ class Flora121HomeConB extends Flora121BaseCon{
     tabIndex=index;
     switch(index){
       case 0:
-
+        Flora121UserGuideUtils.instance.checkShow5sNoOperationDialog();
         break;
       case 1:
         Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.dice_page_c);

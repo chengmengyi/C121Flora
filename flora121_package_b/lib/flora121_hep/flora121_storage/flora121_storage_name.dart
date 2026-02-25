@@ -34,4 +34,5 @@ class Flora121StorageName{
   static const String bGoldMode="bGoldMode";
 
   static const String bLastShowGoodCommentTime="bLastShowGoodCommentTime";
+  static const String bAnswerQuizNum="bAnswerQuizNum";
 }

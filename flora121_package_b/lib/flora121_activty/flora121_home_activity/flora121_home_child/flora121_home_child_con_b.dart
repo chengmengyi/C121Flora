@@ -19,6 +19,7 @@ import 'package:flora121_package_b/flora121_bean/flora121_cash_task_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_energy_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_store_bean.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_5s_no_operation_dialog/flora121_5s_no_operation_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_app_desc_dialog/flora121_app_desc_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_common_get_dialog/flora121_common_get_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_completed_cash_task_dialog/flora121_completed_cash_task_dialog.dart';
@@ -367,6 +368,6 @@ class Flora121HomeChildConB extends Flora121BaseCon{
     // Flora121RoutersHep.dialog(child: Flora121CommonGetDialog(addNum: 100, rvAdEnum: Flora121AdEnum.frfcn_queue_rv, intAdEnum: Flora121AdEnum.frfcn_queue_rv, dismissCallback: (giv){}));
 
     // Flora121Base.instance.resizeSapphire();
-    Flora121RoutersHep.dialog(child: Flora121GoodCommentDialog());
+    Flora121RoutersHep.dialog(child: Flora1215sNoOperationDialog());
   }
 }

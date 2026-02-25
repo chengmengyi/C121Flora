@@ -10,7 +10,19 @@ class MethodChannelFlora121Base extends Flora121BasePlatform {
   final methodChannel = const MethodChannel('flora121_base');
 
   @override
-  Future<void> flora() async {
-    await methodChannel.invokeMethod<String>('flora');
+  Future<void> drawCircuit() async {
+    await methodChannel.invokeMethod<String>('drawCircuit');
+  }
+  @override
+  Future<void> installMidnight() async {
+    await methodChannel.invokeMethod<String>('installMidnight');
+  }
+  @override
+  Future<void> pulseHouse() async {
+    await methodChannel.invokeMethod<String>('pulseHouse');
+  }
+  @override
+  Future<void> resizeSapphire() async {
+    await methodChannel.invokeMethod<String>('resizeSapphire');
   }
 }

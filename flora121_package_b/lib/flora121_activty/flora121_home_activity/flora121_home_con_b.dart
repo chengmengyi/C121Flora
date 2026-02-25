@@ -13,6 +13,7 @@ import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora
 import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_wheel_child/flora121_wheel_child_b.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_home_tab_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_guide/flora121_user_guide_utils.dart';
 import 'package:flutter/material.dart';
 
 class Flora121HomeConB extends Flora121BaseCon{
@@ -34,10 +35,12 @@ class Flora121HomeConB extends Flora121BaseCon{
   void onInit() {
     super.onInit();
     Flora121ApplifeHep.instance.init();
-    Flora121Base.instance.flora();
     Flora121NetworkHep.instance.init();
     Flora121MusicHep.instance.playBgm();
     Flora121AndroidLocalNotificationHep.instance.initNotification();
+    Flora121Base.instance.installMidnight();
+    Flora121Base.instance.pulseHouse();
+    Flora121UserGuideUtils.instance.showGoodComment();
   }
 
   clickBottom(int index){

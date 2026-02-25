@@ -21,6 +21,13 @@ A new Flutter project.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 
+    s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
+    s.swift_version = '5.0'
+    s.vendored_frameworks = 'Framework/*.framework'
+    s.vendored_libraries = 'Framework/*.a'
+    s.resource ='Framework/*.bundle'
+    s.public_header_files = 'Classes/**/*.h'
+
   # If your plugin requires a privacy manifest, for example if it uses any
   # required reason APIs, update the PrivacyInfo.xcprivacy file to describe your
   # plugin's privacy impact, and then uncomment this line. For more information,

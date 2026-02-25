@@ -12,3 +12,4 @@ export 'package:pointer_tap_simulator/pointer_tap_simulator.dart';
 export 'package:lottie/lottie.dart';
 export 'package:flutter_tba_info/flutter_tba_info.dart';
 export 'package:url_launcher/url_launcher.dart';
+export 'package:in_app_review/in_app_review.dart';

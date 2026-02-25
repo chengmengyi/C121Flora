@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:flora121_base/flora121_base.dart';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_dialog/flora121_open_notification_dialog/flora121_open_notification_dialog.dart';
 import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
@@ -9,6 +10,7 @@ import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
+import 'package:flora121_base/flora121_hep/flora121_network_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
@@ -26,6 +28,7 @@ import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121
 import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_completed_gold_task_dialog/flora121_completed_gold_task_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_gold_step1_dialog/flora121_gold_step1_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_gold_dialog/flora121_gold_step2_dialog/flora121_gold_step2_dialog.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_good_comment_dialog/flora121_good_comment_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_animator_dialog/flora121_money_15_80_animator_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_money_15_80_tips_dialog/flora121_money_15_80_tips_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
@@ -282,7 +285,8 @@ class Flora121HomeChildConB extends Flora121BaseCon{
 
   clickMoreFun(){
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.h5_c);
-    toWebActivity("More Fun", Flora121LocalInfo.moreFun);
+    // toWebActivity("More Fun", Flora121LocalInfo.moreFun);
+    Flora121Base.instance.resizeSapphire();
   }
 
   clickGame()async{
@@ -360,7 +364,9 @@ class Flora121HomeChildConB extends Flora121BaseCon{
     // );
     // Flora121UserInfoUtils.instance.updateMyMoney(1);
     // Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
-    Flora121RoutersHep.dialog(child: Flora121CommonGetDialog(addNum: 100, rvAdEnum: Flora121AdEnum.frfcn_queue_rv, intAdEnum: Flora121AdEnum.frfcn_queue_rv, dismissCallback: (giv){}));
+    // Flora121RoutersHep.dialog(child: Flora121CommonGetDialog(addNum: 100, rvAdEnum: Flora121AdEnum.frfcn_queue_rv, intAdEnum: Flora121AdEnum.frfcn_queue_rv, dismissCallback: (giv){}));
 
+    // Flora121Base.instance.resizeSapphire();
+    Flora121RoutersHep.dialog(child: Flora121GoodCommentDialog());
   }
 }

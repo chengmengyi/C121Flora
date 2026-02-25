@@ -13,9 +13,14 @@ class Flora121NetworkHep{
 
   var _showing=false;
   StreamSubscription<List<ConnectivityResult>>? _subscription;
+  bool _isFirstEvent = true;
 
   init(){
     Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
+      if (_isFirstEvent) {
+        _isFirstEvent = false;
+        return;
+      }
       if(!result.contains(ConnectivityResult.mobile)&&!result.contains(ConnectivityResult.wifi)){
         _showDialog();
       }

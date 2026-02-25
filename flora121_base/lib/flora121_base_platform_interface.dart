@@ -23,7 +23,16 @@ abstract class Flora121BasePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<void> flora() {
+  Future<void> drawCircuit() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+  Future<void> installMidnight() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+  Future<void> pulseHouse() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+  Future<void> resizeSapphire() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

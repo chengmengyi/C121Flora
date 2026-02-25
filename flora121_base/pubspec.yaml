@@ -39,7 +39,7 @@ dependencies:
   flutter_custom_facebook: 0.0.5
   url_launcher: 6.3.2
   flutter_local_notifications: 20.1.0
-
+  in_app_review: 2.0.11
 
 dev_dependencies:
   flutter_test:

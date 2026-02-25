@@ -7,6 +7,7 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
+import 'package:flora121_package_b/flora121_dialog/flora121_good_comment_dialog/flora121_good_comment_dialog.dart';
 import 'package:flora121_package_b/flora121_dialog/flora121_old_user_dialog/flora121_old_user_dialog.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_guide/new_view/user_guide_step4/flora121_user_guide_step4_view.dart';
@@ -183,6 +184,19 @@ class Flora121UserGuideUtils{
         },
       ),
     );
+  }
+
+  showGoodComment(){
+    var data = bLastShowGoodCommentTime.getData();
+    if(data=="111"||data==getTodayTimeStr()){
+      return;
+    }
+    if(data.isEmpty){
+      bLastShowGoodCommentTime.saveData(getTodayTimeStr());
+      return;
+    }
+    bLastShowGoodCommentTime.saveData("111");
+    Flora121RoutersHep.dialog(child: Flora121GoodCommentDialog());
   }
 
   showOverlay({

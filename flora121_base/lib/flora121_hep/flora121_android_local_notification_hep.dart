@@ -53,7 +53,8 @@ class Flora121AndroidLocalNotificationHep{
     );
     if(success==true){
       for(var index=0;index<_localNotificationList1.length;index++){
-        _show(_localNotificationList1[index], kDebugMode?Duration(minutes: 1):Duration(minutes: (index+1)*23));
+        // _show(_localNotificationList1[index], kDebugMode?Duration(minutes: 1):Duration(minutes: (index+1)*23));
+        _show(_localNotificationList1[index], Duration(minutes: (index+1)*23));
       }
     }
   }

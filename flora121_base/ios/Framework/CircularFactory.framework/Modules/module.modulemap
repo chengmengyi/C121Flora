@@ -1,0 +1,6 @@
+framework module CircularFactory {
+  umbrella header "CircularFactory.h"
+  export *
+
+  module * { export * }
+}

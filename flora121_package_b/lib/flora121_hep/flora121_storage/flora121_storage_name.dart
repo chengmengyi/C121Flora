@@ -32,4 +32,6 @@ class Flora121StorageName{
   static const String bTotalMoneyToAdProbability="bTotalMoneyToAdProbability";
 
   static const String bGoldMode="bGoldMode";
+
+  static const String bLastShowGoodCommentTime="bLastShowGoodCommentTime";
 }

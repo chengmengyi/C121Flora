@@ -159,16 +159,16 @@ class Flora121HomeChildB extends Flora121BaseChild<Flora121HomeChildConB>{
                       child: Flora121ImagesView(imagesName: "more_fun",width: 52.w,height: 52.w,),
                     ),
                   ),
-                  Positioned(
-                    top: 0,
-                    right: 16.w,
-                    child: Flora121Click(
-                      onTap: (){
-                        baseCon.clickGame();
-                      },
-                      child: Flora121ImagesView(imagesName: "icon_game",width: 52.w,height: 52.w,),
-                    ),
-                  ),
+                  // Positioned(
+                  //   top: 0,
+                  //   right: 16.w,
+                  //   child: Flora121Click(
+                  //     onTap: (){
+                  //       baseCon.clickGame();
+                  //     },
+                  //     child: Flora121ImagesView(imagesName: "icon_game",width: 52.w,height: 52.w,),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

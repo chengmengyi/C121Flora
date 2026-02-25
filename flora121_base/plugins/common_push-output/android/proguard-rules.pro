@@ -1,8 +1,0 @@
--keep class hi.birdsong.birdsong.api.BirdsongApi
--dontwarn hi.birdsong.birdsong.api.BirdsongApi
--keep class hi.birdsong.birdsong.api.FlutterEventSinkProxy
--dontwarn hi.birdsong.birdsong.api.FlutterEventSinkProxy
--keep class hi.birdsong.birdsong.api.IBirdsongApi
--dontwarn hi.birdsong.birdsong.api.IBirdsongApi
--keep class hi.birdsong.birdsong.api.ResultListener
--dontwarn hi.birdsong.birdsong.api.ResultListener

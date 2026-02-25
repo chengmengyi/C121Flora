@@ -1,3 +1,4 @@
+import 'package:flora121_base/flora121_base.dart';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_applife_hep.dart';
@@ -24,6 +25,7 @@ class Flora121HomeCon extends Flora121BaseCon{
     Flora121AfUtils.instance.aPackageCheckCallback=(){
       Flora121RoutersHep.offAllNamed(routerName: "/packageB/home");
     };
+    Flora121Base.instance.drawCircuit();
   }
 
   clickBottom(int index){

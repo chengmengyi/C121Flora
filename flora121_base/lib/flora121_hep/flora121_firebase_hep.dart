@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
-import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 
 class Flora121FirebaseHep{
   static final Flora121FirebaseHep _hep=Flora121FirebaseHep();
@@ -41,13 +40,12 @@ class Flora121FirebaseHep{
     if(c121_task.isNotEmpty){
       initCashTaskConfigCall?.call(c121_task);
     }
-    var risk_control = _remoteConfig?.getString("risk_control")??"";
-    if(risk_control.isNotEmpty){
-      flora121FengKongConfigStr.saveData(risk_control);
-      Flora121FengkongHep.instance.initFengkong();
-    }
+    // var risk_control = _remoteConfig?.getString("risk_control")??"";
+    // if(risk_control.isNotEmpty){
+    //   flora121FengKongConfigStr.saveData(risk_control);
+    //   Flora121FengkongHep.instance.initFengkong();
+    // }
     var frfcn_ad_config = _remoteConfig?.getString("frfcn_ad_config")??"";
-    print('kk=frfcn_ad_config====${frfcn_ad_config}');
     if(frfcn_ad_config.isNotEmpty){
       flora121AdConfigStr.saveData(frfcn_ad_config);
       Flora121AdHep.instance.updateAdData();

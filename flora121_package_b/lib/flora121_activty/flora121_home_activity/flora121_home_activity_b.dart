@@ -2,23 +2,22 @@ import 'package:flora121_base/flora121_base/flora121_base_activity.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_con.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_con_b.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_home_tab_bean.dart';
 import 'package:flora121_package_b/flora121_view/flora121_banner_view.dart';
-import 'package:flora121_package_b/flora121_view/flora121_finger_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_gold_diamond_get_animator_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
 
-class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
+class Flora121HomeActivityB extends Flora121BaseActivity<Flora121HomeConB>{
   @override
-  Flora121HomeCon initBaseConFlora121() => Flora121HomeCon();
+  Flora121HomeConB initBaseConFlora121() => Flora121HomeConB();
 
   @override
   Widget initBaseWidgetFlora121() => Stack(
     children: [
-      GetBuilder<Flora121HomeCon>(
+      GetBuilder<Flora121HomeConB>(
         id: "page",
         builder: (_)=>IndexedStack(
           index: baseCon.tabIndex,
@@ -26,7 +25,7 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
         ),
       ),
       _bottomWidget(),
-      GetBuilder<Flora121HomeCon>(
+      GetBuilder<Flora121HomeConB>(
         id: "top_view",
         builder: (_)=>Visibility(
           visible: baseCon.tabIndex!=2,
@@ -59,7 +58,7 @@ class Flora121HomeActivity extends Flora121BaseActivity<Flora121HomeCon>{
         alignment: Alignment.bottomCenter,
         children: [
           Flora121ImagesView(imagesName: "home2",width: double.infinity,height: 47.h,),
-          GetBuilder<Flora121HomeCon>(
+          GetBuilder<Flora121HomeConB>(
             id: "bottom_tab",
             builder: (_)=>Row(
               children: [

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
+import 'package:flora121_base/flora121_hep/flora121_firebase_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_package_a/flora121_bean/flora121_energy_bean.dart';
@@ -276,6 +277,7 @@ class Flora121HomeChildCon extends Flora121BaseCon{
       return;
     }
 
-    _getEnergyList();
+    // _getEnergyList();
+    Flora121FirebaseHep.instance.initFlora121Firebase();
   }
 }

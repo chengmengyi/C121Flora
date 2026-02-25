@@ -5,15 +5,15 @@ import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_con.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_con_b.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_view/flora121_home_top_gold_view.dart';
 import 'package:flutter/material.dart';
 
-class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
+class Flora121DiceChildB extends Flora121BaseChild<Flora121DiceConB>{
   @override
-  Flora121DiceCon initBaseConFlora121() => Flora121DiceCon();
+  Flora121DiceConB initBaseConFlora121() => Flora121DiceConB();
 
   @override
   Widget initBaseWidgetFlora121() => Stack(
@@ -22,7 +22,7 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
       Column(
         children: [
           SizedBox(height: 140.h,),
-          GetBuilder<Flora121DiceCon>(
+          GetBuilder<Flora121DiceConB>(
             id: "gold_view",
             builder: (_)=>Visibility(
               visible: bGoldMode.getData().isNotEmpty,
@@ -40,7 +40,7 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
   );
 
   _listWidget()=>Expanded(
-    child: GetBuilder<Flora121DiceCon>(
+    child: GetBuilder<Flora121DiceConB>(
       id: "list",
       builder: (_)=>ListView.builder(
         reverse: true,
@@ -178,7 +178,7 @@ class Flora121DiceChild extends Flora121BaseChild<Flora121DiceCon>{
               offset: Offset(0, baseCon.getOffsetY()),
               child: Transform.rotate(
                 angle: baseCon.getAngle(),
-                child: GetBuilder<Flora121DiceCon>(
+                child: GetBuilder<Flora121DiceConB>(
                   id: "dice_result",
                   builder: (_)=>Flora121ImagesView(imagesName: baseCon.getDiceIcon(),width: 68.w,height: 68.w,),
                 ),

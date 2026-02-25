@@ -82,6 +82,7 @@ enum Flora121PointEnum{
   task_transition_c,
   adjust_req,
   adjust_suc,
+  organic_to_buy,
   gold_upgrade,
   gold_progress,
   ad_review,

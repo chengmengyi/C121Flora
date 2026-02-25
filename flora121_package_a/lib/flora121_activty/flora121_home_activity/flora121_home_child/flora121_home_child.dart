@@ -375,7 +375,10 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                               ),
                               borderRadius: BorderRadius.circular(23.w),
                             ),
-                            child: Flora121ImagesView(imagesName: bean.head??"",width: 46.w,height: 46.w,),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(23.w),
+                              child: Flora121ImagesView(imagesName: bean.head??"",width: 46.w,height: 46.w,ext: "png",),
+                            ),
                           ),
                         ),
                         SizedBox(height: 6.h,),

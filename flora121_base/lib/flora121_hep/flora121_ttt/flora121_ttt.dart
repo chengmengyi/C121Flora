@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
-import 'package:flutter_android_ad_plugins/data/ad_info_data.dart';
-import 'package:flutter_android_ad_plugins/data/ad_money_info_bean.dart';
-import 'package:flutter_android_ad_plugins/hep/ad_num_hep.dart';
-import 'package:flutter_check_af/dio/dio_hep.dart';
-import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:flutter_check_adjust/dio/dio_hep.dart';
+import 'package:flutter_check_adjust/flutter_check_adjust.dart';
+import 'package:flutter_ios_ad_plugins/data/ad_info_data.dart';
+import 'package:flutter_ios_ad_plugins/data/ad_money_info_bean.dart';
+import 'package:flutter_ios_ad_plugins/hep/ad_num_hep.dart';
 import 'package:flutter_tba_info/flutter_tba_info.dart';
 
 class Flora121Ttt {
@@ -38,9 +38,9 @@ class Flora121Ttt {
     map["abbas"]=referrerMap["last_update_seconds"];
     var headerMap = await _initHeaderMap();
     var url = await _initUrl(logId);
-    FlutterCheckAf.instance.log("ttt---->install--->params:$map");
+    FlutterCheckAdjust.instance.log("ttt---->install--->params:$map");
     var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
-    FlutterCheckAf.instance.log("ttt---->install--->result:${dioResult.success}---->$map");
+    FlutterCheckAdjust.instance.log("ttt---->install--->result:${dioResult.success}---->$map");
     if(dioResult.success){
       installEventStatus.saveData(true);
     }
@@ -52,9 +52,9 @@ class Flora121Ttt {
     map["mullein"]="bong";
     var headerMap = await _initHeaderMap();
     var url = await _initUrl(logId);
-    FlutterCheckAf.instance.log("ttt---->session--->params:$map");
+    FlutterCheckAdjust.instance.log("ttt---->session--->params:$map");
     var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
-    FlutterCheckAf.instance.log("ttt---->session--->result:${dioResult.success}---->$map");
+    FlutterCheckAdjust.instance.log("ttt---->session--->result:${dioResult.success}---->$map");
   }
 
   uploadAdEvent({
@@ -77,9 +77,9 @@ class Flora121Ttt {
     };
     var headerMap = await _initHeaderMap();
     var url = await _initUrl(logId);
-    FlutterCheckAf.instance.log("ttt---->ad--->params:$map");
+    FlutterCheckAdjust.instance.log("ttt---->ad--->params:$map");
     var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
-    FlutterCheckAf.instance.log("ttt---->ad--->result:${dioResult.success}---->$map");
+    FlutterCheckAdjust.instance.log("ttt---->ad--->result:${dioResult.success}---->$map");
   }
 
   uploadPointEvent({
@@ -96,9 +96,9 @@ class Flora121Ttt {
     }
     var headerMap = await _initHeaderMap();
     var url = await _initUrl(logId);
-    FlutterCheckAf.instance.log("ttt---->point--->params:$map");
+    FlutterCheckAdjust.instance.log("ttt---->point--->params:$map");
     var dioResult = await DioHep.instance.requestPost(path: url, data: map,header: headerMap);
-    FlutterCheckAf.instance.log("ttt---->point--->result:${dioResult.success}---->$map");
+    FlutterCheckAdjust.instance.log("ttt---->point--->result:${dioResult.success}---->$map");
   }
 
   Future<Map<String,dynamic>> _initTopMap(String logId)async{

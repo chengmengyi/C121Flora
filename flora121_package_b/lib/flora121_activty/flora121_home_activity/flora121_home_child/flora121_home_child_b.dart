@@ -5,7 +5,7 @@ import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_spine_animator_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_con.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_con_b.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_sign_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_energy_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
@@ -19,9 +19,9 @@ import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
 import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/material.dart';
 
-class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
+class Flora121HomeChildB extends Flora121BaseChild<Flora121HomeChildConB>{
   @override
-  Flora121HomeChildCon initBaseConFlora121() => Flora121HomeChildCon();
+  Flora121HomeChildConB initBaseConFlora121() => Flora121HomeChildConB();
 
   @override
   Widget initBaseWidgetFlora121() => Stack(
@@ -31,7 +31,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 140.h,),
-          GetBuilder<Flora121HomeChildCon>(
+          GetBuilder<Flora121HomeChildConB>(
             id: "top_reward_view",
             builder: (_){
               var hasGold = bGoldMode.getData().isNotEmpty;
@@ -56,7 +56,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        GetBuilder<Flora121HomeChildCon>(
+        GetBuilder<Flora121HomeChildConB>(
           id: "bottom_widget",
           builder: (_){
             var hasGold = bGoldMode.getData().isNotEmpty;
@@ -95,7 +95,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
         margin: EdgeInsets.only(bottom: 30.h),
         child: Stack(
           children: [
-            GetBuilder<Flora121HomeChildCon>(
+            GetBuilder<Flora121HomeChildConB>(
               id: "flower",
               builder: (_)=>Stack(
                 children: [
@@ -188,7 +188,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     },
   );
 
-  _flowerLevelWidget()=>GetBuilder<Flora121HomeChildCon>(
+  _flowerLevelWidget()=>GetBuilder<Flora121HomeChildConB>(
     id: "level",
     builder: (_){
       var levelNum = Flora121EnergyUtils.instance.getLevelNum();
@@ -242,7 +242,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
                 ),
                 SizedBox(
                   key: baseCon.rewardGlobalKey,
-                  child: GetBuilder<Flora121HomeChildCon>(
+                  child: GetBuilder<Flora121HomeChildConB>(
                     id: "level_money",
                     builder: (_){
                       if(baseCon.showLevelMoneyAnimator){
@@ -440,7 +440,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     ),
   );
 
-  _rewardTipsWidget()=> GetBuilder<Flora121HomeChildCon>(
+  _rewardTipsWidget()=> GetBuilder<Flora121HomeChildConB>(
     id: "reward_tips",
     builder: (_){
       if(null==baseCon.rewardTipsOffset){
@@ -465,7 +465,7 @@ class Flora121HomeChild extends Flora121BaseChild<Flora121HomeChildCon>{
     width: double.infinity,
     height: 110.h,
     margin: EdgeInsets.only(left: 12.w,right: 12.w),
-    child: GetBuilder<Flora121HomeChildCon>(
+    child: GetBuilder<Flora121HomeChildConB>(
       id: "store",
       builder: (_)=>ListView.builder(
         itemCount: baseCon.storeList.length,

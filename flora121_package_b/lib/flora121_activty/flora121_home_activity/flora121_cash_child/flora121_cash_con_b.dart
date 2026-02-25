@@ -34,7 +34,7 @@ import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Flora121CashCon extends Flora121BaseCon{
+class Flora121CashConB extends Flora121BaseCon{
   var chooseIndex=0,_showNextCaskTaskDialog=false;
 
   GlobalKey firstCashAmountGlobalKey=GlobalKey();

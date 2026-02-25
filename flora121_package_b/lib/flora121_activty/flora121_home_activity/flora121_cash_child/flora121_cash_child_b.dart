@@ -4,23 +4,23 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_cash_child/flora121_cash_con.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_cash_child/flora121_cash_con_b.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_cash_task_config_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora121_view/flora121_cash_record_view.dart';
 import 'package:flutter/material.dart';
 
-class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
+class Flora121CashChildB extends Flora121BaseChild<Flora121CashConB>{
   @override
-  Flora121CashCon initBaseConFlora121() => Flora121CashCon();
+  Flora121CashConB initBaseConFlora121() => Flora121CashConB();
 
   @override
   Widget initBaseWidgetFlora121() => Container(
     width: double.infinity,
     height: double.infinity,
     color: "#FFFFFF".toColor(),
-    child: GetBuilder<Flora121CashCon>(
+    child: GetBuilder<Flora121CashConB>(
       id: "page",
       builder: (_){
         if(null==baseCon.flora121cashRankBean){
@@ -54,7 +54,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     children: [
       Flora121TextView(text: "Withdrawal amount", color: "#243824", size: 14.sp,fontWeight: FontWeight.bold,),
       SizedBox(height: 12.h,),
-      GetBuilder<Flora121CashCon>(
+      GetBuilder<Flora121CashConB>(
         id: "amount",
         builder: (_)=>MasonryGridView.count(
           padding: const EdgeInsets.all(0),
@@ -141,7 +141,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     ],
   );
 
-  _cashTaskOrInstructionsWidget()=>GetBuilder<Flora121CashCon>(
+  _cashTaskOrInstructionsWidget()=>GetBuilder<Flora121CashConB>(
     id: "task",
     builder: (_){
       if(baseCon.amountList.isEmpty){
@@ -362,7 +362,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
     ),
   );
 
-  _cashBtnWidget()=>GetBuilder<Flora121CashCon>(
+  _cashBtnWidget()=>GetBuilder<Flora121CashConB>(
     id: "btn",
     builder: (_)=>Flora121Click(
       onTap: (){
@@ -400,7 +400,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
   _rankListWidget()=>Expanded(
     child: Column(
       children: [
-        GetBuilder<Flora121CashCon>(
+        GetBuilder<Flora121CashConB>(
           id: "rank_text",
           builder: (_)=>RichText(
             text: TextSpan(
@@ -473,7 +473,7 @@ class Flora121CashChild extends Flora121BaseChild<Flora121CashCon>{
                       context: context,
                       removeTop: true,
                       removeBottom: true,
-                      child: GetBuilder<Flora121CashCon>(
+                      child: GetBuilder<Flora121CashConB>(
                         id: "rank_list",
                         builder: (_)=>ListView.builder(
                           itemCount: baseCon.rankList.length,

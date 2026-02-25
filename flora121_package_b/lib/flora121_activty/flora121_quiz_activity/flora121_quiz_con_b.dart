@@ -18,7 +18,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/material.dart';
 
-class Flora121QuizCon extends Flora121BaseCon{
+class Flora121QuizConB extends Flora121BaseCon{
   var wheelRewardIndex=-1,canClick=true,answerRightNum=0;
   List<Flora121QuizBean> quizList=[];
   Flora121QuizBean? quizBean;

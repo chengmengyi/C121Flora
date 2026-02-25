@@ -5,16 +5,16 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_quiz_activity/flora121_quiz_con.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_quiz_activity/flora121_quiz_con_b.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
 import 'package:flora121_package_b/flora121_view/flora121_finger_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
 
-class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
+class Flora121QuizActivityB extends Flora121BaseActivity<Flora121QuizConB>{
   @override
-  Flora121QuizCon initBaseConFlora121() => Flora121QuizCon();
+  Flora121QuizConB initBaseConFlora121() => Flora121QuizConB();
 
   @override
   Widget initBaseWidgetFlora121() => Stack(
@@ -101,7 +101,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
         colors: ["#F8FF92".toColor(),"#B8DE60".toColor(),]
       ),
     ),
-    child: GetBuilder<Flora121QuizCon>(
+    child: GetBuilder<Flora121QuizConB>(
       id: "progress",
       builder: (_)=>ListView.builder(
         itemCount: baseCon.rewardStatusList.length,
@@ -188,7 +188,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
                       color: "#FFFFFF".toColor().withOpacity(0.9),
                       borderRadius: BorderRadius.circular(10.w),
                     ),
-                    child: GetBuilder<Flora121QuizCon>(
+                    child: GetBuilder<Flora121QuizConB>(
                       id: "quiz_content",
                       builder: (_)=>Flora121TextView(text: baseCon.quizBean?.question??"", color: "#284702", size: 16.sp,fontWeight: FontWeight.bold,),
                     ),
@@ -199,7 +199,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
               MediaQuery.removePadding(
                 removeTop: true,
                 context: baseCon.context,
-                child: GetBuilder<Flora121QuizCon>(
+                child: GetBuilder<Flora121QuizConB>(
                   id: "answer_list",
                   builder: (_)=>ListView.builder(
                     itemCount: 2,
@@ -257,7 +257,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
     ),
   );
   
-  _bottomWidget()=>GetBuilder<Flora121QuizCon>(
+  _bottomWidget()=>GetBuilder<Flora121QuizConB>(
     id: "bottom_text",
     builder: (_)=>Flora121TextView(
       text: baseCon.getBottomText(),
@@ -268,7 +268,7 @@ class Flora121QuizActivity extends Flora121BaseActivity<Flora121QuizCon>{
     ),
   );
 
-  _fingerWidget()=>GetBuilder<Flora121QuizCon>(
+  _fingerWidget()=>GetBuilder<Flora121QuizConB>(
     id: "finger",
     builder: (_){
       var offset = baseCon.offset;

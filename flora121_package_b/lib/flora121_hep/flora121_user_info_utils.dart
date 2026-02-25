@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flora121_base/flora121_hep/flora121_ad_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
-import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
@@ -93,15 +92,6 @@ class Flora121UserInfoUtils{
       }
 
       var first = Flora121ValueUtils.instance.getCashList().first;
-      var getRewardNum = flora121RewardRevenuePaidAccount.getData();
-      var adLittle = Flora121FengkongHep.instance.getAdLittle();
-      if(data>=first&&getRewardNum<adLittle){
-        flora121HasMoneyRewardAdLittle.saveData(true);
-      }
-      var adMore = Flora121FengkongHep.instance.getAdMore();
-      if(data<first&&getRewardNum>=adMore){
-        flora121NoMoneyRewardAdMany.saveData(true);
-      }
       Flora121MusicHep.instance.playOtherAudio(AudioName.money);
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showMoneyAnimator,flora121Map: {"bool":fromQuiz});
       await Future.delayed(Duration(milliseconds: 1200));

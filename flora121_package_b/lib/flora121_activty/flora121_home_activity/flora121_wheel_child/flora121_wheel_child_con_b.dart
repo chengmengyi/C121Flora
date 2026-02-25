@@ -21,7 +21,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_wheel_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/material.dart';
 
-class Flora121WheelChildCon extends Flora121BaseCon with GetSingleTickerProviderStateMixin{
+class Flora121WheelChildConB extends Flora121BaseCon with GetSingleTickerProviderStateMixin{
   var wheelReward=0.0,canClick=true;
   List<double> wheelList=[];
   late AnimationController _wheelAnimationController;

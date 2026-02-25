@@ -6,7 +6,6 @@ import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
-import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
@@ -58,7 +57,7 @@ import 'package:flora121_package_b/flora_enum/flora121_energy_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Flora121HomeChildCon extends Flora121BaseCon{
+class Flora121HomeChildConB extends Flora121BaseCon{
   GlobalKey treeGlobalKey=GlobalKey();
   GlobalKey rewardGlobalKey=GlobalKey();
   List<Flora121EnergyBean> energyList=[];

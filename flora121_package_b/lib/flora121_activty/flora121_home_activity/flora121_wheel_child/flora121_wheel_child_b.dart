@@ -7,7 +7,7 @@ import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_view/flora121_click.dart';
 import 'package:flora121_base/flora121_view/flora121_images_view.dart';
 import 'package:flora121_base/flora121_view/flora121_text_view.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_wheel_child/flora121_wheel_child_con.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_wheel_child/flora121_wheel_child_con_b.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_hep.dart';
@@ -19,9 +19,9 @@ import 'package:flora121_package_b/flora121_view/flora121_shake_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_user_info_view.dart';
 import 'package:flutter/material.dart';
 
-class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
+class Flora121WheelChildB extends Flora121BaseChild<Flora121WheelChildConB>{
   @override
-  Flora121WheelChildCon initBaseConFlora121() => Flora121WheelChildCon();
+  Flora121WheelChildConB initBaseConFlora121() => Flora121WheelChildConB();
 
   @override
   Widget initBaseWidgetFlora121() => Stack(
@@ -57,7 +57,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
     ],
   );
 
-  _giftWidget()=>GetBuilder<Flora121WheelChildCon>(
+  _giftWidget()=>GetBuilder<Flora121WheelChildConB>(
     id: "gift",
     builder: (_)=>Stack(
       alignment: Alignment.centerRight,
@@ -145,7 +145,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
                 children: [
                   Container(
                     margin: EdgeInsets.all(10.w),
-                    child: GetBuilder<Flora121WheelChildCon>(
+                    child: GetBuilder<Flora121WheelChildConB>(
                       id: "wheel",
                       builder: (_){
                         if(null==baseCon.wheelAnimation){
@@ -192,7 +192,7 @@ class Flora121WheelChild extends Flora121BaseChild<Flora121WheelChildCon>{
                       Flora121ImagesView(imagesName: "wheel13",width: 130.w,height: 130.w,),
                       Container(
                         margin: EdgeInsets.only(bottom: 40.h),
-                        child: GetBuilder<Flora121WheelChildCon>(
+                        child: GetBuilder<Flora121WheelChildConB>(
                           id: "wheel_num",
                           builder: (_)=>Flora121TextView(text: "${Flora121WheelUtils.instance.wheelNum}", color: "#1F4300", size: 16.sp),
                         ),

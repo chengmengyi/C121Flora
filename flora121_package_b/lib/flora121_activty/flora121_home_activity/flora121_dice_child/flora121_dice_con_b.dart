@@ -16,7 +16,7 @@ import 'package:flora121_package_b/flora121_hep/flora121_value_utils.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_task_type.dart';
 import 'package:flutter/material.dart';
 
-class Flora121DiceCon extends Flora121BaseCon with GetTickerProviderStateMixin{
+class Flora121DiceConB extends Flora121BaseCon with GetTickerProviderStateMixin{
   late AnimationController _moveUpController;   // 上移动画
   late AnimationController _rotateController;   // 旋转动画
   late AnimationController _moveDownController; // 下移动画

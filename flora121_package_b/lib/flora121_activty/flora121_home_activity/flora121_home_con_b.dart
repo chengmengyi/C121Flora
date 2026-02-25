@@ -3,26 +3,25 @@ import 'package:flora121_base/flora121_base/flora121_base_con.dart';
 import 'package:flora121_base/flora121_hep/flora121_android_local_notification_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_applife_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
-import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_network_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_cash_child/flora121_cash_child.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_child.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child.dart';
-import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_wheel_child/flora121_wheel_child.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_cash_child/flora121_cash_child_b.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_dice_child/flora121_dice_child_b.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_home_child/flora121_home_child_b.dart';
+import 'package:flora121_package_b/flora121_activty/flora121_home_activity/flora121_wheel_child/flora121_wheel_child_b.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_home_tab_bean.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
 import 'package:flutter/material.dart';
 
-class Flora121HomeCon extends Flora121BaseCon{
+class Flora121HomeConB extends Flora121BaseCon{
   var tabIndex=0;
   List<Widget> page=[
-    Flora121HomeChild(),
-    Flora121DiceChild(),
-    Flora121WheelChild(),
-    Flora121CashChild(),
+    Flora121HomeChildB(),
+    Flora121DiceChildB(),
+    Flora121WheelChildB(),
+    Flora121CashChildB(),
   ];
   List<Flora121HomeTabBean> tabList=[
     Flora121HomeTabBean(selIcon: "tab_home", unsIcon: "tab_home_uns"),
@@ -35,10 +34,10 @@ class Flora121HomeCon extends Flora121BaseCon{
   void onInit() {
     super.onInit();
     Flora121ApplifeHep.instance.init();
-    Flora121FengkongHep.instance.initFengkong();
     Flora121Base.instance.flora();
     Flora121NetworkHep.instance.init();
     Flora121MusicHep.instance.playBgm();
+    Flora121AndroidLocalNotificationHep.instance.initNotification();
   }
 
   clickBottom(int index){

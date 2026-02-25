@@ -1,11 +1,8 @@
 import 'dart:convert';
-
-import 'package:flora121_base/flora121_dialog/flora121_ad_limit_dialog/flora121_ad_limit_dialog.dart';
 import 'package:flora121_base/flora121_dialog/flora121_show_ad_fail_dialog/flora121_show_ad_fail_dialog.dart';
 import 'package:flora121_base/flora121_hep/flora121_af_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_export.dart';
 import 'package:flora121_base/flora121_hep/flora121_fb_hep.dart';
-import 'package:flora121_base/flora121_hep/flora121_fengkong_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_local_info.dart';
 import 'package:flora121_base/flora121_hep/flora121_music_hep.dart';
@@ -13,13 +10,12 @@ import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ad_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
-import 'package:flutter_android_ad_plugins/data/ad_info_data.dart';
-import 'package:flutter_android_ad_plugins/data/ad_money_info_bean.dart';
-import 'package:flutter_android_ad_plugins/data/config_ad_data.dart';
-import 'package:flutter_android_ad_plugins/flutter_android_ad_plugins.dart';
-import 'package:flutter_android_ad_plugins/hep/ios_ad_callback.dart';
-import 'package:flutter_android_ad_plugins/hep/ios_load_ad_result_callback.dart';
-import 'package:flutter_check_af/flutter_check_af.dart';
+import 'package:flutter_ios_ad_plugins/data/ad_info_data.dart';
+import 'package:flutter_ios_ad_plugins/data/ad_money_info_bean.dart';
+import 'package:flutter_ios_ad_plugins/data/config_ad_data.dart';
+import 'package:flutter_ios_ad_plugins/flutter_ios_ad_plugins.dart';
+import 'package:flutter_ios_ad_plugins/hep/ios_ad_callback.dart';
+import 'package:flutter_ios_ad_plugins/hep/ios_load_ad_result_callback.dart';
 
 StorageData<String> flora121AdConfigStr=StorageData<String>(key: "flora121AdConfigStr", defaultValue: "");
 
@@ -50,16 +46,13 @@ class Flora121AdHep{
   static Flora121AdHep get instance => _flora121adHep;
 
   initFlora121Ad(){
-    FlutterAndroidAdPlugins.instance.initMax(
+    FlutterIosAdPlugins.instance.initMax(
       maxKey: Flora121LocalInfo.maxKeyBase64.base64(),
       data: _createAdData(),
       userConsent: true,
       doNotSell: false,
-      topOnAppId: Flora121LocalInfo.toponIdBase64.base64(),
-      topOnAppKey: Flora121LocalInfo.toponAppkeyBase64.base64(),
-      fengKongLogic: (){
-        return Flora121FengkongHep.instance.checkFengkong();
-      },
+      topOnAppId: "",
+      topOnAppKey: "",
       iosLoadAdResultCallback: iosLoadAdResultCallback,
     );
   }
@@ -68,12 +61,12 @@ class Flora121AdHep{
     required AdType adType,
     required Function() closeAd,
   }){
-    var resultData = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
+    var resultData = FlutterIosAdPlugins.instance.getCacheResultData(adType);
     if(null==resultData){
       "Display advertisement failed, please try again later".showToast();
       return;
     }
-    FlutterAndroidAdPlugins.instance.showAd(
+    FlutterIosAdPlugins.instance.showAd(
       adType: adType,
       iosAdCallback: _getIosAdCallback(adType: adType, closeAd: closeAd),
     );
@@ -91,39 +84,29 @@ class Flora121AdHep{
       closeAd.call(true);
       return;
     }
-    if(AdNumHep.instance.notLoad()||Flora121FengkongHep.instance.checkFengkong()){
-      if(isOpen){
-        closeAd.call(true);
-        return;
-      }
-      if(isMoneyGuide){
-        closeAd.call(false);
-        return;
-      }
-      Flora121RoutersHep.dialog(
-        child: Flora121AdLimitDialog(
-          dismissCall: (){
-            closeAd.call(false);
-          },
-        ),
-      );
-      return;
-    }
-    // if(Flora121FengkongHep.instance.checkFengkong()){
+    // if(AdNumHep.instance.notLoad()){
     //   if(isOpen){
+    //     closeAd.call(true);
+    //     return;
+    //   }
+    //   if(isMoneyGuide){
     //     closeAd.call(false);
     //     return;
     //   }
-    //   if(adType==AdType.reward){
-    //     "The advertisement cannot be loaded".showToast();
-    //   }
-    //   closeAd.call(false);
+    //   Flora121RoutersHep.dialog(
+    //     child: Flora121AdLimitDialog(
+    //       dismissCall: (){
+    //         closeAd.call(false);
+    //       },
+    //     ),
+    //   );
     //   return;
     // }
+
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.frfcn_ad_chance,params: {"ad_pos_id":adEnum.name});
-    var resultData = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
+    var resultData = FlutterIosAdPlugins.instance.getCacheResultData(adType);
     if(null==resultData){
-      FlutterAndroidAdPlugins.instance.loadAdWhenNoCache(adType);
+      FlutterIosAdPlugins.instance.loadAdWhenNoCache(adType);
       Flora121Ttt.instance.uploadPointEvent(
         pointEnum: Flora121PointEnum.frfcn_ad_impression_fail,
         params: {
@@ -137,7 +120,7 @@ class Flora121AdHep{
         Flora121RoutersHep.dialog(
           child: Flora121ShowAdFailDialog(
             clickTryCall: (){
-              var data = FlutterAndroidAdPlugins.instance.getCacheResultData(adType);
+              var data = FlutterIosAdPlugins.instance.getCacheResultData(adType);
               if(null==data){
                 if(adType==AdType.interstitial||isMoneyGuide){
                   closeAd.call(false);
@@ -166,15 +149,13 @@ class Flora121AdHep{
     required Function(bool giveReward) closeAd,
     bool isOpen=false,
   }){
-    FlutterAndroidAdPlugins.instance.showAd(
+    FlutterIosAdPlugins.instance.showAd(
       adType: adType,
       iosAdCallback: IosAdCallback(
         showSuccess: (ad,info){
-          _showSuccess(adType);
-          // PsnFbUtils.instance.logPurchase(ad?.revenue??0.0,);
           Flora121FbHep.instance.uploadRe(ad);
           Flora121AfUtils.instance.uploadReToAdjust(ad);
-          FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adEnum.name);
+          // FlutterCheckAf.instance.uploadAdRevenue(ad?.networkName??"", ad?.revenue??0, ad?.adUnitId??"", adEnum.name);
           Flora121Ttt.instance.uploadAdEvent(ad: ad, adEnum: adEnum, adInfoData: info);
           Flora121MusicHep.instance.pauseBgm();
           _adPv();
@@ -198,8 +179,6 @@ class Flora121AdHep{
           }
         },
         closeAd: (AdMoneyInfoBean? ad,AdInfoData? bean,bool hasReward){
-          _closeAd(adType);
-          // lookAdCallback?.call();
           Flora121MusicHep.instance.playBgm();
           closeAd.call(true);
         },
@@ -208,24 +187,6 @@ class Flora121AdHep{
         },
       ),
     );
-  }
-
-  _showSuccess(AdType adType){
-    if(adType==AdType.reward){
-      flora121StartShowRewardAdTime.saveData(DateTime.now().millisecondsSinceEpoch);
-      if((DateTime.now().millisecondsSinceEpoch-flora121ShowRewardAdTimeLastTime.getData())<((Flora121FengkongHep.instance.getAdShortShow()?.duration??30)*1000)){
-        flora121TwoRewardAdIntervalTimeAccount.saveData(flora121TwoRewardAdIntervalTimeAccount.getData()+1);
-      }
-      flora121ShowRewardAdTimeLastTime.saveData(DateTime.now().millisecondsSinceEpoch);
-    }
-  }
-
-  _closeAd(AdType adType){
-    if(adType==AdType.reward){
-      if((DateTime.now().millisecondsSinceEpoch-flora121StartShowRewardAdTime.getData())<((Flora121FengkongHep.instance.getAdShortClose()?.duration??20)*1000)){
-        flora121CloseRewardAdIntervalTimeAccount.saveData(flora121CloseRewardAdIntervalTimeAccount.getData()+1);
-      }
-    }
   }
 
   _revenuePaid(AdType adType){
@@ -293,7 +254,7 @@ class Flora121AdHep{
   }
 
   updateAdData(){
-    FlutterAndroidAdPlugins.instance.updateAdData(_createAdData());
+    FlutterIosAdPlugins.instance.updateAdData(_createAdData());
   }
 
   List<AdInfoData> _getAdList(List? list){

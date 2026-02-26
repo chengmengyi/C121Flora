@@ -112,9 +112,15 @@ class Flora121WheelChildConB extends Flora121BaseCon with GetSingleTickerProvide
     }
   }
 
-  _initAnimation(){
+  _initAnimation()async{
     wheelList.clear();
-    wheelReward=Flora121ValueUtils.instance.getWheelAddNum();
+    wheelReward=0.0;
+    var goldMode = bGoldMode.getData();
+    if(goldMode.isNotEmpty){
+      wheelReward=goldMode==Flora121GoldMode.gold?await Flora121ValueUtils.instance.getGoldAddReward():await Flora121ValueUtils.instance.getDiamondAddReward();
+    }else{
+      wheelReward= Flora121ValueUtils.instance.getWheelAddNum();
+    }
     wheelList.add(wheelReward);
     wheelList.add(100.0);
     while(wheelList.length<8){

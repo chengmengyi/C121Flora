@@ -176,7 +176,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
           margin: EdgeInsets.only(top: 10.h),
           child: Flora121Click(
             onTap: (){
-
+              baseCon.clickOnly(addNum, intAdEnum, dismissCallback);
             },
             child: Flora121TextView(
               text: "Only\$$addNum",

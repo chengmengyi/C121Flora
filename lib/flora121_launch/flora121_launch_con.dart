@@ -92,6 +92,10 @@ class Flora121LaunchCon extends Flora121BaseCon with GetSingleTickerProviderStat
     toWebActivity("Privacy Policy", Flora121LocalInfo.privacy);
   }
 
+  clickTerms(){
+    toWebActivity("Terms of Service", Flora121LocalInfo.userAgreement);
+  }
+
   @override
   void dispose() {
     animationController.dispose();

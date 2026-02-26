@@ -28,8 +28,14 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
   }
 
   clickDouble(double addNum,bool fromNewUser, Flora121AdEnum adEnum,bool fromQuiz,Function(bool received) dismissCallback){
-    if(fromNewUser||fromWater){
+    if(fromNewUser){
       Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2(),fromQuiz: fromQuiz);
+      Flora121RoutersHep.back();
+      dismissCallback.call(true);
+      return;
+    }
+    if(fromWater){
+      Flora121UserInfoUtils.instance.updateMyMoney(addNum,fromQuiz: fromQuiz);
       Flora121RoutersHep.back();
       dismissCallback.call(true);
       return;
@@ -59,6 +65,20 @@ class Flora121CommonGetDialogCon extends Flora121BaseCon{
         if(giveReward){
           Flora121UserInfoUtils.instance.updateMyMoney(addNum);
         }
+        Flora121RoutersHep.back();
+        dismissCallback.call(true);
+      },
+    );
+  }
+
+  clickOnly(double addNum,Flora121AdEnum adEnum,Function(bool received) dismissCallback){
+    _uploadClickClosePointEvent(adEnum);
+    Flora121AdHep.instance.showFlora121BBBBBBB(
+      adType: AdType.interstitial,
+      adEnum: adEnum,
+      showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.interstitial),
+      closeAd: (giveReward){
+        Flora121UserInfoUtils.instance.updateMyMoney(addNum);
         Flora121RoutersHep.back();
         dismissCallback.call(true);
       },

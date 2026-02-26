@@ -31,7 +31,7 @@ class Flora121LaunchActivity extends Flora121BaseActivity<Flora121LaunchCon>{
               Flora121TextView(text: "Earn Real Cash", color: "#124C74", size: 32.sp,fontWeight: FontWeight.bold,),
               SizedBox(height: 12.h,),
               Flora121TextView(text: "Every tap gets you closer to payout.", color: "#EFF1F1", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#134A71",),
-              Flora121TextView(text: "Plus, we'll donate to planet care when you earn", color: "#EFF1F1", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#134A71",),
+              Flora121TextView(text: "Plus, we'll donate to planet care when you earn", color: "#EFF1F1", size: 16.sp,fontWeight: FontWeight.bold,outlineColor: "#134A71",textAlign: TextAlign.center,),
               SizedBox(height: 18.h,),
               Visibility(
                 visible: launchShowLoading.getData(),
@@ -110,11 +110,23 @@ class Flora121LaunchActivity extends Flora121BaseActivity<Flora121LaunchCon>{
               ),
             ),
             SizedBox(width: 4.w,),
-            Flora121Click(
-              onTap: (){
-                baseCon.clickPrivacy();
-              },
-              child: Flora121TextView(text: "Privacy Policy&Terms of Service", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,outlineColor: "#000000",),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flora121Click(
+                  onTap: (){
+                    baseCon.clickPrivacy();
+                  },
+                  child: Flora121TextView(text: "Privacy Policy", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,outlineColor: "#000000",),
+                ),
+                Flora121TextView(text: "&", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,outlineColor: "#000000",),
+                Flora121Click(
+                  onTap: (){
+                    baseCon.clickTerms();
+                  },
+                  child: Flora121TextView(text: "Terms of Service", color: "#FFFFFF", size: 14.sp,fontWeight: FontWeight.bold,outlineColor: "#000000",),
+                ),
+              ],
             ),
           ],
         ),

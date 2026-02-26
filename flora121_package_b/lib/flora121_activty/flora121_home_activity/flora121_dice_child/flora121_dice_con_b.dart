@@ -109,9 +109,16 @@ class Flora121DiceConB extends Flora121BaseCon with GetTickerProviderStateMixin{
     bDiceLargeIndex.saveData(currentDiceLargeIndex);
     bDiceSmallIndex.saveData(currentDiceSmallIndex);
     Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
+    var addNum=0.0;
+    var goldMode = bGoldMode.getData();
+    if(goldMode.isNotEmpty){
+      addNum=goldMode==Flora121GoldMode.gold?await Flora121ValueUtils.instance.getGoldAddReward():await Flora121ValueUtils.instance.getDiamondAddReward();
+    }else{
+      addNum= Flora121ValueUtils.instance.getDiceAddNum();
+    }
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
-        addNum: Flora121ValueUtils.instance.getDiceAddNum(),
+        addNum: addNum,
         rvAdEnum: Flora121AdEnum.frfcn_dice_rv,
         intAdEnum: Flora121AdEnum.frfcn_dice_int,
         fromNewUser: fromNewUserGuide,

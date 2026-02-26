@@ -36,9 +36,9 @@ class Flora121AdProbabilityUtils{
   }
 
   bool showAd(AdType type){
-    // if(kDebugMode){
-    //   return false;
-    // }
+    if(kDebugMode){
+      return false;
+    }
     if(type==AdType.reward){
       return true;
     }

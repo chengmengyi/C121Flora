@@ -363,7 +363,7 @@ class Flora121HomeChildConB extends Flora121BaseCon{
     //     "cashType":Flora121CashType.cashApp,
     //   },
     // );
-    // Flora121UserInfoUtils.instance.updateMyMoney(10);
+    Flora121UserInfoUtils.instance.updateMyMoney(10);
     // Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.dice);
     // Flora121RoutersHep.dialog(child: Flora121CommonGetDialog(addNum: 100, rvAdEnum: Flora121AdEnum.frfcn_queue_rv, intAdEnum: Flora121AdEnum.frfcn_queue_rv, dismissCallback: (giv){}));
 

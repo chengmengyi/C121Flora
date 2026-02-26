@@ -84,7 +84,13 @@ class Flora121QuizConB extends Flora121BaseCon{
         }
       }
       bAnswerQuizNum.saveData(bAnswerQuizNum.getData()+1);
-      var quizAddNum = Flora121ValueUtils.instance.getQuizAddNum();
+      var quizAddNum = 0.0;
+      var goldMode = bGoldMode.getData();
+      if(goldMode.isNotEmpty){
+        quizAddNum=goldMode==Flora121GoldMode.gold?await Flora121ValueUtils.instance.getGoldAddReward():await Flora121ValueUtils.instance.getDiamondAddReward();
+      }else{
+        quizAddNum= Flora121ValueUtils.instance.getQuizAddNum();
+      }
       if(bAnswerQuizNum.getData()%2==0){
         Flora121RoutersHep.dialog(
           child: Flora121CommonGetDialog(

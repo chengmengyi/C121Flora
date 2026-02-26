@@ -53,11 +53,12 @@ class Flora121WheelChildConB extends Flora121BaseCon with GetSingleTickerProvide
     _wheelAnimationController..reset()..forward();
   }
 
-  clickBox(){
+  clickBox()async{
     if(bWheelGiftNum.getData()<5){
       return;
     }
     Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.wheel_page_gift);
+    await Future.delayed(Duration(milliseconds: 500));
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
         addNum: Flora121ValueUtils.instance.getWaterAddNum(),

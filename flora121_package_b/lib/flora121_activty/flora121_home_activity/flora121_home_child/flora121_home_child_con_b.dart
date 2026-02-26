@@ -374,10 +374,11 @@ class Flora121HomeChildConB extends Flora121BaseCon{
 
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
-        addNum: Flora121ValueUtils.instance.getWaterAddNum(),
-        rvAdEnum: Flora121AdEnum.frfcn_gift_rv,
-        intAdEnum: Flora121AdEnum.frfcn_gift_int,
-        dismissCallback: (r){
+        addNum: 11,
+        rvAdEnum: Flora121AdEnum.frfcn_dice_rv,
+        intAdEnum: Flora121AdEnum.frfcn_dice_int,
+        fromDice: true,
+        dismissCallback: (received){
 
         },
       ),

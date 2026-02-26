@@ -18,22 +18,9 @@ class Flora121AfUtils{
 
   initAf()async{
     var distinctId = await FlutterTbaInfo.instance.getDistinctId();
-    // FlutterCheckAf.instance.init(
-    //   afKey: Flora121LocalInfo.afAppkeyBase64.base64(),
-    //   afAppId: "",
-    //   afSwitch: "1",
-    //   distinctId: distinctId,
-    //   clockUrl: Flora121LocalInfo.tbaCloakUrl,
-    //   cloakWhiteKey: "bernhard",
-    //   cloakData: await _initCloakData(distinctId),
-    //   requestAfCallback: _afCall(),
-    //   requestCloakCallback: _cloakCall(),
-    // );
-
-
     var cloakData={
       "penmen":await FlutterTbaInfo.instance.getBundleId(),
-      "wiry":Platform.isAndroid?"antigone":"veer",
+      "anheuser":Platform.isAndroid?"antigone":"veer",
       "soviet":await FlutterTbaInfo.instance.getAppVersion(),
       "bon":await FlutterTbaInfo.instance.getDistinctId(),
       "ova":DateTime.now().millisecondsSinceEpoch,
@@ -86,9 +73,9 @@ class Flora121AfUtils{
   }
 
   bool check(){
-    if(kDebugMode){
-      return true;
-    }
+    // if(kDebugMode){
+    //   return true;
+    // }
     return FlutterCheckAdjust.instance.checkUser();
   }
 }

@@ -44,7 +44,7 @@ class Flora121StoreDetailDialog extends Flora121BaseDialog<Flora121StoreDetailDi
         onTap: (){
           Flora121RoutersHep.back();
         },
-        child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
+        child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,ext: "png",),
       ),
     ],
   );

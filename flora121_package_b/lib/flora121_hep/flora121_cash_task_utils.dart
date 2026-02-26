@@ -112,6 +112,9 @@ class Flora121CashTaskUtils{
 
   //Flora121CashTaskType
   updateCashTaskProgress(String taskName)async{
+    if(bGoldMode.getData().isNotEmpty){
+      return;
+    }
     var database = await Flora121BaseSqlUtils.instance.initSql();
     var list = await database.query(Flora121SqlName.bCashTask);
     if(list.isEmpty){
@@ -168,9 +171,14 @@ class Flora121CashTaskUtils{
             Flora121RoutersHep.dialog(
               child: Flora121DonotWorryDialog(
                 dismissCallback: (){
+                  Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.diamond_progress);
                   Flora121RoutersHep.dialog(
-                    child: Flora121CashTaskDialog(
-                      taskBean: completeTask1TaskBean,
+                    child: Flora121CompletedGoldTaskDialog(
+                      cashMoney: completeTask1TaskBean?.cashMoney??0,
+                      dismissCallback: (){
+                        bGoldMode.saveData(Flora121GoldMode.diamond);
+                        Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.changeToGoldMode);
+                      },
                     ),
                   );
                 },
@@ -187,9 +195,6 @@ class Flora121CashTaskUtils{
           },
         ),
       );
-      // if(completedCurrentTask){
-      //   Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.setCashPageShowNextCaskTaskDialogTag,);
-      // }
     }
   }
 
@@ -432,11 +437,6 @@ class Flora121CashTaskUtils{
           },
         ),
       );
-      // Flora121RoutersHep.dialog(
-      //   child: Flora121CashSuccessDialog(
-      //     taskBean: taskBean,
-      //   ),
-      // );
       return;
     }
     Flora121RoutersHep.dialog(
@@ -550,7 +550,7 @@ class Flora121CashTaskUtils{
         bean.currentProgress=0.0;
         bean.totalProgress=Flora121ValueUtils.instance.getDiamondTotal();
         bean.goldType=Flora121GoldMode.diamond;
-        bGoldMode.saveData(Flora121GoldMode.diamond);
+        bGoldMode.saveData("");
         Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.changeToGoldMode);
       }else{//完成了钻石任务
         completedDiamondTask=true;
@@ -562,27 +562,20 @@ class Flora121CashTaskUtils{
       bGoldMode.saveData("");
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.changeToGoldMode);
       await database.delete(Flora121SqlName.bGoldInfo,where: '"id" = ?',whereArgs: [list.first["id"]]);
-      Flora121RoutersHep.dialog(
-        child: Flora121CompletedGoldAndDiamondTaskDialog(
-          dismissCallback: (){
-            Flora121RoutersHep.toNamed(
-              routerName: Flora121RouterNameB.hasMoneyTips,
-              params: {
-                "cashMoney":bean.cashMoney??0,
-                "cashType":bean.cashType??"",
-              },
-            );
-          },
-        ),
-      );
+      var flora121cashTaskBean = await queryCashTaskByMoneyAndType(cashMoney: bean.cashMoney??0, cashType: bean.cashType??"");
+      showCashTaskDialog(flora121cashTaskBean);
     }else{
       if(completedGoldTask){
-        Flora121Ttt.instance.uploadPointEvent(pointEnum: Flora121PointEnum.diamond_progress);
         Flora121RoutersHep.dialog(
-          child: Flora121CompletedGoldTaskDialog(
-            cashMoney: bean.cashMoney??0,
+          child: Flora121CompletedGoldAndDiamondTaskDialog(
             dismissCallback: (){
-
+              Flora121RoutersHep.toNamed(
+                routerName: Flora121RouterNameB.hasMoneyTips,
+                params: {
+                  "cashMoney":bean.cashMoney??0,
+                  "cashType":bean.cashType??"",
+                },
+              );
             },
           ),
         );

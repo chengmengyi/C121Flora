@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 class Flora121TransferFundsDialog extends Flora121BaseDialog<Flora121TransferFundsDialogCon>{
   Flora121CashTaskBean? bean;
   Function() dismissCallback;
-  Flora121TransferFundsDialog({
+   Flora121TransferFundsDialog({
     required this.bean,
     required this.dismissCallback,
 });

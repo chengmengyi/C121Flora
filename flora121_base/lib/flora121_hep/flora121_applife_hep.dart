@@ -34,7 +34,9 @@ class Flora121ApplifeHep{
         _back=true;
       });
     }else{
-      Flora121MusicHep.instance.playBgm();
+      if(!FlutterIosAdPlugins.instance.adShowing()){
+        Flora121MusicHep.instance.playBgm();
+      }
       _timer?.cancel();
       _timer=null;
       if(toOpenNotification){

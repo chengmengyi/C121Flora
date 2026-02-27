@@ -8,6 +8,7 @@ import 'package:flora121_base/flora121_view/flora121_text_view.dart';
 import 'package:flora121_package_b/flora121_activty/flora121_quiz_activity/flora121_quiz_con_b.dart';
 import 'package:flora121_package_b/flora121_bean/flora121_quiz_wheel_reward_bean.dart';
 import 'package:flora121_package_b/flora121_view/flora121_finger_view.dart';
+import 'package:flora121_package_b/flora121_view/flora121_gold_diamond_get_animator_view.dart';
 import 'package:flora121_package_b/flora121_view/flora121_money_animator_widget.dart';
 import 'package:flora121_package_b/flora121_view/flora121_top_money_view.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,10 @@ class Flora121QuizActivityB extends Flora121BaseActivity<Flora121QuizConB>{
         child: Flora121MoneyAnimatorWidget(
           fromQuiz: true,
         ),
+      ),
+      Align(
+        alignment: Alignment.center,
+        child: Flora121GoldDiamondGetAnimatorView(),
       ),
       _fingerWidget(),
     ],

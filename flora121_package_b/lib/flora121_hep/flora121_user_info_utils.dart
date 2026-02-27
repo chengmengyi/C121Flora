@@ -71,6 +71,7 @@ class Flora121UserInfoUtils{
     }
     var goldMode = bGoldMode.getData();
     if(goldMode.isNotEmpty){
+      Flora121MusicHep.instance.playOtherAudio(AudioName.money);
       Flora121CashTaskUtils.instance.updateGoldProgress(addNum, goldMode);
       Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.showGoldDiamondAnimator);
       return;

@@ -126,7 +126,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
           alignment: Alignment.bottomCenter,
           child: Container(
             margin: EdgeInsets.only(bottom: 10.h),
-            child: Flora121TextView(text: "+\$$addNum", color: "#239E04", size: 16.sp,fontWeight: FontWeight.bold,),
+            child: Flora121TextView(text: "+\$$addNum", color: "#239E04", size: 28.sp,fontWeight: FontWeight.bold,),
           ),
         )
       ],

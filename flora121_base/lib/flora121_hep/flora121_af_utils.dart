@@ -74,7 +74,7 @@ class Flora121AfUtils{
 
   bool check(){
     if(kDebugMode){
-      return true;
+      return false;
     }
     return FlutterCheckAdjust.instance.checkUser();
   }

@@ -1,14 +1,17 @@
 import 'package:flora121_base/flora121_base/flora121_base_con.dart';
+import 'package:flora121_base/flora121_hep/flora121_event/flora121_event_utils.dart';
 import 'package:flora121_base/flora121_hep/flora121_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_router/flora121_routers_hep.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_point_enum.dart';
 import 'package:flora121_base/flora121_hep/flora121_ttt/flora121_ttt.dart';
 import 'package:flora121_package_b/flora121_hep/flora121_cash_task_utils.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_event_code.dart';
+import 'package:flora121_package_b/flora121_hep/flora121_storage/flora121_storage.dart';
 import 'package:flora121_package_b/flora_enum/flora121_cash_type.dart';
 import 'package:flutter/material.dart';
 
 class UserGuideStep6Con extends Flora121BaseCon{
-  var selectCashType=Flora121CashType.paypal;
+  var selectCashType=bSelectCashType.getData();
   TextEditingController textEditingController=TextEditingController();
 
   @override
@@ -19,6 +22,8 @@ class UserGuideStep6Con extends Flora121BaseCon{
 
   clickCashType(String type){
     selectCashType=type;
+    bSelectCashType.saveData(type);
+    Flora121EventUtils.instance.sendMsg(flora121Code: Flora121EventCode.updateCashType);
     update(["list","input"]);
   }
 

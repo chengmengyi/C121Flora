@@ -51,7 +51,7 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
           baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromQuiz,dismissCallback);
         },
         clickClose: (){
-          baseCon.clickClose(addNum,intAdEnum,dismissCallback);
+          baseCon.clickOnly(addNum, intAdEnum, dismissCallback);
         },
       );
     }
@@ -170,22 +170,19 @@ class Flora121CommonGetDialog extends Flora121BaseDialog<Flora121CommonGetDialog
           baseCon.clickDouble(addNum,fromNewUser,rvAdEnum,fromQuiz,dismissCallback);
         },
       ),
-      Visibility(
-        visible: fromQuiz,
-        child: Container(
-          margin: EdgeInsets.only(top: 10.h),
-          child: Flora121Click(
-            onTap: (){
-              baseCon.clickOnly(addNum, intAdEnum, dismissCallback);
-            },
-            child: Flora121TextView(
-              text: "Only\$$addNum",
-              color: "#324631",
-              size: 16.sp,
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
-              decorationColor: "#324631".toColor(),
-            ),
+      Container(
+        margin: EdgeInsets.only(top: 10.h),
+        child: Flora121Click(
+          onTap: (){
+            baseCon.clickOnly(addNum, intAdEnum, dismissCallback);
+          },
+          child: Flora121TextView(
+            text: "Only\$$addNum",
+            color: "#324631",
+            size: 16.sp,
+            fontWeight: FontWeight.bold,
+            decoration: TextDecoration.underline,
+            decorationColor: "#324631".toColor(),
           ),
         ),
       ),

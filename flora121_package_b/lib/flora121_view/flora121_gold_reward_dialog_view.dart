@@ -59,24 +59,26 @@ class Flora121GoldRewardDialogView extends StatelessWidget{
                 Flora121TextView(text: "You get diamonds. ", color: "#239E04", size: 24.sp,fontWeight: FontWeight.bold,),
                 SizedBox(height: 12.h,),
                 Flora121WatchVideoBtnWidget(
-                  text: "Collect",
+                  text: "Double Collect",
                   btnColor: "#FBAC00",
                   onTap: (){
                     clickGet.call();
                   },
                 ),
-                SizedBox(height: 12.h,),
-                Flora121Click(
-                  onTap: (){
-                    clickClose.call();
-                  },
-                  child: Flora121TextView(
-                    text: "Give Up",
-                    color: "#4C7D0A",
-                    size: 12.sp,
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
-                    decorationColor: "#4C7D0A".toColor(),
+                Container(
+                  margin: EdgeInsets.only(top: 10.h),
+                  child: Flora121Click(
+                    onTap: (){
+                      clickClose.call();
+                    },
+                    child: Flora121TextView(
+                      text: "Only\$$addNum",
+                      color: "#324631",
+                      size: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      decorationColor: "#324631".toColor(),
+                    ),
                   ),
                 ),
                 SizedBox(height: 26.h,),

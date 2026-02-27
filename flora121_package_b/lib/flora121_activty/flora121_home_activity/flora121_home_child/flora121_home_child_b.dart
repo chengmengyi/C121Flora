@@ -405,9 +405,9 @@ class Flora121HomeChildB extends Flora121BaseChild<Flora121HomeChildConB>{
                     ),
                   ),
                   Container(
-                    width: 16.w,
                     height: 16.w,
                     alignment: Alignment.center,
+                    padding: EdgeInsets.only(left: 2.w,right: 2.w),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8.w),
                       gradient: LinearGradient(

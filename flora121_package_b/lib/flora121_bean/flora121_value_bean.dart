@@ -154,6 +154,11 @@ class Prize {
     map['end_number'] = endNumber;
     return map;
   }
+
+  @override
+  String toString() {
+    return 'Prize{firstNumber: $firstNumber, prize: $prize, endNumber: $endNumber}';
+  }
 }
 
 class DiceAward {

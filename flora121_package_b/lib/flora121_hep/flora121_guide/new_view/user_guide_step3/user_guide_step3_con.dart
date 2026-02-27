@@ -12,7 +12,7 @@ class UserGuideStep3Con extends Flora121BaseCon with GetSingleTickerProviderStat
   @override
   void onInit() {
     super.onInit();
-    animationController=AnimationController(duration: const Duration(milliseconds: 4000),vsync: this)
+    animationController=AnimationController(duration: const Duration(milliseconds: 2000),vsync: this)
       ..addListener(() {
         update(["pro"]);
       })

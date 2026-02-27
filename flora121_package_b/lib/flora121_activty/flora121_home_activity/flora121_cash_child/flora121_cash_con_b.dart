@@ -84,7 +84,13 @@ class Flora121CashConB extends Flora121BaseCon{
       );
       return;
     }
-    Flora121CashTaskUtils.instance.showGoldStepDialog(bean.money);
+    //查询有没有金块任务，有的话，是第二步钻石任务，需要创建提现任务
+    var flora121goldProgressBean = await Flora121CashTaskUtils.instance.queryGoldProgress();
+    if(null!=flora121goldProgressBean){
+      Flora121CashTaskUtils.instance.hasMoneyPageClickSure(bean.money, bSelectCashType.getData());
+    }else{
+      Flora121CashTaskUtils.instance.showGoldStepDialog(bean.money);
+    }
     // Flora121CashTaskUtils.instance.showAccountInputDialog(
     //   cashMoney: bean.money,
     //   cashType: bSelectCashType.getData(),

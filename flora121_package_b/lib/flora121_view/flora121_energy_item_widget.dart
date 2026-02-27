@@ -170,7 +170,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
           showAd: Flora121AdProbabilityUtils.instance.showAd(AdType.reward),
           closeAd: (giveReward)async{
             if(giveReward){
-              Flora121UserInfoUtils.instance.updateMyMoney(addNum.numX2());
+              Flora121UserInfoUtils.instance.updateMyMoney(addNum);
               setState(() {
                 showEnergy=false;
               });
@@ -233,7 +233,6 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
     }else{
       bHomeWaterItemCD.saveData(3600);
     }
-    Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.water);
     widget.clickItem.call();
     Flora121RoutersHep.dialog(
       child: Flora121CommonGetDialog(
@@ -242,6 +241,7 @@ class _Flora121EnergyItemWidgetState extends Flora121BaseStatefulState<Flora121E
         rvAdEnum: Flora121AdEnum.frfcn_drink_rv,
         intAdEnum: Flora121AdEnum.frfcn_drink_int,
         dismissCallback: (received){
+          Flora121CashTaskUtils.instance.updateCashTaskProgress(Flora121CashTaskType.water);
           _startWaterTimer();
         },
       ),

@@ -44,7 +44,7 @@ class Flora121StoreDetailDialog extends Flora121BaseDialog<Flora121StoreDetailDi
         onTap: (){
           Flora121RoutersHep.back();
         },
-        child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,ext: "png",),
+        child: Flora121ImagesView(imagesName: "icon_close",width: 30.w,height: 30.w,),
       ),
     ],
   );
@@ -62,7 +62,10 @@ class Flora121StoreDetailDialog extends Flora121BaseDialog<Flora121StoreDetailDi
           ),
           borderRadius: BorderRadius.circular(40.w),
         ),
-        child: Flora121ImagesView(imagesName: bean.head??"",width: 80.w,height: 80.w,),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40.w),
+          child: Flora121ImagesView(imagesName: bean.head??"",width: 80.w,height: 80.w,ext: "png",),
+        ),
       ),
       SizedBox(width: 30.w,),
       Column(
